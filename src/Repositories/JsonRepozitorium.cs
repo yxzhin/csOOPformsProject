@@ -1,4 +1,5 @@
 ﻿using csOOPformsProject.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -28,7 +29,14 @@ namespace csOOPformsProject.Repositories
             }
 
             string json = File.ReadAllText(_putanjaFajla);
-            return JsonSerializer.Deserialize<List<T>>(json, _options);
+            try
+            {
+                return JsonSerializer.Deserialize<List<T>>(json, _options);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public JsonRepozitorium(string putanjaFajla)

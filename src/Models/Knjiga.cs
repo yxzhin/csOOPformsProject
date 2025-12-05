@@ -9,7 +9,7 @@ namespace csOOPformsProject.Models
         public Kategorija Kategorija { get; set; }
         public bool NaStanju { get; set; } = true;
         public Knjiga(int id, string naziv, Autor autor, Kategorija kategorija,
-            bool naStanju)
+            bool naStanju = true)
         {
             Id = id;
             Naziv = naziv;
@@ -17,5 +17,6 @@ namespace csOOPformsProject.Models
             Kategorija = kategorija;
             NaStanju = naStanju;
         }
+        public override string ToString() { return $"{Id};{Naziv}"; }
     }
 }
