@@ -1,4 +1,5 @@
-﻿using csOOPformsProject.Interfaces;
+﻿using csOOPformsProject.Core;
+using csOOPformsProject.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -87,6 +88,10 @@ namespace csOOPformsProject.Repositories
         public void Sacuvaj()
         {
             string json = JsonSerializer.Serialize(_entiteti, _options);
+            if (!Directory.Exists(Helpers.DataFolder))
+            {
+                _ = Directory.CreateDirectory(Helpers.DataFolder);
+            }
             File.WriteAllText(_putanjaFajla, json);
         }
 
