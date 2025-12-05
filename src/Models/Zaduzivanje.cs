@@ -14,15 +14,19 @@ namespace csOOPformsProject.Models
         public bool IstekliRok =>
             DatumVracanja == null && DateTime.Now > DatumZaduzivanja;
         public Zaduzivanje(int id, Korisnik korisnik, Knjiga knjiga,
-            DateTime datumZaduzivanja, DateTime rokZaduzivanja,
             DateTime? datumVracanja = null)
         {
             Id = id;
             Korisnik = korisnik;
             Knjiga = knjiga;
-            DatumZaduzivanja = datumZaduzivanja;
-            RokZaduzivanja = rokZaduzivanja;
             DatumVracanja = datumVracanja;
+        }
+
+        public override string ToString()
+        {
+            return $"Zaduzivanje.Id: {Id};" +
+                $"Zaduzivanje.Korisnik.Id: {Korisnik.Id};" +
+                $"Zaduzivanje.Knjiga.Id: {Knjiga.Id}";
         }
     }
 }

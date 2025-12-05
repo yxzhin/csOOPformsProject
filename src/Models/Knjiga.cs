@@ -17,6 +17,9 @@ namespace csOOPformsProject.Models
             Kategorija = kategorija;
             NaStanju = naStanju;
         }
-        public override string ToString() { return $"{Id};{Naziv}"; }
+        public override string ToString()
+        {
+            return $"Knjiga.Id: {Id}; Knjiga.Naziv: {Naziv}";
+        }
     }
 }

@@ -11,5 +11,10 @@ namespace csOOPformsProject.Models
         {
             SifraRadnika = sifraRadnika;
         }
+
+        public override string ToString()
+        {
+            return $"Bibliotekar.Id: {Id}; Bibliotekar.PunoIme: {PunoIme}";
+        }
     }
 }

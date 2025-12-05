@@ -1,4 +1,6 @@
-﻿using csOOPformsProject.Repositories;
+﻿using csOOPformsProject.Models;
+using csOOPformsProject.Repositories;
+using System;
 
 namespace csOOPformsProject.Core
 {
@@ -19,6 +21,44 @@ namespace csOOPformsProject.Core
                 + "\\bibliotekari.json");
             Zaduzivanja = new ZaduzivanjeRepozitorium(Helpers.DataFolder
                 + "\\zaduzivanja.json");
+        }
+
+        public bool PozajmiKnjigu(int korisnikId, int knjigaId)
+        {
+            Korisnik korisnik = Korisnici.UcitajPoId(korisnikId);
+            Knjiga knjiga = Knjige.UcitajPoId(knjigaId);
+
+            if (korisnik == null || knjiga == null || !knjiga.NaStanju)
+            {
+                return false;
+            }
+
+            knjiga.NaStanju = false;
+            Knjige.Promeni(knjiga);
+
+            int poslednjeZaduzivanjeId = Zaduzivanja.PoslednjiId();
+            Zaduzivanje zaduzivanje = new Zaduzivanje(poslednjeZaduzivanjeId,
+                korisnik, knjiga);
+            Zaduzivanja.Dodaj(zaduzivanje);
+
+            korisnik.Zaduzivanja.Add(zaduzivanje);
+            Korisnici.Promeni(korisnik);
+
+            return true;
+        }
+        public void VratiKnjigu(int zaduzivanjeId)
+        {
+            Zaduzivanje zaduzivanje = Zaduzivanja.UcitajPoId(zaduzivanjeId);
+            if (zaduzivanje == null)
+            {
+                return;
+            }
+
+            zaduzivanje.DatumVracanja = DateTime.Now;
+            zaduzivanje.Knjiga.NaStanju = true;
+
+            Zaduzivanja.Promeni(zaduzivanje);
+            Knjige.Promeni(zaduzivanje.Knjiga);
         }
 
     }

@@ -58,27 +58,30 @@ namespace csOOPformsProject.Repositories
         public void Dodaj(T entitet)
         {
             // auto increment
-            entitet.Id = _entiteti.Count > 0 ? _entiteti.Max(x => x.Id) + 1 : 1;
+            entitet.Id += 1;
             _entiteti.Add(entitet);
             Sacuvaj();
         }
 
-        public void Promeni(T entitet)
+        public bool Promeni(T entitet)
         {
             int index = _entiteti.FindIndex(x => x.Id == entitet.Id);
             if (index == -1)
             {
-                return;
+                return false;
             }
 
             _entiteti[index] = entitet;
             Sacuvaj();
+
+            return true;
         }
 
-        public void Obrisi(int id)
+        public bool Obrisi(int id)
         {
-            _ = _entiteti.RemoveAll(x => x.Id == id);
+            int obrisani = _entiteti.RemoveAll(x => x.Id == id);
             Sacuvaj();
+            return obrisani > 0;
         }
 
         public void Sacuvaj()
@@ -86,6 +89,10 @@ namespace csOOPformsProject.Repositories
             string json = JsonSerializer.Serialize(_entiteti, _options);
             File.WriteAllText(_putanjaFajla, json);
         }
-    }
 
+        public int PoslednjiId()
+        {
+            return _entiteti.Count > 0 ? _entiteti.Max(x => x.Id) : 0;
+        }
+    }
 }
