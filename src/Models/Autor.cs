@@ -13,5 +13,9 @@ namespace csOOPformsProject.Models
             Ime = ime;
             Prezime = prezime;
         }
+        public override string ToString()
+        {
+            return PunoIme;
+        }
     }
 }

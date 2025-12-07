@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using csOOPformsProject.Models;
+using System.Collections.Generic;
+using System.IO;
 
 namespace csOOPformsProject.Core
 {
@@ -14,6 +16,22 @@ namespace csOOPformsProject.Core
                     Path.GetDirectoryName(
                         Path.GetDirectoryName(currentDirectory)));
             return solutionPath;
+        }
+        public static List<SerializedKnjiga> SerializeKnjige(List<Knjiga> knjige)
+        {
+            List<SerializedKnjiga> serializedKnjige = new List<SerializedKnjiga>();
+            foreach (Knjiga knjiga in knjige)
+            {
+                SerializedKnjiga serializedKnjiga = new SerializedKnjiga(
+                    knjiga.Id,
+                    knjiga.Naziv,
+                    knjiga.Autor.PunoIme,
+                    knjiga.Kategorija.Naziv,
+                    knjiga.NaStanju
+                );
+                serializedKnjige.Add(serializedKnjiga);
+            }
+            return serializedKnjige;
         }
     }
 }

@@ -11,5 +11,9 @@ namespace csOOPformsProject.Models
             Id = id;
             Naziv = naziv;
         }
+        public override string ToString()
+        {
+            return Naziv;
+        }
     }
 }

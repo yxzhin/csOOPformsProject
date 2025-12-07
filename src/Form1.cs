@@ -1,20 +1,23 @@
-﻿using System;
+﻿using csOOPformsProject.Core;
+using System;
 using System.Windows.Forms;
 
 namespace csOOPformsProject
 {
     public partial class Form1 : Form
     {
+        private Biblioteka Biblioteka { get; set; }
         public Form1()
         {
             InitializeComponent();
+            Biblioteka = new Biblioteka();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             //@DEBUG
             //label1.Text = Helpers.DataFolder;
-
+            /*
             Core.Biblioteka b = new Core.Biblioteka();
             b.Korisnici.Dodaj(new Models.Korisnik(b.Korisnici.PoslednjiId(),
                 "foo", "bar", DateTime.Now, DateTime.Now));
@@ -26,6 +29,14 @@ namespace csOOPformsProject
             label2.Text = b.PozajmiKnjigu(b.Korisnici.PoslednjiId(),
                 b.Knjige.PoslednjiId()).ToString();
             label2.Text += $";{b.Zaduzivanja.UcitajPoId(1)}";
+            */
+            Admin admin = new Admin(Biblioteka);
+            admin.Show();
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
 
         }
     }
