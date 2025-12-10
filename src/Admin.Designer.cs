@@ -96,11 +96,11 @@ namespace csOOPformsProject
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Comic Sans MS", 16.8F);
-            this.label4.Location = new System.Drawing.Point(16, 477);
+            this.label4.Location = new System.Drawing.Point(8, 476);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(148, 39);
+            this.label4.Size = new System.Drawing.Size(169, 39);
             this.label4.TabIndex = 6;
-            this.label4.Text = "zaduzbine";
+            this.label4.Text = "zaduzivanja";
             // 
             // button1
             // 
@@ -224,6 +224,7 @@ namespace csOOPformsProject
             this.button3.TabIndex = 19;
             this.button3.Text = "resetuj";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Admin
             // 

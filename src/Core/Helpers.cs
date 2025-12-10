@@ -21,17 +21,25 @@ namespace csOOPformsProject.Core
         // moj najbolji kod ikada
         public class Nista
         {
-            public string nista = "nema nista da se prikaze!!";
+            public string nista { get; set; }
+                = "nema nista da se prikaze!!";
+            public Nista()
+            {
+                return;
+            }
         }
 
         public static class Serialize
         {
-            public static List<SerializedKnjiga> Knjige(List<Knjiga> knjige)
+            public static List<SerializedKnjiga>
+                Knjige(List<Knjiga> knjige)
             {
-                List<SerializedKnjiga> serializedKnjige = new List<SerializedKnjiga>();
+                List<SerializedKnjiga> serializedKnjige
+                    = new List<SerializedKnjiga>();
                 foreach (Knjiga knjiga in knjige)
                 {
-                    SerializedKnjiga serializedKnjiga = new SerializedKnjiga(
+                    SerializedKnjiga serializedKnjiga
+                        = new SerializedKnjiga(
                         knjiga.Id,
                         knjiga.Naziv,
                         knjiga.Autor,
@@ -42,12 +50,16 @@ namespace csOOPformsProject.Core
                 }
                 return serializedKnjige;
             }
-            public static List<SerializedKorisnik> Korisnici(List<Korisnik> korisnici)
+
+            public static List<SerializedKorisnik>
+                Korisnici(List<Korisnik> korisnici)
             {
-                List<SerializedKorisnik> serializedKorisnici = new List<SerializedKorisnik>();
+                List<SerializedKorisnik> serializedKorisnici
+                    = new List<SerializedKorisnik>();
                 foreach (Korisnik korisnik in korisnici)
                 {
-                    SerializedKorisnik serializedKorisnik = new SerializedKorisnik(
+                    SerializedKorisnik serializedKorisnik
+                        = new SerializedKorisnik(
                         korisnik.Id,
                         korisnik.Ime,
                         korisnik.Prezime,
@@ -59,12 +71,16 @@ namespace csOOPformsProject.Core
                 }
                 return serializedKorisnici;
             }
-            public static List<SerializedZaduzivanje> Zaduzivanja(List<Zaduzivanje> zaduzivanja)
+
+            public static List<SerializedZaduzivanje>
+                Zaduzivanja(List<Zaduzivanje> zaduzivanja)
             {
-                List<SerializedZaduzivanje> serializedZaduzivanja = new List<SerializedZaduzivanje>();
+                List<SerializedZaduzivanje> serializedZaduzivanja
+                    = new List<SerializedZaduzivanje>();
                 foreach (Zaduzivanje zaduzivanje in zaduzivanja)
                 {
-                    SerializedZaduzivanje serializedZaduzivanje = new SerializedZaduzivanje(
+                    SerializedZaduzivanje serializedZaduzivanje
+                        = new SerializedZaduzivanje(
                         zaduzivanje.Id,
                         zaduzivanje.Korisnik,
                         zaduzivanje.Knjiga,
