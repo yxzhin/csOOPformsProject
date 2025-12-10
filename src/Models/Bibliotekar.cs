@@ -6,8 +6,8 @@ namespace csOOPformsProject.Models
     {
         public string SifraRadnika { get; set; }
         public Bibliotekar(int id, string ime, string prezime, DateTime datumRodjenja,
-            string sifraRadnika)
-            : base(id, ime, prezime, datumRodjenja)
+            string sifra, string sifraRadnika)
+            : base(id, ime, prezime, datumRodjenja, sifra)
         {
             SifraRadnika = sifraRadnika;
         }

@@ -7,15 +7,24 @@ namespace csOOPformsProject
     public partial class Form1 : Form
     {
         private Biblioteka Biblioteka { get; set; }
+        private bool DebugMode { get; set; } = true; // change in release
         public Form1()
         {
             InitializeComponent();
             Biblioteka = new Biblioteka();
+            if (DebugMode)
+            {
+                Biblioteka.Seeder();
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //@DEBUG
+            /*
+                @DEBUG
+            */
+
+
             //label1.Text = Helpers.DataFolder;
             /*
             Core.Biblioteka b = new Core.Biblioteka();
@@ -30,12 +39,42 @@ namespace csOOPformsProject
                 b.Knjige.PoslednjiId()).ToString();
             label2.Text += $";{b.Zaduzivanja.UcitajPoId(1)}";
             */
-            Admin admin = new Admin(Biblioteka);
-            admin.Show();
+            //Admin admin = new Admin(Biblioteka);
+            //admin.Show();
 
         }
 
+        public void OcistiInpute()
+        {
+            textBox1.Clear();
+            textBox2.Clear();
+            textBox3.Clear();
+        }
+
         private void button1_Click(object sender, EventArgs e)
+        {
+            string ime = textBox1.Text;
+            string prezime = textBox2.Text;
+            string sifra = textBox3.Text;
+
+            if (string.IsNullOrEmpty(ime)
+                || string.IsNullOrEmpty(prezime)
+                || string.IsNullOrEmpty(sifra))
+            {
+                Greska.Show(-3);
+                return;
+            }
+            Form form = Biblioteka.UlogujSe(ime, prezime, sifra);
+            if (form == null)
+            {
+                Greska.Show(-4);
+                return;
+            }
+            OcistiInpute();
+            form.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
         {
 
         }

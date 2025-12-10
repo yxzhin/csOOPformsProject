@@ -17,21 +17,42 @@ namespace csOOPformsProject.Core
                         Path.GetDirectoryName(currentDirectory)));
             return solutionPath;
         }
-        public static List<SerializedKnjiga> SerializeKnjige(List<Knjiga> knjige)
+
+        public static class Serialize
         {
-            List<SerializedKnjiga> serializedKnjige = new List<SerializedKnjiga>();
-            foreach (Knjiga knjiga in knjige)
+            public static List<SerializedKnjiga> Knjige(List<Knjiga> knjige)
             {
-                SerializedKnjiga serializedKnjiga = new SerializedKnjiga(
-                    knjiga.Id,
-                    knjiga.Naziv,
-                    knjiga.Autor.PunoIme,
-                    knjiga.Kategorija.Naziv,
-                    knjiga.NaStanju
-                );
-                serializedKnjige.Add(serializedKnjiga);
+                List<SerializedKnjiga> serializedKnjige = new List<SerializedKnjiga>();
+                foreach (Knjiga knjiga in knjige)
+                {
+                    SerializedKnjiga serializedKnjiga = new SerializedKnjiga(
+                        knjiga.Id,
+                        knjiga.Naziv,
+                        knjiga.Autor.PunoIme,
+                        knjiga.Kategorija.Naziv,
+                        knjiga.NaStanju
+                    );
+                    serializedKnjige.Add(serializedKnjiga);
+                }
+                return serializedKnjige;
             }
-            return serializedKnjige;
+            public static List<SerializedKorisnik> Korisnici(List<Korisnik> korisnici)
+            {
+                List<SerializedKorisnik> serializedKorisnici = new List<SerializedKorisnik>();
+                foreach (Korisnik korisnik in korisnici)
+                {
+                    SerializedKorisnik serializedKorisnik = new SerializedKorisnik(
+                        korisnik.Id,
+                        korisnik.Ime,
+                        korisnik.Prezime,
+                        korisnik.DatumRodjenja,
+                        korisnik.DatumClanarine,
+                        korisnik.Zaduzivanja
+                    );
+                    serializedKorisnici.Add(serializedKorisnik);
+                }
+                return serializedKorisnici;
+            }
         }
     }
 }

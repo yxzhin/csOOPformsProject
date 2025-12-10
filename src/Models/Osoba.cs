@@ -10,13 +10,16 @@ namespace csOOPformsProject.Models
         public string Prezime { get; set; }
         public string PunoIme => $"{Ime} {Prezime}";
         public DateTime DatumRodjenja { get; set; }
+        public string Sifra { get; protected set; }
 
-        public Osoba(int id, string ime, string prezime, DateTime datumRodjenja)
+        public Osoba(int id, string ime, string prezime, DateTime datumRodjenja,
+            string sifra)
         {
             Id = id;
             Ime = ime;
             Prezime = prezime;
             DatumRodjenja = datumRodjenja;
+            Sifra = sifra;
         }
     }
 }

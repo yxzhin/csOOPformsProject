@@ -10,10 +10,12 @@ namespace csOOPformsProject
     public partial class Admin : Form
     {
         private Biblioteka Biblioteka { get; set; }
-        public Admin(Biblioteka biblioteka)
+        private Bibliotekar Bibliotekar { get; set; }
+        public Admin(Biblioteka biblioteka, Bibliotekar bibliotekar)
         {
             InitializeComponent();
             Biblioteka = biblioteka;
+            Bibliotekar = bibliotekar;
             dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
             dataGridView1.CellValidating += new DataGridViewCellValidatingEventHandler(dataGridView1_CellValidating);
             //dataGridView1.DataError += dataGridView1_DataError;
@@ -23,13 +25,34 @@ namespace csOOPformsProject
         private void PrikaziPodatke()
         {
             dataGridView1.DataSource = null;
-            // serialized knjiga ispravno radi u dataGridView
+            dataGridView2.DataSource = null;
+            dataGridView3.DataSource = null;
+
+            // serialized objekat ispravno radi u dataGridView
+
             List<SerializedKnjiga> serializedKnjige =
-                Helpers.SerializeKnjige(Biblioteka.Knjige.UcitajSve());
+                Helpers.Serialize.Knjige(Biblioteka.Knjige.UcitajSve());
+
+            List<SerializedKorisnik> serializedKorisnici =
+                Helpers.Serialize.Korisnici(Biblioteka.Korisnici.UcitajSve());
+
+            /*
+            List<SerializedZaduzivanje> serializedZaduzivanja =
+                Helpers.Serialize.Zaduzivanja(Biblioteka.Zaduzivanja.UcitajSve());
+            */
+
             dataGridView1.DataSource = serializedKnjige;
+            dataGridView2.DataSource = serializedKorisnici;
+            //dataGridView1.DataSource = serializedZaduzivanja;
+
         }
 
         private void Admin_Load(object sender, EventArgs e)
+        {
+            PrikaziPodatke();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
         {
             PrikaziPodatke();
         }
@@ -117,6 +140,16 @@ namespace csOOPformsProject
                     _ = dataGridView1.CommitEdit(DataGridViewDataErrorContexts.Commit);
                 }
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

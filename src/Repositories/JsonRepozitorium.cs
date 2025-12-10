@@ -20,7 +20,7 @@ namespace csOOPformsProject.Repositories
                 ReferenceHandler =
                 System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles
             };
-        private readonly List<T> _entiteti;
+        protected readonly List<T> _entiteti;
 
         private List<T> Ucitaj()
         {
@@ -93,6 +93,13 @@ namespace csOOPformsProject.Repositories
                 _ = Directory.CreateDirectory(Helpers.DataFolder);
             }
             File.WriteAllText(_putanjaFajla, json);
+        }
+
+        public bool ObrisiSve()
+        {
+            int obrisani = _entiteti.RemoveAll(x => true);
+            Sacuvaj();
+            return _entiteti.Count > 0;
         }
 
         public int PoslednjiId()

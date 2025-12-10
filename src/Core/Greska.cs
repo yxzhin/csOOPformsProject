@@ -14,8 +14,13 @@ namespace csOOPformsProject.Core
                 case -2:
                     _ = MessageBox.Show("id je vec zauzet!!",
                     "greska!!", MessageBoxButtons.OK, MessageBoxIcon.Error); break;
+                case -3:
+                    _ = MessageBox.Show("popunite sva polja!!",
+                    "greska!!", MessageBoxButtons.OK, MessageBoxIcon.Error); break;
+                case -4:
+                    _ = MessageBox.Show("nalog nije pronadjen!!",
+                    "greska!!", MessageBoxButtons.OK, MessageBoxIcon.Error); break;
             }
-
         }
     }
 }

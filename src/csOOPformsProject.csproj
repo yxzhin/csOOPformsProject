@@ -86,6 +86,20 @@
     <Compile Include="Core\Greska.cs" />
     <Compile Include="Core\Helpers.cs" />
     <Compile Include="Core\SerializedKnjiga.cs" />
+    <Compile Include="Core\SerializedKorisnik.cs" />
+    <Compile Include="Repositories\NalogRepozitorium.cs" />
+    <Compile Include="User.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="User.Designer.cs">
+      <DependentUpon>User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registracija.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registracija.Designer.cs">
+      <DependentUpon>Registracija.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\BibliotekarRepozitorium.cs" />
     <Compile Include="Repositories\JsonRepozitorium.cs" />
     <Compile Include="Form1.cs">
@@ -124,6 +138,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Registracija.resx">
+      <DependentUpon>Registracija.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User.resx">
+      <DependentUpon>User.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Data\bibliotekari.json" />
     <None Include="Data\knjige.json" />
     <None Include="Data\korisnici.json" />

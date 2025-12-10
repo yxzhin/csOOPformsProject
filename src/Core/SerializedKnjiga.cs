@@ -1,6 +1,6 @@
 ﻿namespace csOOPformsProject.Core
 {
-    public class SerializedKnjiga
+    public sealed class SerializedKnjiga
     {
         public int Id { get; set; }
         public string Naziv { get; set; }

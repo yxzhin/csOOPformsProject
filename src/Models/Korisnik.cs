@@ -9,8 +9,8 @@ namespace csOOPformsProject.Models
         public List<Zaduzivanje> Zaduzivanja { get; set; }
             = new List<Zaduzivanje>();
         public Korisnik(int id, string ime, string prezime, DateTime datumRodjenja,
-            DateTime datumClanarine)
-            : base(id, ime, prezime, datumRodjenja)
+            string sifra, DateTime datumClanarine)
+            : base(id, ime, prezime, datumRodjenja, sifra)
         {
             DatumClanarine = datumClanarine;
         }

@@ -1,6 +1,7 @@
 ﻿using csOOPformsProject.Models;
 using csOOPformsProject.Repositories;
 using System;
+using System.Windows.Forms;
 
 namespace csOOPformsProject.Core
 {
@@ -23,6 +24,71 @@ namespace csOOPformsProject.Core
                 + "\\zaduzivanja.json");
         }
 
+        public void ResetujPodatke()
+        {
+            //Autori.ObrisiSve();
+            //Kategorije.ObrisiSve();
+            _ = Knjige.ObrisiSve();
+            _ = Korisnici.ObrisiSve();
+            _ = Bibliotekari.ObrisiSve();
+            _ = Zaduzivanja.ObrisiSve();
+        }
+
+        public void Seeder()
+        {
+
+            ResetujPodatke();
+
+            Autor autor1 = new Autor(0, "default", "autor1");
+            Autor autor2 = new Autor(1, "default", "autor2");
+            Autor autor3 = new Autor(2, "default", "autor3");
+
+            /*
+            Autori.Dodaj(autor1);
+            Autori.Dodaj(autor2);
+            Autori.Dodaj(autor3);
+            */
+
+            Kategorija kategorija1 = new Kategorija(0, "defaultKategorija1");
+            Kategorija kategorija2 = new Kategorija(1, "defaultKategorija2");
+            Kategorija kategorija3 = new Kategorija(2, "defaultKategorija3");
+
+            /*
+            Kategorije.Dodaj(kategorija1);
+            Kategorije.Dodaj(kategorija2);
+            Kategorije.Dodaj(kategorija3);
+            */
+
+            Knjiga knjiga1 = new Knjiga(0, "defaultKnjiga1", autor1, kategorija1);
+            Knjiga knjiga2 = new Knjiga(1, "defaultKnjiga2", autor2, kategorija2);
+            Knjiga knjiga3 = new Knjiga(2, "defaultKnjiga3", autor3, kategorija3);
+
+            Knjige.Dodaj(knjiga1);
+            Knjige.Dodaj(knjiga2);
+            Knjige.Dodaj(knjiga3);
+
+            Korisnik korisnik1 = new Korisnik(0, "default", "korisnik1", new DateTime(2007, 7, 3), "sifra1", new DateTime(2003, 3, 7));
+            Korisnik korisnik2 = new Korisnik(1, "default", "korisnik2", new DateTime(2073, 3, 7), "sifra2", new DateTime(2073, 7, 3));
+            Korisnik korisnik3 = new Korisnik(2, "default", "korisnik3", new DateTime(2037, 3, 3), "sifra3", new DateTime(2037, 7, 7));
+
+            Korisnici.Dodaj(korisnik1);
+            Korisnici.Dodaj(korisnik2);
+            Korisnici.Dodaj(korisnik3);
+
+            Bibliotekar bibliotekar1 = new Bibliotekar(0, "default", "bibliotekar1", new DateTime(2007, 7, 3), "sifra1", "sifraRadnika1");
+            Bibliotekar bibliotekar2 = new Bibliotekar(1, "default", "bibliotekar2", new DateTime(2073, 3, 7), "sifra2", "sifraRadnika2");
+            Bibliotekar bibliotekar3 = new Bibliotekar(2, "default", "bibliotekar3", new DateTime(2037, 7, 3), "sifra3", "sifraRadnika3");
+
+            Bibliotekari.Dodaj(bibliotekar1);
+            Bibliotekari.Dodaj(bibliotekar2);
+            Bibliotekari.Dodaj(bibliotekar3);
+
+            Zaduzivanje zaduzivanje1 = new Zaduzivanje(0, korisnik1, knjiga1);
+
+            Zaduzivanja.Dodaj(zaduzivanje1);
+
+        }
+
         public bool PozajmiKnjigu(int korisnikId, int knjigaId)
         {
             Korisnik korisnik = Korisnici.UcitajPoId(korisnikId);
@@ -34,7 +100,7 @@ namespace csOOPformsProject.Core
             }
 
             knjiga.NaStanju = false;
-            Knjige.Promeni(knjiga);
+            _ = Knjige.Promeni(knjiga);
 
             int poslednjeZaduzivanjeId = Zaduzivanja.PoslednjiId();
             Zaduzivanje zaduzivanje = new Zaduzivanje(poslednjeZaduzivanjeId,
@@ -42,7 +108,7 @@ namespace csOOPformsProject.Core
             Zaduzivanja.Dodaj(zaduzivanje);
 
             korisnik.Zaduzivanja.Add(zaduzivanje);
-            Korisnici.Promeni(korisnik);
+            _ = Korisnici.Promeni(korisnik);
 
             return true;
         }
@@ -57,8 +123,28 @@ namespace csOOPformsProject.Core
             zaduzivanje.DatumVracanja = DateTime.Now;
             zaduzivanje.Knjiga.NaStanju = true;
 
-            Zaduzivanja.Promeni(zaduzivanje);
-            Knjige.Promeni(zaduzivanje.Knjiga);
+            _ = Zaduzivanja.Promeni(zaduzivanje);
+            _ = Knjige.Promeni(zaduzivanje.Knjiga);
+        }
+
+        public Form UlogujSe(string ime, string prezime, string sifra)
+        {
+            Osoba osoba;
+            osoba = Korisnici.UcitajPoPodacima(ime, prezime, sifra);
+            if (osoba != null)
+            {
+                Korisnik korisnik = osoba as Korisnik;
+                User user = new User(this, korisnik);
+                return user;
+            }
+            osoba = Bibliotekari.UcitajPoPodacima(ime, prezime, sifra);
+            if (osoba != null)
+            {
+                Bibliotekar bibliotekar = osoba as Bibliotekar;
+                Admin admin = new Admin(this, bibliotekar);
+                return admin;
+            }
+            return null;
         }
 
     }

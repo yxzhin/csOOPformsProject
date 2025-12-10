@@ -2,7 +2,7 @@
 
 namespace csOOPformsProject.Repositories
 {
-    public class BibliotekarRepozitorium : JsonRepozitorium<Bibliotekar>
+    public sealed class BibliotekarRepozitorium : NalogRepozitorium<Bibliotekar>
     {
         public BibliotekarRepozitorium(string putanjaFajla)
             : base(putanjaFajla)
