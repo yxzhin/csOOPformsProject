@@ -289,12 +289,36 @@ namespace csOOPformsProject
         // obrisi
         private void button4_Click(object sender, EventArgs e)
         {
-            if (IzabranoViseOdJednogRedaOdjednom())
+
+            if (dataGridView1.SelectedRows.Count == 0
+                && dataGridView2.SelectedRows.Count == 0
+                && dataGridView3.SelectedRows.Count == 0)
             {
                 Greska.Show(-5);
                 return;
             }
 
+            if (IzabranoViseOdJednogRedaOdjednom())
+            {
+                Greska.Show(-6);
+                return;
+            }
+
+            _ = dataGridView1.SelectedRows[0];
+            DataGridViewRow izabraniRed
+                = dataGridView2.SelectedRows.Count == 1 ?
+                dataGridView2.SelectedRows[0]
+                : dataGridView3.SelectedRows[0];
+
+            int id = (int)izabraniRed.Cells[0].Value;
+
+            _ = dataGridView1.SelectedRows.Count == 1
+                ? Biblioteka.Knjige.Obrisi(id)
+                : dataGridView2.SelectedRows.Count == 1
+                ? Biblioteka.Korisnici.Obrisi(id)
+                : Biblioteka.Zaduzivanja.Obrisi(id);
+
+            PrikaziPodatke();
 
         }
 

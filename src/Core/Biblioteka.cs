@@ -14,13 +14,17 @@ namespace csOOPformsProject.Core
 
         public Biblioteka()
         {
-            Knjige = new KnjigaRepozitorium(Helpers.DataFolder
+            Knjige = new KnjigaRepozitorium(
+                Helpers.DataFolder
                 + "\\knjige.json");
-            Korisnici = new KorisnikRepozitorium(Helpers.DataFolder
+            Korisnici = new KorisnikRepozitorium(
+                Helpers.DataFolder
                 + "\\korisnici.json");
-            Bibliotekari = new BibliotekarRepozitorium(Helpers.DataFolder
+            Bibliotekari = new BibliotekarRepozitorium(
+                Helpers.DataFolder
                 + "\\bibliotekari.json");
-            Zaduzivanja = new ZaduzivanjeRepozitorium(Helpers.DataFolder
+            Zaduzivanja = new ZaduzivanjeRepozitorium(
+                Helpers.DataFolder
                 + "\\zaduzivanja.json");
         }
 
@@ -49,9 +53,12 @@ namespace csOOPformsProject.Core
             Autori.Dodaj(autor3);
             */
 
-            Kategorija kategorija1 = new Kategorija(0, "defaultKategorija1");
-            Kategorija kategorija2 = new Kategorija(1, "defaultKategorija2");
-            Kategorija kategorija3 = new Kategorija(2, "defaultKategorija3");
+            Kategorija kategorija1 = new Kategorija(0,
+                "defaultKategorija1");
+            Kategorija kategorija2 = new Kategorija(1,
+                "defaultKategorija2");
+            Kategorija kategorija3 = new Kategorija(2,
+                "defaultKategorija3");
 
             /*
             Kategorije.Dodaj(kategorija1);
@@ -59,33 +66,49 @@ namespace csOOPformsProject.Core
             Kategorije.Dodaj(kategorija3);
             */
 
-            Knjiga knjiga1 = new Knjiga(0, "defaultKnjiga1", autor1, kategorija1);
-            Knjiga knjiga2 = new Knjiga(1, "defaultKnjiga2", autor2, kategorija2);
-            Knjiga knjiga3 = new Knjiga(2, "defaultKnjiga3", autor3, kategorija3);
+            Knjiga knjiga1 = new Knjiga(0, "defaultKnjiga1",
+                autor1, kategorija1);
+            Knjiga knjiga2 = new Knjiga(1, "defaultKnjiga2",
+                autor2, kategorija2);
+            Knjiga knjiga3 = new Knjiga(2, "defaultKnjiga3",
+                autor3, kategorija3);
 
             Knjige.Dodaj(knjiga1);
             Knjige.Dodaj(knjiga2);
             Knjige.Dodaj(knjiga3);
 
-            Korisnik korisnik1 = new Korisnik(0, "default", "korisnik1", new DateTime(2007, 7, 3), "sifra1", new DateTime(2003, 3, 7));
-            Korisnik korisnik2 = new Korisnik(1, "default", "korisnik2", new DateTime(2073, 3, 7), "sifra2", new DateTime(2073, 7, 3));
-            Korisnik korisnik3 = new Korisnik(2, "default", "korisnik3", new DateTime(2037, 3, 3), "sifra3", new DateTime(2037, 7, 7));
+            Korisnik korisnik1 = new Korisnik(0, "default",
+                "korisnik1", new DateTime(2007, 7, 3), "sifra1",
+                new DateTime(2003, 3, 7));
+            Korisnik korisnik2 = new Korisnik(1, "default",
+                "korisnik2", new DateTime(2073, 3, 7), "sifra2",
+                new DateTime(2073, 7, 3));
+            Korisnik korisnik3 = new Korisnik(2, "default",
+                "korisnik3", new DateTime(2037, 3, 3), "sifra3",
+                new DateTime(2037, 7, 7));
 
             Korisnici.Dodaj(korisnik1);
             Korisnici.Dodaj(korisnik2);
             Korisnici.Dodaj(korisnik3);
 
-            Bibliotekar bibliotekar1 = new Bibliotekar(0, "default", "bibliotekar1", new DateTime(2007, 7, 3), "sifra1", "sifraRadnika1");
-            Bibliotekar bibliotekar2 = new Bibliotekar(1, "default", "bibliotekar2", new DateTime(2073, 3, 7), "sifra2", "sifraRadnika2");
-            Bibliotekar bibliotekar3 = new Bibliotekar(2, "default", "bibliotekar3", new DateTime(2037, 7, 3), "sifra3", "sifraRadnika3");
+            Bibliotekar bibliotekar1 = new Bibliotekar(0,
+                "default", "bibliotekar1", new DateTime(2007, 7, 3),
+                "sifra1", "sifraRadnika1");
+            Bibliotekar bibliotekar2 = new Bibliotekar(1,
+                "default", "bibliotekar2", new DateTime(2073, 3, 7),
+                "sifra2", "sifraRadnika2");
+            Bibliotekar bibliotekar3 = new Bibliotekar(2,
+                "default", "bibliotekar3", new DateTime(2037, 7, 3),
+                "sifra3", "sifraRadnika3");
 
             Bibliotekari.Dodaj(bibliotekar1);
             Bibliotekari.Dodaj(bibliotekar2);
             Bibliotekari.Dodaj(bibliotekar3);
 
-            Zaduzivanje zaduzivanje1 = new Zaduzivanje(0, korisnik1, knjiga1);
+            //Zaduzivanje zaduzivanje1 = new Zaduzivanje(0, korisnik1, knjiga1);
+            _ = PozajmiKnjigu(1, 1);
 
-            Zaduzivanja.Dodaj(zaduzivanje1);
+            //Zaduzivanja.Dodaj(zaduzivanje1);
 
         }
 
@@ -103,8 +126,8 @@ namespace csOOPformsProject.Core
             _ = Knjige.Promeni(knjiga);
 
             int poslednjeZaduzivanjeId = Zaduzivanja.PoslednjiId();
-            Zaduzivanje zaduzivanje = new Zaduzivanje(poslednjeZaduzivanjeId,
-                korisnik, knjiga);
+            Zaduzivanje zaduzivanje = new Zaduzivanje(
+                poslednjeZaduzivanjeId, korisnik, knjiga);
             Zaduzivanja.Dodaj(zaduzivanje);
 
             korisnik.Zaduzivanja.Add(zaduzivanje);
@@ -114,7 +137,8 @@ namespace csOOPformsProject.Core
         }
         public void VratiKnjigu(int zaduzivanjeId)
         {
-            Zaduzivanje zaduzivanje = Zaduzivanja.UcitajPoId(zaduzivanjeId);
+            Zaduzivanje zaduzivanje = Zaduzivanja
+                .UcitajPoId(zaduzivanjeId);
             if (zaduzivanje == null)
             {
                 return;
