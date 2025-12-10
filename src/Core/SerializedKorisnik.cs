@@ -23,10 +23,7 @@ namespace csOOPformsProject.Core
             List<string> _zaduzivanja = new List<string>();
             foreach (Zaduzivanje zaduzivanje in zaduzivanja)
             {
-                _zaduzivanja.Add($"{zaduzivanje.Knjiga.Naziv} | " +
-                    $"{zaduzivanje.Knjiga.Autor.PunoIme} | " +
-                    $"{zaduzivanje.DatumZaduzivanja.ToShortDateString()} | " +
-                    $"{zaduzivanje.RokZaduzivanja.ToShortDateString()}");
+                _zaduzivanja.Add(zaduzivanje.ToString());
             }
             Zaduzivanja = string.Join("\n", _zaduzivanja);
         }

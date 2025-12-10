@@ -64,12 +64,24 @@ namespace csOOPformsProject.Repositories
             Sacuvaj();
         }
 
-        public bool Promeni(T entitet)
+        public bool Promeni(T entitet, int? noviId = null)
         {
             int index = _entiteti.FindIndex(x => x.Id == entitet.Id);
+            // nije pronadjen
             if (index == -1)
             {
                 return false;
+            }
+
+            // vec postoji
+            if (_entiteti.FindAll(x => x.Id == noviId).Count() > 0)
+            {
+                return false;
+            }
+
+            if (noviId != null)
+            {
+                entitet.Id = (int)noviId;
             }
 
             _entiteti[index] = entitet;

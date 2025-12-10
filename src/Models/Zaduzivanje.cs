@@ -24,9 +24,9 @@ namespace csOOPformsProject.Models
 
         public override string ToString()
         {
-            return $"Zaduzivanje.Id: {Id};" +
-                $"Zaduzivanje.Korisnik.Id: {Korisnik.Id};" +
-                $"Zaduzivanje.Knjiga.Id: {Knjiga.Id}";
+            return $"{Knjiga} | " +
+                    $"{DatumZaduzivanja.ToShortDateString()} | " +
+                    $"{RokZaduzivanja.ToShortDateString()}";
         }
     }
 }

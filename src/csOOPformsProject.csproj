@@ -87,6 +87,7 @@
     <Compile Include="Core\Helpers.cs" />
     <Compile Include="Core\SerializedKnjiga.cs" />
     <Compile Include="Core\SerializedKorisnik.cs" />
+    <Compile Include="Core\SerializedZaduzivanje.cs" />
     <Compile Include="Repositories\NalogRepozitorium.cs" />
     <Compile Include="User.cs">
       <SubType>Form</SubType>

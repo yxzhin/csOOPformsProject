@@ -19,7 +19,7 @@ namespace csOOPformsProject.Models
         }
         public override string ToString()
         {
-            return $"Knjiga.Id: {Id}; Knjiga.Naziv: {Naziv}";
+            return $"{Naziv} | {Autor}";
         }
     }
 }

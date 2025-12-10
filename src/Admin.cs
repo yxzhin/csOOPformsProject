@@ -12,15 +12,18 @@ namespace csOOPformsProject
         private Biblioteka Biblioteka { get; set; }
         private Bibliotekar Bibliotekar { get; set; }
         private readonly List<Helpers.Nista> Nista = new List<Helpers.Nista>();
+        private object OldValue { get; set; }
         public Admin(Biblioteka biblioteka, Bibliotekar bibliotekar)
         {
             InitializeComponent();
             Biblioteka = biblioteka;
             Bibliotekar = bibliotekar;
+            dataGridView1.CellBeginEdit += dataGridView1_CellBeginEdit;
             dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
             dataGridView1.CellValidating += new DataGridViewCellValidatingEventHandler(dataGridView1_CellValidating);
             //dataGridView1.DataError += dataGridView1_DataError;
             dataGridView1.CurrentCellDirtyStateChanged += dataGridView1_CurrentCellDirtyStateChanged;
+
             dataGridView1.MultiSelect = false;
             dataGridView2.MultiSelect = false;
             dataGridView3.MultiSelect = false;
@@ -97,7 +100,13 @@ namespace csOOPformsProject
             PrikaziPodatke();
         }
 
-        // validacija
+        // sacuvaj staro znacenje pre menjanja celije
+        private void dataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            OldValue = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+        }
+
+        // validacija novog znacenja u celiji
         private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
@@ -141,9 +150,12 @@ namespace csOOPformsProject
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                int id = (int)dataGridView1.Rows[e.RowIndex].Cells[0].Value;
+                int id;
                 object newValue = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
                 string atribut = dataGridView1.Columns[e.ColumnIndex].HeaderCell.Value.ToString();
+                id = atribut == "Id" ?
+                    (int)OldValue
+                    : (int)dataGridView1.Rows[e.RowIndex].Cells[0].Value;
                 Knjiga knjiga = Biblioteka.Knjige.UcitajPoId(id);
                 if (dataGridView1.Columns[e.ColumnIndex] is DataGridViewCheckBoxColumn)
                 {
@@ -153,8 +165,10 @@ namespace csOOPformsProject
                 }
                 switch (atribut)
                 {
+                    /*
                     case "Id":
                         knjiga.Id = (int)newValue; break;
+                    */
                     case "Naziv":
                         knjiga.Naziv = newValue.ToString(); break;
                     case "Autor":
@@ -166,9 +180,15 @@ namespace csOOPformsProject
                     case "Kategorija":
                         knjiga.Kategorija.Naziv = newValue.ToString(); break;
                 }
-                if (!Biblioteka.Knjige.Promeni(knjiga))
+
+                bool success = atribut == "Id" ?
+                    Biblioteka.Knjige.Promeni(knjiga, (int)newValue)
+                    : Biblioteka.Knjige.Promeni(knjiga);
+
+                if (!success)
                 {
                     Greska.Show(-2);
+                    PrikaziPodatke();
                     return;
                 }
             }

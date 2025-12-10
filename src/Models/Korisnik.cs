@@ -17,7 +17,7 @@ namespace csOOPformsProject.Models
 
         public override string ToString()
         {
-            return $"Korisnik.Id: {Id}; Korisnik.PunoIme: {PunoIme}";
+            return PunoIme;
         }
 
     }

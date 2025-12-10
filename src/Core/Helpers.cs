@@ -34,8 +34,8 @@ namespace csOOPformsProject.Core
                     SerializedKnjiga serializedKnjiga = new SerializedKnjiga(
                         knjiga.Id,
                         knjiga.Naziv,
-                        knjiga.Autor.PunoIme,
-                        knjiga.Kategorija.Naziv,
+                        knjiga.Autor,
+                        knjiga.Kategorija,
                         knjiga.NaStanju
                     );
                     serializedKnjige.Add(serializedKnjiga);
@@ -58,6 +58,24 @@ namespace csOOPformsProject.Core
                     serializedKorisnici.Add(serializedKorisnik);
                 }
                 return serializedKorisnici;
+            }
+            public static List<SerializedZaduzivanje> Zaduzivanja(List<Zaduzivanje> zaduzivanja)
+            {
+                List<SerializedZaduzivanje> serializedZaduzivanja = new List<SerializedZaduzivanje>();
+                foreach (Zaduzivanje zaduzivanje in zaduzivanja)
+                {
+                    SerializedZaduzivanje serializedZaduzivanje = new SerializedZaduzivanje(
+                        zaduzivanje.Id,
+                        zaduzivanje.Korisnik,
+                        zaduzivanje.Knjiga,
+                        zaduzivanje.DatumZaduzivanja,
+                        zaduzivanje.RokZaduzivanja,
+                        zaduzivanje.DatumZaduzivanja,
+                        zaduzivanje.IstekliRok
+                    );
+                    serializedZaduzivanja.Add(serializedZaduzivanje);
+                }
+                return serializedZaduzivanja;
             }
         }
     }
