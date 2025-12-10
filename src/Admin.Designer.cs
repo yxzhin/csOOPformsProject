@@ -46,6 +46,7 @@ namespace csOOPformsProject
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
@@ -68,7 +69,7 @@ namespace csOOPformsProject
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(668, 106);
+            this.dataGridView1.Size = new System.Drawing.Size(791, 106);
             this.dataGridView1.TabIndex = 1;
             // 
             // label2
@@ -104,7 +105,7 @@ namespace csOOPformsProject
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Comic Sans MS", 16.8F);
-            this.button1.Location = new System.Drawing.Point(867, 22);
+            this.button1.Location = new System.Drawing.Point(980, 22);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(251, 115);
             this.button1.TabIndex = 7;
@@ -115,7 +116,7 @@ namespace csOOPformsProject
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Comic Sans MS", 20.8F);
-            this.button2.Location = new System.Drawing.Point(867, 143);
+            this.button2.Location = new System.Drawing.Point(980, 143);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(251, 115);
             this.button2.TabIndex = 8;
@@ -126,7 +127,7 @@ namespace csOOPformsProject
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Comic Sans MS", 20.8F);
-            this.button4.Location = new System.Drawing.Point(867, 264);
+            this.button4.Location = new System.Drawing.Point(980, 264);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(251, 115);
             this.button4.TabIndex = 10;
@@ -141,7 +142,7 @@ namespace csOOPformsProject
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(668, 106);
+            this.dataGridView2.Size = new System.Drawing.Size(791, 106);
             this.dataGridView2.TabIndex = 11;
             // 
             // dataGridView3
@@ -151,7 +152,7 @@ namespace csOOPformsProject
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.RowHeadersWidth = 51;
             this.dataGridView3.RowTemplate.Height = 24;
-            this.dataGridView3.Size = new System.Drawing.Size(668, 106);
+            this.dataGridView3.Size = new System.Drawing.Size(791, 106);
             this.dataGridView3.TabIndex = 12;
             // 
             // label5
@@ -214,11 +215,22 @@ namespace csOOPformsProject
             this.label10.TabIndex = 18;
             this.label10.Text = "Id";
             // 
+            // button3
+            // 
+            this.button3.Font = new System.Drawing.Font("Comic Sans MS", 20.8F);
+            this.button3.Location = new System.Drawing.Point(980, 385);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(251, 115);
+            this.button3.TabIndex = 19;
+            this.button3.Text = "resetuj";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
             // Admin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1130, 613);
+            this.ClientSize = new System.Drawing.Size(1243, 577);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -264,5 +276,6 @@ namespace csOOPformsProject
         private Label label8;
         private Label label9;
         private Label label10;
+        private Button button3;
     }
 }

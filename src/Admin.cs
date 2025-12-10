@@ -11,6 +11,7 @@ namespace csOOPformsProject
     {
         private Biblioteka Biblioteka { get; set; }
         private Bibliotekar Bibliotekar { get; set; }
+        private readonly List<Helpers.Nista> Nista = new List<Helpers.Nista>();
         public Admin(Biblioteka biblioteka, Bibliotekar bibliotekar)
         {
             InitializeComponent();
@@ -51,7 +52,24 @@ namespace csOOPformsProject
 
             dataGridView1.DataSource = serializedKnjige;
             dataGridView2.DataSource = serializedKorisnici;
-            //dataGridView1.DataSource = serializedZaduzivanja;
+            //dataGridView3.DataSource = serializedZaduzivanja;
+
+            if (serializedKnjige.Count == 0)
+            {
+                dataGridView1.DataSource = Nista;
+            }
+
+            if (serializedKorisnici.Count == 0)
+            {
+                dataGridView2.DataSource = Nista;
+            }
+
+            /*
+            if (serializedZaduzivanja.Count == 0)
+            {
+                dataGridView3.DataSource = Nista;
+            }
+            */
 
         }
 

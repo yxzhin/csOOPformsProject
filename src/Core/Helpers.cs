@@ -18,6 +18,12 @@ namespace csOOPformsProject.Core
             return solutionPath;
         }
 
+        // moj najbolji kod ikada
+        public class Nista
+        {
+            public string nista = "nema nista da se prikaze!!";
+        }
+
         public static class Serialize
         {
             public static List<SerializedKnjiga> Knjige(List<Knjiga> knjige)
