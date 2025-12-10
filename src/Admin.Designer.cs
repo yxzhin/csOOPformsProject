@@ -180,9 +180,9 @@ namespace csOOPformsProject
             this.label7.Font = new System.Drawing.Font("Comic Sans MS", 16.8F);
             this.label7.Location = new System.Drawing.Point(34, 143);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(226, 39);
+            this.label7.Size = new System.Drawing.Size(224, 39);
             this.label7.TabIndex = 15;
-            this.label7.Text = "godina rodjenja:";
+            this.label7.Text = "datum rodjenja:";
             // 
             // label8
             // 
@@ -190,9 +190,9 @@ namespace csOOPformsProject
             this.label8.Font = new System.Drawing.Font("Comic Sans MS", 16.8F);
             this.label8.Location = new System.Drawing.Point(266, 143);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(218, 39);
+            this.label8.Size = new System.Drawing.Size(216, 39);
             this.label8.TabIndex = 16;
-            this.label8.Text = "GodinaRodjenja";
+            this.label8.Text = "DatumRodjenja";
             // 
             // label9
             // 

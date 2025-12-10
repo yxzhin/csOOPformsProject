@@ -16,6 +16,7 @@ namespace csOOPformsProject
             {
                 Biblioteka.Seeder();
             }
+            textBox3.PasswordChar = '*';
         }
 
         private void Form1_Load(object sender, EventArgs e)

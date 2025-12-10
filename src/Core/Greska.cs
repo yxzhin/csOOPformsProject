@@ -20,6 +20,9 @@ namespace csOOPformsProject.Core
                 case -4:
                     _ = MessageBox.Show("nalog nije pronadjen!!",
                     "greska!!", MessageBoxButtons.OK, MessageBoxIcon.Error); break;
+                case -5:
+                    _ = MessageBox.Show("izaberite samo jedan red odjednom!!",
+                    "greska!!", MessageBoxButtons.OK, MessageBoxIcon.Error); break;
             }
         }
     }

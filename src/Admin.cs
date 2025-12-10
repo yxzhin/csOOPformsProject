@@ -20,10 +20,18 @@ namespace csOOPformsProject
             dataGridView1.CellValidating += new DataGridViewCellValidatingEventHandler(dataGridView1_CellValidating);
             //dataGridView1.DataError += dataGridView1_DataError;
             dataGridView1.CurrentCellDirtyStateChanged += dataGridView1_CurrentCellDirtyStateChanged;
+            dataGridView1.MultiSelect = false;
+            dataGridView2.MultiSelect = false;
+            dataGridView3.MultiSelect = false;
         }
 
         private void PrikaziPodatke()
         {
+
+            label10.Text = Bibliotekar.Id.ToString();
+            label6.Text = Bibliotekar.PunoIme;
+            label8.Text = Bibliotekar.DatumRodjenja.ToShortDateString().ToString();
+
             dataGridView1.DataSource = null;
             dataGridView2.DataSource = null;
             dataGridView3.DataSource = null;
@@ -52,11 +60,26 @@ namespace csOOPformsProject
             PrikaziPodatke();
         }
 
+        private bool IzabranoViseOdJednogRedaOdjednom()
+        {
+            return (dataGridView1.SelectedRows.Count > 0
+                && dataGridView2.SelectedRows.Count > 0
+                && dataGridView3.SelectedRows.Count > 0)
+                || (dataGridView1.SelectedRows.Count > 0
+                && dataGridView2.SelectedRows.Count > 0)
+                || (dataGridView2.SelectedRows.Count > 0
+                && dataGridView3.SelectedRows.Count > 0)
+                || (dataGridView1.SelectedRows.Count > 0
+                && dataGridView3.SelectedRows.Count > 0);
+        }
+
+        // prikazi podatke
         private void button1_Click(object sender, EventArgs e)
         {
             PrikaziPodatke();
         }
 
+        // validacija
         private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
@@ -95,6 +118,7 @@ namespace csOOPformsProject
             }
         }
 
+        // izmena celije
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
@@ -131,6 +155,8 @@ namespace csOOPformsProject
                 }
             }
         }
+
+        // izmena checkboxa u celiji
         private void dataGridView1_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
             if (dataGridView1.IsCurrentCellDirty)
@@ -142,13 +168,20 @@ namespace csOOPformsProject
             }
         }
 
+        // dodaj
         private void button2_Click(object sender, EventArgs e)
         {
 
         }
 
+        // obrisi
         private void button4_Click(object sender, EventArgs e)
         {
+            if (IzabranoViseOdJednogRedaOdjednom())
+            {
+                Greska.Show(-5);
+                return;
+            }
 
         }
     }
