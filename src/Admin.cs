@@ -126,6 +126,13 @@ namespace csOOPformsProject
             PrikaziPodatke();
         }
 
+        private bool NistaNijeIzabrano()
+        {
+            return dataGridView1.SelectedRows.Count == 0
+                && dataGridView2.SelectedRows.Count == 0
+                && dataGridView3.SelectedRows.Count == 0;
+        }
+
         private bool IzabranoViseOdJednogRedaOdjednom()
         {
             return (dataGridView1.SelectedRows.Count > 0
@@ -137,6 +144,15 @@ namespace csOOPformsProject
                 && dataGridView3.SelectedRows.Count > 0)
                 || (dataGridView1.SelectedRows.Count > 0
                 && dataGridView3.SelectedRows.Count > 0);
+        }
+
+        private DataGridViewRow UcitajIzabraniRed()
+        {
+            return dataGridView1.SelectedRows.Count == 1
+                ? dataGridView1.SelectedRows[0]
+                : dataGridView2.SelectedRows.Count == 1
+                ? dataGridView2.SelectedRows[0]
+                : dataGridView3.SelectedRows[0];
         }
 
         // prikazi podatke
@@ -283,16 +299,7 @@ namespace csOOPformsProject
         // dodaj
         private void button2_Click(object sender, EventArgs e)
         {
-
-        }
-
-        // obrisi
-        private void button4_Click(object sender, EventArgs e)
-        {
-
-            if (dataGridView1.SelectedRows.Count == 0
-                && dataGridView2.SelectedRows.Count == 0
-                && dataGridView3.SelectedRows.Count == 0)
+            if (NistaNijeIzabrano())
             {
                 Greska.Show(-5);
                 return;
@@ -304,18 +311,44 @@ namespace csOOPformsProject
                 return;
             }
 
-            DataGridViewRow izabraniRed =
-                dataGridView1.SelectedRows.Count == 1
-                ? dataGridView1.SelectedRows[0]
-                : dataGridView2.SelectedRows.Count == 1
-                ? dataGridView2.SelectedRows[0]
-                : dataGridView3.SelectedRows[0];
-            /*
-           izabraniRed = dataGridView1.SelectedRows[0];
-           izabraniRed = dataGridView2.SelectedRows.Count == 1 ?
-               dataGridView2.SelectedRows[0]
-               : dataGridView3.SelectedRows[0];
-           */
+            DataGridViewRow izabraniRed = UcitajIzabraniRed();
+
+            switch (izabraniRed.DataGridView.Name)
+            {
+                case "dataGridView1":
+                    int id =
+                        Biblioteka.Knjige.PoslednjiId();
+                    Autor autor =
+                        Biblioteka.Autori.UcitajPoId(1);
+                    Kategorija kategorija =
+                        Biblioteka.Kategorije.UcitajPoId(1);
+                    Knjiga knjiga = new Knjiga(id, "novaKnjiga",
+                        autor, kategorija);
+                    Biblioteka.Knjige.Dodaj(knjiga);
+                    break;
+            }
+
+            PrikaziPodatke();
+
+        }
+
+        // obrisi
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+            if (NistaNijeIzabrano())
+            {
+                Greska.Show(-5);
+                return;
+            }
+
+            if (IzabranoViseOdJednogRedaOdjednom())
+            {
+                Greska.Show(-6);
+                return;
+            }
+
+            DataGridViewRow izabraniRed = UcitajIzabraniRed();
 
             int id = (int)izabraniRed.Cells[0].Value;
 

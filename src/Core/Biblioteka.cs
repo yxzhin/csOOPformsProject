@@ -7,6 +7,8 @@ namespace csOOPformsProject.Core
 {
     public sealed class Biblioteka
     {
+        public AutorRepozitorium Autori { get; }
+        public KategorijaRepozitorium Kategorije { get; }
         public KnjigaRepozitorium Knjige { get; }
         public KorisnikRepozitorium Korisnici { get; }
         public BibliotekarRepozitorium Bibliotekari { get; }
@@ -14,6 +16,12 @@ namespace csOOPformsProject.Core
 
         public Biblioteka()
         {
+            Autori = new AutorRepozitorium(
+                Helpers.DataFolder
+                + "\\autori.json");
+            Kategorije = new KategorijaRepozitorium(
+                Helpers.DataFolder
+                + "\\kategorije.json");
             Knjige = new KnjigaRepozitorium(
                 Helpers.DataFolder
                 + "\\knjige.json");
@@ -30,8 +38,8 @@ namespace csOOPformsProject.Core
 
         public void ResetujPodatke()
         {
-            //Autori.ObrisiSve();
-            //Kategorije.ObrisiSve();
+            _ = Autori.ObrisiSve();
+            _ = Kategorije.ObrisiSve();
             _ = Knjige.ObrisiSve();
             _ = Korisnici.ObrisiSve();
             _ = Bibliotekari.ObrisiSve();
@@ -47,11 +55,9 @@ namespace csOOPformsProject.Core
             Autor autor2 = new Autor(1, "default", "autor2");
             Autor autor3 = new Autor(2, "default", "autor3");
 
-            /*
             Autori.Dodaj(autor1);
             Autori.Dodaj(autor2);
             Autori.Dodaj(autor3);
-            */
 
             Kategorija kategorija1 = new Kategorija(0,
                 "defaultKategorija1");
@@ -60,11 +66,9 @@ namespace csOOPformsProject.Core
             Kategorija kategorija3 = new Kategorija(2,
                 "defaultKategorija3");
 
-            /*
             Kategorije.Dodaj(kategorija1);
             Kategorije.Dodaj(kategorija2);
             Kategorije.Dodaj(kategorija3);
-            */
 
             Knjiga knjiga1 = new Knjiga(0, "defaultKnjiga1",
                 autor1, kategorija1);
