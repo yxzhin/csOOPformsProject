@@ -12,8 +12,8 @@ namespace csOOPformsProject.Models
         public DateTime DatumRodjenja { get; set; }
         public string Sifra { get; protected set; }
 
-        public Osoba(int id, string ime, string prezime, DateTime datumRodjenja,
-            string sifra)
+        public Osoba(int id, string ime, string prezime,
+            DateTime datumRodjenja, string sifra)
         {
             Id = id;
             Ime = ime;

@@ -1,4 +1,5 @@
 ﻿using csOOPformsProject.Models;
+using System.Linq;
 
 namespace csOOPformsProject.Repositories
 {
@@ -8,6 +9,10 @@ namespace csOOPformsProject.Repositories
             : base(putanjaFajla)
         {
             return;
+        }
+        public Kategorija UcitajPoNazivu(string naziv)
+        {
+            return _entiteti.FirstOrDefault(x => x.Naziv == naziv);
         }
     }
 }

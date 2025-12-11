@@ -139,6 +139,21 @@ namespace csOOPformsProject
                 dataGridView1.ReadOnly = true;
                 dataGridView1.DataSource = Nista;
             }
+            else
+            {
+                DataGridViewComboBoxColumn knjigeIzborAutora
+                    = new DataGridViewComboBoxColumn
+                    {
+                        Name = "Autor",
+                        DataPropertyName = "Autor",
+                        HeaderText = "Autor",
+                        DataSource =
+                        autori.Select(x => x.ToString()).ToList()
+                    };
+
+                dataGridView1.Columns.Remove("Autor");
+                _ = dataGridView1.Columns.Add(knjigeIzborAutora);
+            }
 
             if (serializedKorisnici.Count == 0)
             {
@@ -300,11 +315,14 @@ namespace csOOPformsProject
                     .Cells[e.ColumnIndex].Value;
                 string atribut = dataGridView1.Columns[e.ColumnIndex]
                     .HeaderCell.Value.ToString();
+
                 id = atribut == "Id" ?
                     (int)OldValue
                     : (int)dataGridView1.Rows[e.RowIndex].Cells[0]
                     .Value;
+
                 Knjiga knjiga = Biblioteka.Knjige.UcitajPoId(id);
+
                 if (dataGridView1.Columns[e.ColumnIndex] is
                     DataGridViewCheckBoxColumn)
                 {
@@ -313,6 +331,7 @@ namespace csOOPformsProject
                     _ = Biblioteka.Knjige.Promeni(knjiga);
                     return;
                 }
+
                 switch (atribut)
                 {
                     /*
@@ -323,12 +342,18 @@ namespace csOOPformsProject
                         knjiga.Naziv = newValue.ToString();
                         break;
                     case "Autor":
+                        Autor autor =
+                            Biblioteka.Autori.UcitajPoPunomImenu
+                            (newValue.ToString());
+                        knjiga.Autor = autor;
+                        /*
                         string ime = newValue.ToString()
                             .Split(' ')[0];
                         string prezime = newValue.ToString()
                             .Split(' ')[1];
                         knjiga.Autor.Ime = ime;
                         knjiga.Autor.Prezime = prezime;
+                        */
                         break;
                     case "Kategorija":
                         knjiga.Kategorija.Naziv = newValue.ToString();
