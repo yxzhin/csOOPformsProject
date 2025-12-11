@@ -7,7 +7,7 @@ namespace csOOPformsProject
     public partial class Form1 : Form
     {
         private Biblioteka Biblioteka { get; set; }
-        private bool DebugMode { get; set; } = true; // change in release
+        public static bool DebugMode { get; } = true; // change in release
         public Form1()
         {
             InitializeComponent();

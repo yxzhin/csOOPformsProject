@@ -141,6 +141,7 @@ namespace csOOPformsProject
             }
             else
             {
+                // napravi comboBox za izbor autora knjige
                 DataGridViewComboBoxColumn knjigeIzborAutora
                     = new DataGridViewComboBoxColumn
                     {
@@ -153,6 +154,20 @@ namespace csOOPformsProject
 
                 dataGridView1.Columns.Remove("Autor");
                 _ = dataGridView1.Columns.Add(knjigeIzborAutora);
+
+                // napravi comboxBox za izbor kategorije knjige
+                DataGridViewComboBoxColumn knjigeIzborKategorije
+                    = new DataGridViewComboBoxColumn
+                    {
+                        Name = "Kategorija",
+                        DataPropertyName = "Kategorija",
+                        HeaderText = "Kategorija",
+                        DataSource =
+                        kategorije.Select(x => x.ToString()).ToList()
+                    };
+
+                dataGridView1.Columns.Remove("Kategorija");
+                _ = dataGridView1.Columns.Add(knjigeIzborKategorije);
             }
 
             if (serializedKorisnici.Count == 0)
@@ -178,13 +193,14 @@ namespace csOOPformsProject
                 dataGridView5.ReadOnly = true;
                 dataGridView5.DataSource = Nista;
             }
-
         }
+
         private void Admin_Load(object sender, EventArgs e)
         {
             PrikaziPodatke();
         }
 
+        // vraca array sa kolicinama izabranih redova za svaki dataGridView
         private int[] KolicineIzabranihRedova()
         {
             int count1, count2, count3, count4, count5;
@@ -213,7 +229,7 @@ namespace csOOPformsProject
 
         private DataGridViewRow UcitajIzabraniRed()
         {
-            // :sob: :skull:
+            // brate sta je ovo :sob: :skull:
             return dataGridView1.SelectedRows.Count == 1
                 ? dataGridView1.SelectedRows[0]
                 : dataGridView2.SelectedRows.Count == 1
@@ -232,30 +248,39 @@ namespace csOOPformsProject
         }
 
         // sacuvaj staro znacenje pre menjanja celije
+        // za knjige
         private void dataGridView1_CellBeginEdit
             (object sender, DataGridViewCellCancelEventArgs e)
         {
             OldValue = dataGridView1.Rows[e.RowIndex]
                 .Cells[e.ColumnIndex].Value;
         }
+
+        // za korisnike
         private void dataGridView2_CellBeginEdit
             (object sender, DataGridViewCellCancelEventArgs e)
         {
             OldValue = dataGridView2.Rows[e.RowIndex]
                 .Cells[e.ColumnIndex].Value;
         }
+
+        // za zaduzivanja
         private void dataGridView3_CellBeginEdit
             (object sender, DataGridViewCellCancelEventArgs e)
         {
             OldValue = dataGridView3.Rows[e.RowIndex]
                 .Cells[e.ColumnIndex].Value;
         }
+
+        // za autore
         private void dataGridView4_CellBeginEdit
             (object sender, DataGridViewCellCancelEventArgs e)
         {
             OldValue = dataGridView4.Rows[e.RowIndex]
                 .Cells[e.ColumnIndex].Value;
         }
+
+        // za kategorije
         private void dataGridView5_CellBeginEdit
             (object sender, DataGridViewCellCancelEventArgs e)
         {
@@ -264,6 +289,7 @@ namespace csOOPformsProject
         }
 
         // validacija novog znacenja u celiji
+        // za knjige
         private void dataGridView1_CellValidating
             (object sender, DataGridViewCellValidatingEventArgs e)
         {
@@ -305,6 +331,7 @@ namespace csOOPformsProject
         }
 
         // izmena celije
+        // za knjige
         private void dataGridView1_CellValueChanged(object sender,
             DataGridViewCellEventArgs e)
         {
@@ -356,7 +383,11 @@ namespace csOOPformsProject
                         */
                         break;
                     case "Kategorija":
-                        knjiga.Kategorija.Naziv = newValue.ToString();
+                        Kategorija kategorija =
+                            Biblioteka.Kategorije.UcitajPoNazivu
+                            (newValue.ToString());
+                        knjiga.Kategorija = kategorija;
+                        //knjiga.Kategorija.Naziv = newValue.ToString();
                         break;
                 }
 
@@ -374,6 +405,7 @@ namespace csOOPformsProject
         }
 
         // izmena checkboxa u celiji
+        // za knjige
         private void dataGridView1_CurrentCellDirtyStateChanged
             (object sender, EventArgs e)
         {
@@ -448,7 +480,8 @@ namespace csOOPformsProject
                 ? Biblioteka.Knjige.Obrisi(id)
                 : dataGridView2.SelectedRows.Count == 1
                 ? Biblioteka.Korisnici.Obrisi(id)
-                : Biblioteka.Zaduzivanja.Obrisi(id);
+                : Biblioteka.VratiKnjigu(id, true);
+            //Biblioteka.Zaduzivanja.Obrisi(id);
 
             PrikaziPodatke();
 

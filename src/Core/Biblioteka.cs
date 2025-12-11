@@ -139,20 +139,27 @@ namespace csOOPformsProject.Core
 
             return true;
         }
-        public void VratiKnjigu(int zaduzivanjeId)
+        public bool VratiKnjigu(int zaduzivanjeId,
+            bool obrisiZaduzivanje = false)
         {
             Zaduzivanje zaduzivanje = Zaduzivanja
                 .UcitajPoId(zaduzivanjeId);
+
             if (zaduzivanje == null)
             {
-                return;
+                return false;
             }
 
             zaduzivanje.DatumVracanja = DateTime.Now;
             zaduzivanje.Knjiga.NaStanju = true;
 
-            _ = Zaduzivanja.Promeni(zaduzivanje);
+            _ = obrisiZaduzivanje
+                ? Zaduzivanja.Obrisi(zaduzivanjeId)
+                : Zaduzivanja.Promeni(zaduzivanje);
+
             _ = Knjige.Promeni(zaduzivanje.Knjiga);
+
+            return true;
         }
 
         public Form UlogujSe(string ime, string prezime, string sifra)
