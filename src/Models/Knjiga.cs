@@ -8,8 +8,8 @@ namespace csOOPformsProject.Models
         public Autor Autor { get; set; }
         public Kategorija Kategorija { get; set; }
         public bool NaStanju { get; set; } = true;
-        public Knjiga(int id, string naziv, Autor autor, Kategorija kategorija,
-            bool naStanju = true)
+        public Knjiga(int id, string naziv, Autor autor,
+            Kategorija kategorija, bool naStanju = true)
         {
             Id = id;
             Naziv = naziv;

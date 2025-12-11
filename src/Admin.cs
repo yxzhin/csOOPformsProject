@@ -229,6 +229,7 @@ namespace csOOPformsProject
 
         private DataGridViewRow UcitajIzabraniRed()
         {
+
             // brate sta je ovo :sob: :skull:
             return dataGridView1.SelectedRows.Count == 1
                 ? dataGridView1.SelectedRows[0]
@@ -391,9 +392,10 @@ namespace csOOPformsProject
                         break;
                 }
 
-                bool success = atribut == "Id" ?
+                short result = atribut == "Id" ?
                     Biblioteka.Knjige.Promeni(knjiga, (int)newValue)
                     : Biblioteka.Knjige.Promeni(knjiga);
+                bool success = result == 1;
 
                 if (!success)
                 {
@@ -442,13 +444,29 @@ namespace csOOPformsProject
                 case "dataGridView1":
                     int id =
                         Biblioteka.Knjige.PoslednjiId();
+
+                    int autorId = Biblioteka.Autori.PrviId();
+                    if (autorId == 0)
+                    {
+                        Greska.Show(-9);
+                        break;
+                    }
+
+                    int kategorijaId = Biblioteka.Kategorije.PrviId();
+                    if (kategorijaId == 0)
+                    {
+                        Greska.Show(-10);
+                        break;
+                    }
+
                     Autor autor =
-                        Biblioteka.Autori.UcitajPoId(1);
+                        Biblioteka.Autori.UcitajPoId(autorId);
                     Kategorija kategorija =
-                        Biblioteka.Kategorije.UcitajPoId(1);
+                        Biblioteka.Kategorije.UcitajPoId(kategorijaId);
                     Knjiga knjiga = new Knjiga(id, "novaKnjiga",
                         autor, kategorija);
                     Biblioteka.Knjige.Dodaj(knjiga);
+
                     break;
             }
 
@@ -480,7 +498,13 @@ namespace csOOPformsProject
                 ? Biblioteka.Knjige.Obrisi(id)
                 : dataGridView2.SelectedRows.Count == 1
                 ? Biblioteka.Korisnici.Obrisi(id)
-                : Biblioteka.VratiKnjigu(id, true);
+                : dataGridView3.SelectedRows.Count == 1
+                ? Biblioteka.VratiKnjigu(id, true)
+                : dataGridView4.SelectedRows.Count == 1
+                ? Biblioteka.ObrisiAutora(id)
+                : Biblioteka.ObrisiKategoriju(id);
+            //? Biblioteka.Autori.Obrisi(id)
+            //: Biblioteka.Kategorije.Obrisi(id);
             //Biblioteka.Zaduzivanja.Obrisi(id);
 
             PrikaziPodatke();

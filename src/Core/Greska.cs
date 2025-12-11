@@ -4,7 +4,7 @@ namespace csOOPformsProject.Core
 {
     public static class Greska
     {
-        public static void Show(int type)
+        public static void Show(int type, string customMessage = null)
         {
             switch (type)
             {
@@ -24,7 +24,9 @@ namespace csOOPformsProject.Core
                     MessageBoxIcon.Error);
                     break;
                 case -4:
-                    _ = MessageBox.Show("nalog nije pronadjen!!",
+                    string msg = customMessage ?? "nalog nije " +
+                        "pronadjen!!";
+                    _ = MessageBox.Show(msg,
                     "greska!!", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                     break;
@@ -34,7 +36,36 @@ namespace csOOPformsProject.Core
                     MessageBoxIcon.Error);
                     break;
                 case -6:
-                    _ = MessageBox.Show("izaberite samo jedan red odjednom!!",
+                    _ = MessageBox.Show("izaberite samo jedan " +
+                        "red odjednom!!",
+                    "greska!!", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                    break;
+                case -7:
+                    _ = MessageBox.Show("pre nego sto obrisete " +
+                        "autora, morate obrisati " +
+                        "sve knjige od tog autora ili izabrati " +
+                        "drugacijeg za njih!!",
+                    "greska!!", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                    break;
+                case -8:
+                    _ = MessageBox.Show("pre nego sto obrisete " +
+                        "kategoriju, morate obrisati " +
+                        "sve knjige te kategorije ili izabrati " +
+                        "drugaciju za njih!!",
+                    "greska!!", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                    break;
+                case -9:
+                    _ = MessageBox.Show("nemate nijednog autora!! " +
+                        "morate dodati bar jednog!!",
+                    "greska!!", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                    break;
+                case -10:
+                    _ = MessageBox.Show("nemate nijednu kategoriju!! " +
+                        "morate dodati bar jednu!!",
                     "greska!!", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                     break;

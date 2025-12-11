@@ -62,9 +62,9 @@ namespace csOOPformsProject
         // uloguj se
         private void button1_Click(object sender, EventArgs e)
         {
-            string ime = textBox1.Text;
-            string prezime = textBox2.Text;
-            string sifra = textBox3.Text;
+            string ime = textBox1.Text.Trim();
+            string prezime = textBox2.Text.Trim();
+            string sifra = textBox3.Text.Trim();
 
             if (string.IsNullOrEmpty(ime)
                 || string.IsNullOrEmpty(prezime)

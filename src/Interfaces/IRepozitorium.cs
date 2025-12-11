@@ -7,9 +7,11 @@ namespace csOOPformsProject.Interfaces
         List<T> UcitajSve();
         T UcitajPoId(int id);
         void Dodaj(T entitet);
-        bool Promeni(T entitet, int? noviId = null);
+        short Promeni(T entitet, int? noviId = null);
         bool Obrisi(int id);
+        bool ObrisiSve();
         void Sacuvaj(); // sacuvaj u json
         int PoslednjiId();
+        int PrviId();
     }
 }

@@ -1,6 +1,8 @@
 ﻿using csOOPformsProject.Models;
 using csOOPformsProject.Repositories;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace csOOPformsProject.Core
@@ -139,6 +141,7 @@ namespace csOOPformsProject.Core
 
             return true;
         }
+
         public bool VratiKnjigu(int zaduzivanjeId,
             bool obrisiZaduzivanje = false)
         {
@@ -153,9 +156,19 @@ namespace csOOPformsProject.Core
             zaduzivanje.DatumVracanja = DateTime.Now;
             zaduzivanje.Knjiga.NaStanju = true;
 
+            if (obrisiZaduzivanje)
+            {
+                _ = Zaduzivanja.Obrisi(zaduzivanjeId);
+            }
+            else
+            {
+                _ = Zaduzivanja.Promeni(zaduzivanje);
+            }
+            /*
             _ = obrisiZaduzivanje
                 ? Zaduzivanja.Obrisi(zaduzivanjeId)
                 : Zaduzivanja.Promeni(zaduzivanje);
+            */
 
             _ = Knjige.Promeni(zaduzivanje.Knjiga);
 
@@ -182,5 +195,36 @@ namespace csOOPformsProject.Core
             return null;
         }
 
+        public bool ObrisiAutora(int id)
+        {
+            List<Knjiga> knjige = Knjige.UcitajSve();
+
+            if (knjige.FirstOrDefault
+                (x => x.Autor.Id == id) != null)
+            {
+                Greska.Show(-7);
+                return false;
+            }
+
+            _ = Autori.Obrisi(id);
+
+            return true;
+        }
+
+        public bool ObrisiKategoriju(int id)
+        {
+            List<Knjiga> knjige = Knjige.UcitajSve();
+
+            if (knjige.FirstOrDefault
+                (x => x.Kategorija.Id == id) != null)
+            {
+                Greska.Show(-8);
+                return false;
+            }
+
+            _ = Kategorije.Obrisi(id);
+
+            return true;
+        }
     }
 }

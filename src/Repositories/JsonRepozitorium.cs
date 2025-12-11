@@ -32,7 +32,8 @@ namespace csOOPformsProject.Repositories
             string json = File.ReadAllText(_putanjaFajla);
             try
             {
-                return JsonSerializer.Deserialize<List<T>>(json, _options);
+                return JsonSerializer.Deserialize<List<T>>
+                    (json, _options);
             }
             catch (Exception)
             {
@@ -64,19 +65,19 @@ namespace csOOPformsProject.Repositories
             Sacuvaj();
         }
 
-        public bool Promeni(T entitet, int? noviId = null)
+        public virtual short Promeni(T entitet, int? noviId = null)
         {
             int index = _entiteti.FindIndex(x => x.Id == entitet.Id);
             // nije pronadjen
             if (index == -1)
             {
-                return false;
+                return -1;
             }
 
             // vec postoji
             if (_entiteti.FindAll(x => x.Id == noviId).Count() > 0)
             {
-                return false;
+                return -2;
             }
 
             if (noviId != null)
@@ -87,7 +88,7 @@ namespace csOOPformsProject.Repositories
             _entiteti[index] = entitet;
             Sacuvaj();
 
-            return true;
+            return 1;
         }
 
         public bool Obrisi(int id)
@@ -95,6 +96,13 @@ namespace csOOPformsProject.Repositories
             int obrisani = _entiteti.RemoveAll(x => x.Id == id);
             Sacuvaj();
             return obrisani > 0;
+        }
+
+        public bool ObrisiSve()
+        {
+            int obrisani = _entiteti.RemoveAll(x => true);
+            Sacuvaj();
+            return _entiteti.Count > 0;
         }
 
         public void Sacuvaj()
@@ -107,16 +115,14 @@ namespace csOOPformsProject.Repositories
             File.WriteAllText(_putanjaFajla, json);
         }
 
-        public bool ObrisiSve()
-        {
-            int obrisani = _entiteti.RemoveAll(x => true);
-            Sacuvaj();
-            return _entiteti.Count > 0;
-        }
-
         public int PoslednjiId()
         {
             return _entiteti.Count > 0 ? _entiteti.Max(x => x.Id) : 0;
+        }
+
+        public int PrviId()
+        {
+            return _entiteti.Count > 0 ? _entiteti.Min(x => x.Id) : 0;
         }
     }
 }
