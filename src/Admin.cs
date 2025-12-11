@@ -304,11 +304,18 @@ namespace csOOPformsProject
                 return;
             }
 
-            _ = dataGridView1.SelectedRows[0];
-            DataGridViewRow izabraniRed
-                = dataGridView2.SelectedRows.Count == 1 ?
-                dataGridView2.SelectedRows[0]
+            DataGridViewRow izabraniRed =
+                dataGridView1.SelectedRows.Count == 1
+                ? dataGridView1.SelectedRows[0]
+                : dataGridView2.SelectedRows.Count == 1
+                ? dataGridView2.SelectedRows[0]
                 : dataGridView3.SelectedRows[0];
+            /*
+           izabraniRed = dataGridView1.SelectedRows[0];
+           izabraniRed = dataGridView2.SelectedRows.Count == 1 ?
+               dataGridView2.SelectedRows[0]
+               : dataGridView3.SelectedRows[0];
+           */
 
             int id = (int)izabraniRed.Cells[0].Value;
 
