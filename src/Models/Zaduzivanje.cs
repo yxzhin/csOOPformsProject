@@ -12,7 +12,7 @@ namespace csOOPformsProject.Models
         public DateTime RokZaduzivanja { get; set; } = DateTime.Now.AddDays(73);
         public DateTime? DatumVracanja { get; set; } = null;
         public bool IstekliRok =>
-            DatumVracanja == null && DateTime.Now > DatumZaduzivanja;
+            DatumVracanja == null && DateTime.Now > RokZaduzivanja;
         public Zaduzivanje(int id, Korisnik korisnik, Knjiga knjiga,
             DateTime? datumVracanja = null)
         {

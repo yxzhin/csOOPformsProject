@@ -195,6 +195,22 @@ namespace csOOPformsProject.Core
             return null;
         }
 
+        public bool ObrisiKnjigu(int id)
+        {
+            List<Zaduzivanje> zaduzivanja = Zaduzivanja.UcitajSve();
+
+            if (zaduzivanja.FirstOrDefault
+                (x => x.Knjiga.Id == id) != null)
+            {
+                Greska.Show(-11);
+                return false;
+            }
+
+            _ = Knjige.Obrisi(id);
+
+            return true;
+        }
+
         public bool ObrisiAutora(int id)
         {
             List<Knjiga> knjige = Knjige.UcitajSve();

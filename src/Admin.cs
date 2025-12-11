@@ -422,6 +422,8 @@ namespace csOOPformsProject
             }
         }
 
+        // za zaduzivanja
+
         // dodaj
         private void button2_Click(object sender, EventArgs e)
         {
@@ -438,6 +440,12 @@ namespace csOOPformsProject
             }
 
             DataGridViewRow izabraniRed = UcitajIzabraniRed();
+
+            if (izabraniRed == null)
+            {
+                Greska.Show(-5);
+                return;
+            }
 
             switch (izabraniRed.DataGridView.Name)
             {
@@ -492,10 +500,17 @@ namespace csOOPformsProject
 
             DataGridViewRow izabraniRed = UcitajIzabraniRed();
 
+            if (izabraniRed == null)
+            {
+                Greska.Show(-5);
+                return;
+            }
+
             int id = (int)izabraniRed.Cells[0].Value;
 
             _ = dataGridView1.SelectedRows.Count == 1
-                ? Biblioteka.Knjige.Obrisi(id)
+                ? Biblioteka.ObrisiKnjigu(id)
+                //Biblioteka.Knjige.Obrisi(id)
                 : dataGridView2.SelectedRows.Count == 1
                 ? Biblioteka.Korisnici.Obrisi(id)
                 : dataGridView3.SelectedRows.Count == 1

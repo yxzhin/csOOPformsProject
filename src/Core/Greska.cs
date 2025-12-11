@@ -69,6 +69,13 @@ namespace csOOPformsProject.Core
                     "greska!!", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                     break;
+                case -11:
+                    _ = MessageBox.Show("pre nego sto obrisete " +
+                        "knjigu, morate obrisati " +
+                        "sva zaduzivanja te knjige!!",
+                    "greska!!", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                    break;
             }
         }
     }
