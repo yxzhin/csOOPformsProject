@@ -12,7 +12,12 @@ namespace csOOPformsProject.Core
         {
             Biblioteka = biblioteka;
             Korisnik = korisnik;
+
             InitializeComponent();
+
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            MinimizeBox = false;
         }
 
         private void User_Load(object sender, EventArgs e)

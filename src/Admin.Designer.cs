@@ -47,9 +47,15 @@ namespace csOOPformsProject
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
+            this.dataGridView4 = new System.Windows.Forms.DataGridView();
+            this.label11 = new System.Windows.Forms.Label();
+            this.dataGridView5 = new System.Windows.Forms.DataGridView();
+            this.label12 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -226,11 +232,55 @@ namespace csOOPformsProject
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // dataGridView4
+            // 
+            this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView4.Location = new System.Drawing.Point(183, 555);
+            this.dataGridView4.Name = "dataGridView4";
+            this.dataGridView4.RowHeadersWidth = 51;
+            this.dataGridView4.RowTemplate.Height = 24;
+            this.dataGridView4.Size = new System.Drawing.Size(791, 106);
+            this.dataGridView4.TabIndex = 21;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Comic Sans MS", 16.8F);
+            this.label11.Location = new System.Drawing.Point(35, 588);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(95, 39);
+            this.label11.TabIndex = 20;
+            this.label11.Text = "autori";
+            // 
+            // dataGridView5
+            // 
+            this.dataGridView5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView5.Location = new System.Drawing.Point(183, 667);
+            this.dataGridView5.Name = "dataGridView5";
+            this.dataGridView5.RowHeadersWidth = 51;
+            this.dataGridView5.RowTemplate.Height = 24;
+            this.dataGridView5.Size = new System.Drawing.Size(791, 106);
+            this.dataGridView5.TabIndex = 23;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Comic Sans MS", 16.8F);
+            this.label12.Location = new System.Drawing.Point(8, 700);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(151, 39);
+            this.label12.TabIndex = 22;
+            this.label12.Text = "kategorije";
+            // 
             // Admin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1243, 577);
+            this.ClientSize = new System.Drawing.Size(1243, 795);
+            this.Controls.Add(this.dataGridView5);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.dataGridView4);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -254,6 +304,8 @@ namespace csOOPformsProject
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -278,5 +330,9 @@ namespace csOOPformsProject
         private Label label9;
         private Label label10;
         private Button button3;
+        private DataGridView dataGridView4;
+        private Label label11;
+        private DataGridView dataGridView5;
+        private Label label12;
     }
 }

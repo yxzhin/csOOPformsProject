@@ -8,6 +8,11 @@ namespace csOOPformsProject
         public Registracija()
         {
             InitializeComponent();
+
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            MinimizeBox = false;
+
         }
 
         private void Registracija_Load(object sender, EventArgs e)

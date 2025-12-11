@@ -11,20 +11,27 @@ namespace csOOPformsProject
         public Form1()
         {
             InitializeComponent();
+
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            MinimizeBox = false;
+
             Biblioteka = new Biblioteka();
+
             if (DebugMode)
             {
                 Biblioteka.Seeder();
             }
+
             textBox3.PasswordChar = '*';
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
             /*
                 @DEBUG
             */
-
 
             //label1.Text = Helpers.DataFolder;
             /*
@@ -52,6 +59,7 @@ namespace csOOPformsProject
             textBox3.Clear();
         }
 
+        // uloguj se
         private void button1_Click(object sender, EventArgs e)
         {
             string ime = textBox1.Text;
@@ -75,6 +83,7 @@ namespace csOOPformsProject
             form.Show();
         }
 
+        // registruj se
         private void button2_Click(object sender, EventArgs e)
         {
 

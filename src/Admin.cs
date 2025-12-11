@@ -21,6 +21,10 @@ namespace csOOPformsProject
         {
             InitializeComponent();
 
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            MinimizeBox = false;
+
             Biblioteka = biblioteka;
             Bibliotekar = bibliotekar;
 
@@ -30,6 +34,10 @@ namespace csOOPformsProject
                 += dataGridView2_CellBeginEdit;
             dataGridView3.CellBeginEdit
                 += dataGridView3_CellBeginEdit;
+            dataGridView4.CellBeginEdit
+                += dataGridView4_CellBeginEdit;
+            dataGridView5.CellBeginEdit
+                += dataGridView5_CellBeginEdit;
 
             dataGridView1.CellValueChanged
                 += dataGridView1_CellValueChanged;
@@ -38,6 +46,10 @@ namespace csOOPformsProject
                 += dataGridView2_CellValueChanged;
             dataGridView3.CellValueChanged
                 += dataGridView3_CellValueChanged;
+            dataGridView4.CellValueChanged
+                += dataGridView4_CellValueChanged;
+            dataGridView5.CellValueChanged
+                += dataGridView5_CellValueChanged;
             */
 
             dataGridView1.CellValidating
@@ -50,6 +62,12 @@ namespace csOOPformsProject
             dataGridView3.CellValidating
                 += new DataGridViewCellValidatingEventHandler
                 (dataGridView3_CellValidating);
+            dataGridView4.CellValidating
+                += new DataGridViewCellValidatingEventHandler
+                (dataGridView4_CellValidating);
+            dataGridView5.CellValidating
+                += new DataGridViewCellValidatingEventHandler
+                (dataGridView5_CellValidating);
             */
 
             //dataGridView1.DataError += dataGridView1_DataError;
@@ -66,6 +84,8 @@ namespace csOOPformsProject
             dataGridView1.MultiSelect = false;
             dataGridView2.MultiSelect = false;
             dataGridView3.MultiSelect = false;
+            dataGridView4.MultiSelect = false;
+            dataGridView5.MultiSelect = false;
         }
 
         private void PrikaziPodatke()
@@ -79,10 +99,14 @@ namespace csOOPformsProject
             dataGridView1.ReadOnly = false;
             dataGridView2.ReadOnly = false;
             dataGridView3.ReadOnly = false;
+            dataGridView4.ReadOnly = false;
+            dataGridView5.ReadOnly = false;
 
             dataGridView1.DataSource = null;
             dataGridView2.DataSource = null;
             dataGridView3.DataSource = null;
+            dataGridView4.DataSource = null;
+            dataGridView5.DataSource = null;
 
             // serialized objekat ispravno radi u dataGridView
 
@@ -98,9 +122,17 @@ namespace csOOPformsProject
                 Helpers.Serialize.Zaduzivanja
                 (Biblioteka.Zaduzivanja.UcitajSve());
 
+            List<Autor> autori =
+                Biblioteka.Autori.UcitajSve();
+
+            List<Kategorija> kategorije =
+                Biblioteka.Kategorije.UcitajSve();
+
             dataGridView1.DataSource = serializedKnjige;
             dataGridView2.DataSource = serializedKorisnici;
             dataGridView3.DataSource = serializedZaduzivanja;
+            dataGridView4.DataSource = autori;
+            dataGridView5.DataSource = kategorije;
 
             if (serializedKnjige.Count == 0)
             {
@@ -120,39 +152,62 @@ namespace csOOPformsProject
                 dataGridView3.DataSource = Nista;
             }
 
+            if (autori.Count == 0)
+            {
+                dataGridView4.ReadOnly = true;
+                dataGridView4.DataSource = Nista;
+            }
+
+            if (kategorije.Count == 0)
+            {
+                dataGridView5.ReadOnly = true;
+                dataGridView5.DataSource = Nista;
+            }
+
         }
         private void Admin_Load(object sender, EventArgs e)
         {
             PrikaziPodatke();
         }
 
+        private int[] KolicineIzabranihRedova()
+        {
+            int count1, count2, count3, count4, count5;
+            count1 = dataGridView1.SelectedRows.Count;
+            count2 = dataGridView2.SelectedRows.Count;
+            count3 = dataGridView3.SelectedRows.Count;
+            count4 = dataGridView4.SelectedRows.Count;
+            count5 = dataGridView5.SelectedRows.Count;
+            int[] nums = { count1, count2, count3, count4, count5 };
+            return nums;
+        }
+
+        private int IzabranoRedova()
+        {
+            return KolicineIzabranihRedova().Count(x => x > 0);
+        }
         private bool NistaNijeIzabrano()
         {
-            return dataGridView1.SelectedRows.Count == 0
-                && dataGridView2.SelectedRows.Count == 0
-                && dataGridView3.SelectedRows.Count == 0;
+            return IzabranoRedova() == 0;
         }
 
         private bool IzabranoViseOdJednogRedaOdjednom()
         {
-            return (dataGridView1.SelectedRows.Count > 0
-                && dataGridView2.SelectedRows.Count > 0
-                && dataGridView3.SelectedRows.Count > 0)
-                || (dataGridView1.SelectedRows.Count > 0
-                && dataGridView2.SelectedRows.Count > 0)
-                || (dataGridView2.SelectedRows.Count > 0
-                && dataGridView3.SelectedRows.Count > 0)
-                || (dataGridView1.SelectedRows.Count > 0
-                && dataGridView3.SelectedRows.Count > 0);
+            return IzabranoRedova() > 1;
         }
 
         private DataGridViewRow UcitajIzabraniRed()
         {
+            // :sob: :skull:
             return dataGridView1.SelectedRows.Count == 1
                 ? dataGridView1.SelectedRows[0]
                 : dataGridView2.SelectedRows.Count == 1
                 ? dataGridView2.SelectedRows[0]
-                : dataGridView3.SelectedRows[0];
+                : dataGridView3.SelectedRows.Count == 1
+                ? dataGridView3.SelectedRows[0]
+                : dataGridView4.SelectedRows.Count == 1
+                ? dataGridView4.SelectedRows[0]
+                : dataGridView5.SelectedRows[0];
         }
 
         // prikazi podatke
@@ -178,6 +233,18 @@ namespace csOOPformsProject
             (object sender, DataGridViewCellCancelEventArgs e)
         {
             OldValue = dataGridView3.Rows[e.RowIndex]
+                .Cells[e.ColumnIndex].Value;
+        }
+        private void dataGridView4_CellBeginEdit
+            (object sender, DataGridViewCellCancelEventArgs e)
+        {
+            OldValue = dataGridView4.Rows[e.RowIndex]
+                .Cells[e.ColumnIndex].Value;
+        }
+        private void dataGridView5_CellBeginEdit
+            (object sender, DataGridViewCellCancelEventArgs e)
+        {
+            OldValue = dataGridView5.Rows[e.RowIndex]
                 .Cells[e.ColumnIndex].Value;
         }
 
@@ -275,9 +342,9 @@ namespace csOOPformsProject
                 if (!success)
                 {
                     Greska.Show(-2);
-                    PrikaziPodatke();
-                    return;
                 }
+
+                PrikaziPodatke();
             }
         }
 
@@ -365,7 +432,8 @@ namespace csOOPformsProject
         // resetuj
         private void button3_Click(object sender, EventArgs e)
         {
-            Biblioteka.ResetujPodatke();
+            //Biblioteka.ResetujPodatke();
+            Biblioteka.Seeder();
             PrikaziPodatke();
         }
     }
