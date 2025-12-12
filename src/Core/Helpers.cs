@@ -23,8 +23,6 @@ namespace csOOPformsProject.Core
         {
             public string nista { get; set; }
                 = "nema nista da se prikaze!!";
-            public string nista_ { get; set; }
-            public string nista__ { get; set; }
             public Nista()
             {
                 return;
@@ -88,7 +86,7 @@ namespace csOOPformsProject.Core
                         zaduzivanje.Knjiga,
                         zaduzivanje.DatumZaduzivanja,
                         zaduzivanje.RokZaduzivanja,
-                        zaduzivanje.DatumZaduzivanja,
+                        zaduzivanje.DatumVracanja,
                         zaduzivanje.IstekliRok
                     );
                     serializedZaduzivanja.Add(serializedZaduzivanje);
