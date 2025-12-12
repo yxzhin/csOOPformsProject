@@ -2,7 +2,7 @@
 
 namespace csOOPformsProject.Models
 {
-    public sealed class Kategorija : IEntitet
+    public sealed class Kategorija : IEntitet, INazvan
     {
         public int Id { get; set; }
         public string Naziv { get; set; }

@@ -2,7 +2,7 @@
 
 namespace csOOPformsProject.Interfaces
 {
-    public interface IRepozitorium<T> where T : IEntitet
+    public interface IRepozitorium<T> where T : class, IEntitet
     {
         List<T> UcitajSve();
         T UcitajPoId(int id);

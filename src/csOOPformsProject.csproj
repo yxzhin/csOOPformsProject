@@ -88,6 +88,9 @@
     <Compile Include="Core\SerializedKnjiga.cs" />
     <Compile Include="Core\SerializedKorisnik.cs" />
     <Compile Include="Core\SerializedZaduzivanje.cs" />
+    <Compile Include="Interfaces\INazvan.cs" />
+    <Compile Include="Interfaces\IUcitljivPoNazivu.cs" />
+    <Compile Include="Interfaces\IUcitljivPoPunomImenu.cs" />
     <Compile Include="Repositories\AutorRepozitorium.cs" />
     <Compile Include="Repositories\KategorijaRepozitorium.cs" />
     <Compile Include="Repositories\NalogRepozitorium.cs" />

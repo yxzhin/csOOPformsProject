@@ -20,6 +20,14 @@ namespace csOOPformsProject.Repositories
         public override short Promeni(Autor entitet,
             int? noviId = null)
         {
+            if (_entiteti.FirstOrDefault
+                (x => x.PunoIme == entitet.PunoIme
+                && x.Id != entitet.Id) != null)
+            {
+                Greska.Show(-2, "puno ime");
+                return -3;
+            }
+
             short result = base.Promeni(entitet, noviId);
             switch (result)
             {

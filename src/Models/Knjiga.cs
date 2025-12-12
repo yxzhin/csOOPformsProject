@@ -1,7 +1,7 @@
 ﻿using csOOPformsProject.Interfaces;
 namespace csOOPformsProject.Models
 {
-    public sealed class Knjiga : IEntitet
+    public sealed class Knjiga : IEntitet, INazvan
     {
         public int Id { get; set; }
         public string Naziv { get; set; }
@@ -19,7 +19,8 @@ namespace csOOPformsProject.Models
         }
         public override string ToString()
         {
-            return $"{Naziv} | {Autor}";
+            return Naziv;
+            //return $"{Naziv} | {Autor}";
         }
     }
 }

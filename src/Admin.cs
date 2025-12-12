@@ -11,12 +11,15 @@ namespace csOOPformsProject
     {
         private Biblioteka Biblioteka { get; set; }
         private Bibliotekar Bibliotekar { get; set; }
+
         private readonly List<Helpers.Nista> Nista
             = new List<Helpers.Nista>
             {
                 new Helpers.Nista(),
             };
-        private object OldValue { get; set; }
+
+        private object OldValue { get; set; } = "";
+
         public Admin(Biblioteka biblioteka, Bibliotekar bibliotekar)
         {
             InitializeComponent();
@@ -43,9 +46,9 @@ namespace csOOPformsProject
                 += dataGridView1_CellValueChanged;
             dataGridView2.CellValueChanged
                 += dataGridView2_CellValueChanged;
-            /*
             dataGridView3.CellValueChanged
                 += dataGridView3_CellValueChanged;
+            /*
             dataGridView4.CellValueChanged
                 += dataGridView4_CellValueChanged;
             dataGridView5.CellValueChanged
@@ -58,10 +61,10 @@ namespace csOOPformsProject
             dataGridView2.CellValidating
                 += new DataGridViewCellValidatingEventHandler
                 (dataGridView2_CellValidating);
-            /*
             dataGridView3.CellValidating
                 += new DataGridViewCellValidatingEventHandler
                 (dataGridView3_CellValidating);
+            /*
             dataGridView4.CellValidating
                 += new DataGridViewCellValidatingEventHandler
                 (dataGridView4_CellValidating);
@@ -74,8 +77,10 @@ namespace csOOPformsProject
 
             dataGridView1.CurrentCellDirtyStateChanged
                 += dataGridView1_CurrentCellDirtyStateChanged;
+            /*
             dataGridView3.CurrentCellDirtyStateChanged
                 += dataGridView3_CurrentCellDirtyStateChanged;
+            */
 
             dataGridView1.MultiSelect = false;
             dataGridView2.MultiSelect = false;
@@ -173,7 +178,7 @@ namespace csOOPformsProject
             }
             else
             {
-                // zaduzivanja se ne smeju rucno menjati
+                // zaduzivanja korisnika se ne smeju rucno menjati
                 dataGridView2.Columns[4].ReadOnly = true;
             }
 
@@ -181,6 +186,11 @@ namespace csOOPformsProject
             {
                 dataGridView3.ReadOnly = true;
                 dataGridView3.DataSource = Nista;
+            }
+            else
+            {
+                // istekli rok zaduzivanja se ne sme rucno menjati
+                dataGridView3.Columns[6].ReadOnly = true;
             }
 
             if (autori.Count == 0)
@@ -218,6 +228,7 @@ namespace csOOPformsProject
         {
             return KolicineIzabranihRedova().Count(x => x > 0);
         }
+
         private bool NistaNijeIzabrano()
         {
             return IzabranoRedova() == 0;
@@ -301,6 +312,11 @@ namespace csOOPformsProject
             string atribut = dataGridView1.Columns[e.ColumnIndex]
                 .HeaderCell.Value.ToString();
 
+            if (newValue == OldValue.ToString())
+            {
+                return;
+            }
+
             if (atribut == "Id"
                 && !int.TryParse(newValue, out _))
             {
@@ -336,7 +352,7 @@ namespace csOOPformsProject
             }
         }
 
-        // za korisnici
+        // za korisnike
         private void dataGridView2_CellValidating
             (object sender, DataGridViewCellValidatingEventArgs e)
         {
@@ -345,6 +361,11 @@ namespace csOOPformsProject
             string newValue = e.FormattedValue.ToString();
             string atribut = dataGridView2.Columns[e.ColumnIndex]
                 .HeaderCell.Value.ToString();
+
+            if (newValue == OldValue.ToString())
+            {
+                return;
+            }
 
             if (atribut == "Id"
                 && !int.TryParse(newValue, out _))
@@ -389,6 +410,67 @@ namespace csOOPformsProject
 
         }
 
+        // za zaduzivanja
+        private void dataGridView3_CellValidating
+            (object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+            _ = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+            string newValue = e.FormattedValue.ToString();
+            string atribut = dataGridView3.Columns[e.ColumnIndex]
+                .HeaderCell.Value.ToString();
+
+            if (newValue == OldValue.ToString())
+            {
+                return;
+            }
+
+            if (atribut == "Id"
+                && !int.TryParse(newValue, out _))
+            {
+                e.Cancel = true;
+                Greska.Show(-1);
+                return;
+            }
+
+            if (atribut == "Id"
+                && int.Parse(newValue) < 0)
+            {
+                e.Cancel = true;
+                Greska.Show(-1);
+                return;
+            }
+
+            if ((atribut == "Korisnik"
+                || atribut == "Knjiga")
+                && string.IsNullOrEmpty(newValue))
+            {
+                e.Cancel = true;
+                Greska.Show(-1);
+                return;
+            }
+
+            if (atribut == "Knjiga"
+                && Biblioteka.Knjige.UcitajPoNazivu
+                (newValue).NaStanju == false)
+            {
+                e.Cancel = true;
+                Greska.Show(-13);
+                return;
+            }
+
+            if ((atribut == "DatumZaduzivanja"
+                || atribut == "RokZaduzivanja"
+                || atribut == "DatumVracanja")
+                && !DateTime.TryParse(newValue, out _))
+            {
+                e.Cancel = true;
+                Greska.Show(-1);
+                return;
+            }
+
+        }
+
         // izmena celije
         // za knjige
         private void dataGridView1_CellValueChanged(object sender,
@@ -405,6 +487,11 @@ namespace csOOPformsProject
                 .Cells[e.ColumnIndex].Value;
             string atribut = dataGridView1.Columns[e.ColumnIndex]
                 .HeaderCell.Value.ToString();
+
+            if (newValue.ToString() == OldValue.ToString())
+            {
+                return;
+            }
 
             id = atribut == "Id" ?
                 (int)OldValue
@@ -431,6 +518,7 @@ namespace csOOPformsProject
                 case "Naziv":
                     knjiga.Naziv = newValue.ToString();
                     break;
+
                 case "Autor":
                     Autor autor =
                         Biblioteka.Autori.UcitajPoPunomImenu
@@ -445,6 +533,7 @@ namespace csOOPformsProject
                     knjiga.Autor.Prezime = prezime;
                     */
                     break;
+
                 case "Kategorija":
                     Kategorija kategorija =
                         Biblioteka.Kategorije.UcitajPoNazivu
@@ -484,6 +573,11 @@ namespace csOOPformsProject
             string atribut = dataGridView2.Columns[e.ColumnIndex]
                 .HeaderCell.Value.ToString();
 
+            if (newValue.ToString() == OldValue.ToString())
+            {
+                return;
+            }
+
             id = atribut == "Id" ?
                 (int)OldValue
                 : (int)dataGridView2.Rows[e.RowIndex].Cells[0]
@@ -501,11 +595,13 @@ namespace csOOPformsProject
                     korisnik.Ime = ime;
                     korisnik.Prezime = prezime;
                     break;
+
                 case "DatumRodjenja":
                     DateTime datumRodjenja =
                         DateTime.Parse(newValue.ToString());
                     korisnik.DatumRodjenja = datumRodjenja;
                     break;
+
                 case "DatumClanarine":
                     DateTime datumClanarine =
                         DateTime.Parse(newValue.ToString());
@@ -513,9 +609,108 @@ namespace csOOPformsProject
                     break;
             }
 
+            _ = atribut == "Id"
+            ? Biblioteka.Korisnici.Promeni
+            (korisnik, (int)newValue)
+            : Biblioteka.Korisnici.Promeni
+            (korisnik);
+
+            PrikaziPodatke();
+
+        }
+
+        // za zaduzivanja
+        private void dataGridView3_CellValueChanged(object sender,
+            DataGridViewCellEventArgs e)
+        {
+
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+            {
+                return;
+            }
+
+            int id;
+            object newValue = dataGridView3.Rows[e.RowIndex]
+                .Cells[e.ColumnIndex].Value;
+            string atribut = dataGridView3.Columns[e.ColumnIndex]
+                .HeaderCell.Value.ToString();
+
+            if (newValue.ToString() == OldValue.ToString())
+            {
+                return;
+            }
+
+            id = atribut == "Id" ?
+                (int)OldValue
+                : (int)dataGridView3.Rows[e.RowIndex].Cells[0]
+                .Value;
+
+            Zaduzivanje zaduzivanje =
+                Biblioteka.Zaduzivanja.UcitajPoId(id);
+
+            switch (atribut)
+            {
+                case "Korisnik":
+                    Korisnik korisnik
+                        = Biblioteka.Korisnici.UcitajPoPunomImenu
+                        (newValue.ToString());
+                    zaduzivanje.Korisnik = korisnik;
+                    korisnik.Zaduzivanja.Add(zaduzivanje);
+                    if (Biblioteka.Korisnici.Promeni(korisnik) != 1)
+                    {
+                        return;
+                    }
+
+                    Korisnik stariKorisnik
+                        = Biblioteka.Korisnici.UcitajPoPunomImenu
+                        (OldValue.ToString());
+                    _ = stariKorisnik.Zaduzivanja.Remove(zaduzivanje);
+                    _ = Biblioteka.Korisnici.Promeni(stariKorisnik);
+
+                    break;
+
+                case "Knjiga":
+                    Knjiga knjiga
+                        = Biblioteka.Knjige.UcitajPoNazivu
+                        (newValue.ToString());
+                    knjiga.NaStanju = false;
+                    if (Biblioteka.Knjige.Promeni(knjiga) != 1)
+                    {
+                        return;
+                    }
+                    zaduzivanje.Knjiga = knjiga;
+
+                    Knjiga staraKnjiga
+                        = Biblioteka.Knjige.UcitajPoNazivu
+                        (newValue.ToString());
+                    knjiga.NaStanju = true;
+                    _ = Biblioteka.Knjige.Promeni(staraKnjiga);
+
+                    break;
+
+                case "DatumZaduzivanja":
+                    DateTime datumZaduzivanja
+                        = DateTime.Parse(newValue.ToString());
+                    zaduzivanje.DatumZaduzivanja = datumZaduzivanja;
+                    break;
+
+                case "RokZaduzivanja":
+                    DateTime rokZaduzivanja
+                        = DateTime.Parse(newValue.ToString());
+                    zaduzivanje.RokZaduzivanja = rokZaduzivanja;
+                    break;
+
+                case "DatumVracanja":
+                    DateTime datumVracanja
+                        = DateTime.Parse(newValue.ToString());
+                    zaduzivanje.DatumVracanja = datumVracanja;
+                    break;
+            }
+
             short result = atribut == "Id" ?
-                Biblioteka.Korisnici.Promeni(korisnik, (int)newValue)
-                : Biblioteka.Korisnici.Promeni(korisnik);
+                Biblioteka.Zaduzivanja.Promeni(zaduzivanje,
+                (int)newValue)
+                : Biblioteka.Zaduzivanja.Promeni(zaduzivanje);
             bool success = result == 1;
 
             if (!success)
@@ -538,21 +733,6 @@ namespace csOOPformsProject
                     DataGridViewCheckBoxCell)
                 {
                     _ = dataGridView1.CommitEdit
-                        (DataGridViewDataErrorContexts.Commit);
-                }
-            }
-        }
-
-        // za zaduzivanja
-        private void dataGridView3_CurrentCellDirtyStateChanged
-            (object sender, EventArgs e)
-        {
-            if (dataGridView3.IsCurrentCellDirty)
-            {
-                if (dataGridView3.CurrentCell is
-                    DataGridViewCheckBoxCell)
-                {
-                    _ = dataGridView3.CommitEdit
                         (DataGridViewDataErrorContexts.Commit);
                 }
             }

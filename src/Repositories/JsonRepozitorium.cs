@@ -67,6 +67,12 @@ namespace csOOPformsProject.Repositories
 
         public virtual short Promeni(T entitet, int? noviId = null)
         {
+            if (noviId != null
+                && noviId.Value < 0)
+            {
+                return -1;
+            }
+
             int index = _entiteti.FindIndex(x => x.Id == entitet.Id);
             // nije pronadjen
             if (index == -1)

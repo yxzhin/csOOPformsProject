@@ -6,6 +6,7 @@ namespace csOOPformsProject.Core
     {
         public static void Show(int type, string customMessage = null)
         {
+            string msg;
             switch (type)
             {
                 case -1:
@@ -14,7 +15,8 @@ namespace csOOPformsProject.Core
                     MessageBoxIcon.Error);
                     break;
                 case -2:
-                    _ = MessageBox.Show("id je vec zauzet!!",
+                    msg = customMessage ?? "id";
+                    _ = MessageBox.Show($"{msg} je vec zauzet(o)!!",
                     "greska!!", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                     break;
@@ -24,7 +26,7 @@ namespace csOOPformsProject.Core
                     MessageBoxIcon.Error);
                     break;
                 case -4:
-                    string msg = customMessage ?? "nalog nije " +
+                    msg = customMessage ?? "nalog nije " +
                         "pronadjen!!";
                     _ = MessageBox.Show(msg,
                     "greska!!", MessageBoxButtons.OK,
@@ -80,6 +82,11 @@ namespace csOOPformsProject.Core
                     _ = MessageBox.Show("pre nego sto obrisete " +
                         "korisnika, morate obrisati " +
                         "sva njegova zaduzivanja!!",
+                    "greska!!", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                    break;
+                case -13:
+                    _ = MessageBox.Show("nova knjiga nije na stanju!!",
                     "greska!!", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                     break;
