@@ -23,6 +23,8 @@ namespace csOOPformsProject.Core
         {
             public string nista { get; set; }
                 = "nema nista da se prikaze!!";
+            public string nista_ { get; set; }
+            public string nista__ { get; set; }
             public Nista()
             {
                 return;

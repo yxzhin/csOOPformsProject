@@ -175,6 +175,11 @@ namespace csOOPformsProject
                 dataGridView2.ReadOnly = true;
                 dataGridView2.DataSource = Nista;
             }
+            else
+            {
+                // zaduzivanja se ne smeju rucno menjati
+                dataGridView2.Columns[4].ReadOnly = true;
+            }
 
             if (serializedZaduzivanja.Count == 0)
             {
@@ -299,6 +304,7 @@ namespace csOOPformsProject
             string newValue = e.FormattedValue.ToString();
             string atribut = dataGridView1.Columns[e.ColumnIndex]
                 .HeaderCell.Value.ToString();
+
             if (atribut == "Id"
                 && !int.TryParse(newValue, out _))
             {
@@ -306,6 +312,7 @@ namespace csOOPformsProject
                 Greska.Show(-1);
                 return;
             }
+
             if (atribut == "Id"
                 && int.Parse(newValue) < 0)
             {
@@ -313,6 +320,7 @@ namespace csOOPformsProject
                 Greska.Show(-1);
                 return;
             }
+
             if ((atribut == "Naziv"
                 || atribut == "Autor"
                 || atribut == "Kategorija")
@@ -322,6 +330,7 @@ namespace csOOPformsProject
                 Greska.Show(-1);
                 return;
             }
+
             if (atribut == "Autor"
                 && newValue.Split(' ').Count() != 2)
             {
@@ -441,11 +450,14 @@ namespace csOOPformsProject
 
             DataGridViewRow izabraniRed = UcitajIzabraniRed();
 
-            if (izabraniRed == null)
+            /*
+            if (izabraniRed.Cells[0].Value.ToString()
+                == "nema nista da se prikaze!!")
             {
                 Greska.Show(-5);
                 return;
             }
+            */
 
             switch (izabraniRed.DataGridView.Name)
             {
@@ -500,7 +512,8 @@ namespace csOOPformsProject
 
             DataGridViewRow izabraniRed = UcitajIzabraniRed();
 
-            if (izabraniRed == null)
+            if (izabraniRed.Cells[0].Value.ToString()
+                == "nema nista da se prikaze!!")
             {
                 Greska.Show(-5);
                 return;
@@ -512,12 +525,13 @@ namespace csOOPformsProject
                 ? Biblioteka.ObrisiKnjigu(id)
                 //Biblioteka.Knjige.Obrisi(id)
                 : dataGridView2.SelectedRows.Count == 1
-                ? Biblioteka.Korisnici.Obrisi(id)
+                ? Biblioteka.ObrisiKorisnika(id)
                 : dataGridView3.SelectedRows.Count == 1
                 ? Biblioteka.VratiKnjigu(id, true)
                 : dataGridView4.SelectedRows.Count == 1
                 ? Biblioteka.ObrisiAutora(id)
                 : Biblioteka.ObrisiKategoriju(id);
+            //? Biblioteka.Korisnici.Obrisi(id)
             //? Biblioteka.Autori.Obrisi(id)
             //: Biblioteka.Kategorije.Obrisi(id);
             //Biblioteka.Zaduzivanja.Obrisi(id);

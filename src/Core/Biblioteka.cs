@@ -156,6 +156,11 @@ namespace csOOPformsProject.Core
             zaduzivanje.DatumVracanja = DateTime.Now;
             zaduzivanje.Knjiga.NaStanju = true;
 
+            int id = zaduzivanje.Korisnik.Id;
+            Korisnik korisnik = Korisnici.UcitajPoId(id);
+            _ = korisnik.Zaduzivanja.Remove(zaduzivanje);
+            _ = Korisnici.Promeni(korisnik);
+
             if (obrisiZaduzivanje)
             {
                 _ = Zaduzivanja.Obrisi(zaduzivanjeId);
@@ -207,6 +212,22 @@ namespace csOOPformsProject.Core
             }
 
             _ = Knjige.Obrisi(id);
+
+            return true;
+        }
+
+        public bool ObrisiKorisnika(int id)
+        {
+            List<Zaduzivanje> zaduzivanja = Zaduzivanja.UcitajSve();
+
+            if (zaduzivanja.FirstOrDefault
+                (x => x.Korisnik.Id == id) != null)
+            {
+                Greska.Show(-12);
+                return false;
+            }
+
+            _ = Korisnici.Obrisi(id);
 
             return true;
         }
