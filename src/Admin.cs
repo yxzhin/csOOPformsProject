@@ -493,10 +493,10 @@ namespace csOOPformsProject
                 return;
             }
 
-            id = atribut == "Id" ?
-                (int)OldValue
-                : (int)dataGridView1.Rows[e.RowIndex].Cells[0]
-                .Value;
+            id = atribut == "Id"
+                ? (int)OldValue
+                : (int)dataGridView1.Rows
+                [e.RowIndex].Cells[0].Value;
 
             Knjiga knjiga = Biblioteka.Knjige.UcitajPoId(id);
 
@@ -543,14 +543,20 @@ namespace csOOPformsProject
                     break;
             }
 
-            short result = atribut == "Id" ?
-                Biblioteka.Knjige.Promeni(knjiga, (int)newValue)
-                : Biblioteka.Knjige.Promeni(knjiga);
+            short result = atribut == "Id"
+                ? Biblioteka.Knjige.Promeni
+                (knjiga, (int)newValue)
+                : Biblioteka.Knjige.Promeni
+                (knjiga);
             bool success = result == 1;
 
             if (!success)
             {
-                Greska.Show(-2);
+                if (atribut == "Naziv")
+                {
+                    // otkazi promene
+                    knjiga.Naziv = OldValue.ToString();
+                }
             }
 
             PrikaziPodatke();
@@ -578,10 +584,10 @@ namespace csOOPformsProject
                 return;
             }
 
-            id = atribut == "Id" ?
-                (int)OldValue
-                : (int)dataGridView2.Rows[e.RowIndex].Cells[0]
-                .Value;
+            id = atribut == "Id"
+                ? (int)OldValue
+                : (int)dataGridView2.Rows
+                [e.RowIndex].Cells[0].Value;
 
             Korisnik korisnik = Biblioteka.Korisnici.UcitajPoId(id);
 
@@ -609,11 +615,26 @@ namespace csOOPformsProject
                     break;
             }
 
-            _ = atribut == "Id"
-            ? Biblioteka.Korisnici.Promeni
-            (korisnik, (int)newValue)
-            : Biblioteka.Korisnici.Promeni
-            (korisnik);
+            short result = atribut == "Id"
+                ? Biblioteka.Korisnici.Promeni
+                (korisnik, (int)newValue)
+                : Biblioteka.Korisnici.Promeni
+                (korisnik);
+            bool success = result == 1;
+
+            if (!success)
+            {
+                if (atribut == "PunoIme")
+                {
+                    // otkazi promene
+                    string ime = OldValue.ToString()
+                        .Split(' ')[0];
+                    string prezime = OldValue.ToString()
+                        .Split(' ')[1];
+                    korisnik.Ime = ime;
+                    korisnik.Prezime = prezime;
+                }
+            }
 
             PrikaziPodatke();
 
