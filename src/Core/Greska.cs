@@ -26,8 +26,8 @@ namespace csOOPformsProject.Core
                     MessageBoxIcon.Error);
                     break;
                 case -4:
-                    msg = customMessage ?? "nalog nije " +
-                        "pronadjen!!";
+                    msg = customMessage ?? ("nalog nije " +
+                        "pronadjen!!");
                     _ = MessageBox.Show(msg,
                     "greska!!", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);

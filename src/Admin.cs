@@ -450,15 +450,6 @@ namespace csOOPformsProject
                 return;
             }
 
-            if (atribut == "Knjiga"
-                && Biblioteka.Knjige.UcitajPoNazivu
-                (newValue).NaStanju == false)
-            {
-                e.Cancel = true;
-                Greska.Show(-13);
-                return;
-            }
-
             if ((atribut == "DatumZaduzivanja"
                 || atribut == "RokZaduzivanja"
                 || atribut == "DatumVracanja")
@@ -675,12 +666,17 @@ namespace csOOPformsProject
                     Korisnik korisnik
                         = Biblioteka.Korisnici.UcitajPoPunomImenu
                         (newValue.ToString());
-                    zaduzivanje.Korisnik = korisnik;
-                    korisnik.Zaduzivanja.Add(zaduzivanje);
-                    if (Biblioteka.Korisnici.Promeni(korisnik) != 1)
+
+                    if (korisnik == null)
                     {
+                        Greska.Show(-4, "korisnik nije pronadjen!!");
+                        PrikaziPodatke();
                         return;
                     }
+
+                    zaduzivanje.Korisnik = korisnik;
+                    korisnik.Zaduzivanja.Add(zaduzivanje);
+                    _ = Biblioteka.Korisnici.Promeni(korisnik);
 
                     Korisnik stariKorisnik
                         = Biblioteka.Korisnici.UcitajPoPunomImenu
@@ -694,17 +690,29 @@ namespace csOOPformsProject
                     Knjiga knjiga
                         = Biblioteka.Knjige.UcitajPoNazivu
                         (newValue.ToString());
-                    knjiga.NaStanju = false;
-                    if (Biblioteka.Knjige.Promeni(knjiga) != 1)
+
+                    if (knjiga == null)
                     {
+                        Greska.Show(-4, "knjiga nije pronadjena!!");
+                        PrikaziPodatke();
                         return;
                     }
+
+                    if (!knjiga.NaStanju)
+                    {
+                        Greska.Show(-13);
+                        PrikaziPodatke();
+                        return;
+                    }
+
+                    knjiga.NaStanju = false;
                     zaduzivanje.Knjiga = knjiga;
+                    _ = Biblioteka.Knjige.Promeni(knjiga);
 
                     Knjiga staraKnjiga
                         = Biblioteka.Knjige.UcitajPoNazivu
-                        (newValue.ToString());
-                    knjiga.NaStanju = true;
+                        (OldValue.ToString());
+                    staraKnjiga.NaStanju = true;
                     _ = Biblioteka.Knjige.Promeni(staraKnjiga);
 
                     break;
