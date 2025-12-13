@@ -97,16 +97,21 @@ namespace csOOPformsProject.Core
             Korisnici.Dodaj(korisnik2);
             Korisnici.Dodaj(korisnik3);
 
-            Bibliotekar bibliotekar1 = new Bibliotekar(0,
+            Direktor direktor = new Direktor(0,
+                "direktor", "73", new DateTime(2073, 7, 3),
+                "sifra73", "direktor73");
+
+            Bibliotekar bibliotekar1 = new Bibliotekar(1,
                 "default", "bibliotekar1", new DateTime(2007, 7, 3),
                 "sifra1", "sifraRadnika1");
-            Bibliotekar bibliotekar2 = new Bibliotekar(1,
+            Bibliotekar bibliotekar2 = new Bibliotekar(2,
                 "default", "bibliotekar2", new DateTime(2073, 3, 7),
                 "sifra2", "sifraRadnika2");
-            Bibliotekar bibliotekar3 = new Bibliotekar(2,
+            Bibliotekar bibliotekar3 = new Bibliotekar(3,
                 "default", "bibliotekar3", new DateTime(2037, 7, 3),
                 "sifra3", "sifraRadnika3");
 
+            Bibliotekari.Dodaj(direktor);
             Bibliotekari.Dodaj(bibliotekar1);
             Bibliotekari.Dodaj(bibliotekar2);
             Bibliotekari.Dodaj(bibliotekar3);
@@ -193,6 +198,12 @@ namespace csOOPformsProject.Core
             osoba = Bibliotekari.UcitajPoPodacima(ime, prezime, sifra);
             if (osoba != null)
             {
+                if (osoba is Direktor direktor)
+                {
+                    DirektorPanel direktorPanel
+                        = new DirektorPanel(this, direktor);
+                    return direktorPanel;
+                }
                 Bibliotekar bibliotekar = osoba as Bibliotekar;
                 Admin admin = new Admin(this, bibliotekar);
                 return admin;

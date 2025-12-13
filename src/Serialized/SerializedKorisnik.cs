@@ -9,16 +9,18 @@ namespace csOOPformsProject.Serialized
         public int Id { get; set; }
         public string PunoIme { get; set; }
         public string DatumRodjenja { get; set; }
+        public string Sifra { get; set; }
         public string DatumClanarine { get; set; }
         public string Zaduzivanja { get; set; }
 
         public SerializedKorisnik(int id, string ime, string prezime,
-            DateTime datumRodjenja, DateTime datumClanarine,
-            List<Zaduzivanje> zaduzivanja)
+            DateTime datumRodjenja, string sifra,
+            DateTime datumClanarine, List<Zaduzivanje> zaduzivanja)
         {
             Id = id;
             PunoIme = $"{ime} {prezime}";
             DatumRodjenja = datumRodjenja.ToShortDateString();
+            Sifra = sifra;
             DatumClanarine = datumClanarine.ToShortDateString();
             List<string> _zaduzivanja = new List<string>();
             foreach (Zaduzivanje zaduzivanje in zaduzivanja)

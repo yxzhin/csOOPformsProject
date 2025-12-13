@@ -34,8 +34,6 @@ namespace csOOPformsProject
 
             dataGridView1.CellBeginEdit
                 += dataGridView1_CellBeginEdit;
-            dataGridView2.CellBeginEdit
-                += dataGridView2_CellBeginEdit;
             dataGridView3.CellBeginEdit
                 += dataGridView3_CellBeginEdit;
             dataGridView4.CellBeginEdit
@@ -45,8 +43,6 @@ namespace csOOPformsProject
 
             dataGridView1.CellValueChanged
                 += dataGridView1_CellValueChanged;
-            dataGridView2.CellValueChanged
-                += dataGridView2_CellValueChanged;
             dataGridView3.CellValueChanged
                 += dataGridView3_CellValueChanged;
             dataGridView4.CellValueChanged
@@ -57,9 +53,6 @@ namespace csOOPformsProject
             dataGridView1.CellValidating
                 += new DataGridViewCellValidatingEventHandler
                 (dataGridView1_CellValidating);
-            dataGridView2.CellValidating
-                += new DataGridViewCellValidatingEventHandler
-                (dataGridView2_CellValidating);
             dataGridView3.CellValidating
                 += new DataGridViewCellValidatingEventHandler
                 (dataGridView3_CellValidating);
@@ -80,7 +73,6 @@ namespace csOOPformsProject
             */
 
             dataGridView1.MultiSelect = false;
-            dataGridView2.MultiSelect = false;
             dataGridView3.MultiSelect = false;
             dataGridView4.MultiSelect = false;
             dataGridView5.MultiSelect = false;
@@ -95,13 +87,11 @@ namespace csOOPformsProject
                 .ToShortDateString().ToString();
 
             dataGridView1.ReadOnly = false;
-            dataGridView2.ReadOnly = false;
             dataGridView3.ReadOnly = false;
             dataGridView4.ReadOnly = false;
             dataGridView5.ReadOnly = false;
 
             dataGridView1.DataSource = null;
-            dataGridView2.DataSource = null;
             dataGridView3.DataSource = null;
             dataGridView4.DataSource = null;
             dataGridView5.DataSource = null;
@@ -111,10 +101,6 @@ namespace csOOPformsProject
             List<SerializedKnjiga> serializedKnjige =
                 Helpers.Serialize.Knjige
                 (Biblioteka.Knjige.UcitajSve());
-
-            List<SerializedKorisnik> serializedKorisnici =
-                Helpers.Serialize.Korisnici
-                (Biblioteka.Korisnici.UcitajSve());
 
             List<SerializedZaduzivanje> serializedZaduzivanja =
                 Helpers.Serialize.Zaduzivanja
@@ -129,7 +115,6 @@ namespace csOOPformsProject
                 (Biblioteka.Kategorije.UcitajSve());
 
             dataGridView1.DataSource = serializedKnjige;
-            dataGridView2.DataSource = serializedKorisnici;
             dataGridView3.DataSource = serializedZaduzivanja;
             dataGridView4.DataSource = serializedAutori;
             dataGridView5.DataSource = serializedKategorije;
@@ -172,17 +157,6 @@ namespace csOOPformsProject
                 _ = dataGridView1.Columns.Add(knjigeIzborKategorije);
             }
 
-            if (serializedKorisnici.Count == 0)
-            {
-                dataGridView2.ReadOnly = true;
-                dataGridView2.DataSource = Nista;
-            }
-            else
-            {
-                // zaduzivanja korisnika se ne smeju rucno menjati
-                dataGridView2.Columns[4].ReadOnly = true;
-            }
-
             if (serializedZaduzivanja.Count == 0)
             {
                 dataGridView3.ReadOnly = true;
@@ -215,13 +189,12 @@ namespace csOOPformsProject
         // vraca array sa kolicinama izabranih redova za svaki dataGridView
         private int[] KolicineIzabranihRedova()
         {
-            int count1, count2, count3, count4, count5;
+            int count1, count3, count4, count5;
             count1 = dataGridView1.SelectedRows.Count;
-            count2 = dataGridView2.SelectedRows.Count;
             count3 = dataGridView3.SelectedRows.Count;
             count4 = dataGridView4.SelectedRows.Count;
             count5 = dataGridView5.SelectedRows.Count;
-            int[] nums = { count1, count2, count3, count4, count5 };
+            int[] nums = { count1, count3, count4, count5 };
             return nums;
         }
 
@@ -246,8 +219,6 @@ namespace csOOPformsProject
             // brate sta je ovo :sob: :skull:
             return dataGridView1.SelectedRows.Count == 1
                 ? dataGridView1.SelectedRows[0]
-                : dataGridView2.SelectedRows.Count == 1
-                ? dataGridView2.SelectedRows[0]
                 : dataGridView3.SelectedRows.Count == 1
                 ? dataGridView3.SelectedRows[0]
                 : dataGridView4.SelectedRows.Count == 1
@@ -267,14 +238,6 @@ namespace csOOPformsProject
             (object sender, DataGridViewCellCancelEventArgs e)
         {
             OldValue = dataGridView1.Rows[e.RowIndex]
-                .Cells[e.ColumnIndex].Value;
-        }
-
-        // za korisnike
-        private void dataGridView2_CellBeginEdit
-            (object sender, DataGridViewCellCancelEventArgs e)
-        {
-            OldValue = dataGridView2.Rows[e.RowIndex]
                 .Cells[e.ColumnIndex].Value;
         }
 
@@ -353,64 +316,6 @@ namespace csOOPformsProject
             }
         }
 
-        // za korisnike
-        private void dataGridView2_CellValidating
-            (object sender, DataGridViewCellValidatingEventArgs e)
-        {
-            DataGridView dgv = (DataGridView)sender;
-            _ = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-            string newValue = e.FormattedValue.ToString().Trim();
-            string atribut = dataGridView2.Columns[e.ColumnIndex]
-                .HeaderCell.Value.ToString();
-
-            if (newValue == OldValue.ToString())
-            {
-                return;
-            }
-
-            if (atribut == "Id"
-                && !int.TryParse(newValue, out _))
-            {
-                e.Cancel = true;
-                Greska.Show(-1);
-                return;
-            }
-
-            if (atribut == "Id"
-                && int.Parse(newValue) < 0)
-            {
-                e.Cancel = true;
-                Greska.Show(-1);
-                return;
-            }
-
-            if (atribut == "PunoIme"
-                && string.IsNullOrEmpty(newValue))
-            {
-                e.Cancel = true;
-                Greska.Show(-1);
-                return;
-            }
-
-            if (atribut == "PunoIme"
-                && newValue.Split(' ').Count() != 2)
-            {
-                e.Cancel = true;
-                Greska.Show(-1);
-                return;
-            }
-
-            if ((atribut == "DatumRodjenja"
-                || atribut == "DatumClanarine")
-                && !DateTime.TryParse(newValue, out _))
-            {
-                e.Cancel = true;
-                Greska.Show(-1);
-                return;
-            }
-
-        }
-
         // za zaduzivanja
         private void dataGridView3_CellValidating
             (object sender, DataGridViewCellValidatingEventArgs e)
@@ -460,7 +365,6 @@ namespace csOOPformsProject
                 Greska.Show(-1);
                 return;
             }
-
         }
 
         // za autore
@@ -640,82 +544,6 @@ namespace csOOPformsProject
             }
 
             PrikaziPodatke();
-
-        }
-
-        // za korisnike
-        private void dataGridView2_CellValueChanged(object sender,
-            DataGridViewCellEventArgs e)
-        {
-
-            if (e.RowIndex < 0 || e.ColumnIndex < 0)
-            {
-                return;
-            }
-
-            int id;
-            string newValue = dataGridView2.Rows[e.RowIndex]
-                .Cells[e.ColumnIndex].Value.ToString().Trim();
-            string atribut = dataGridView2.Columns[e.ColumnIndex]
-                .HeaderCell.Value.ToString();
-
-            if (newValue == OldValue.ToString())
-            {
-                return;
-            }
-
-            id = atribut == "Id"
-                ? (int)OldValue
-                : (int)dataGridView2.Rows
-                [e.RowIndex].Cells[0].Value;
-
-            Korisnik korisnik = Biblioteka.Korisnici.UcitajPoId(id);
-
-            switch (atribut)
-            {
-                case "PunoIme":
-                    string ime = newValue.Split(' ')[0];
-                    string prezime = newValue.Split(' ')[1];
-                    korisnik.Ime = ime;
-                    korisnik.Prezime = prezime;
-                    break;
-
-                case "DatumRodjenja":
-                    DateTime datumRodjenja =
-                        DateTime.Parse(newValue);
-                    korisnik.DatumRodjenja = datumRodjenja;
-                    break;
-
-                case "DatumClanarine":
-                    DateTime datumClanarine =
-                        DateTime.Parse(newValue);
-                    korisnik.DatumClanarine = datumClanarine;
-                    break;
-            }
-
-            short result = atribut == "Id"
-                ? Biblioteka.Korisnici.Promeni
-                (korisnik, int.Parse(newValue))
-                : Biblioteka.Korisnici.Promeni
-                (korisnik);
-            bool success = result == 1;
-
-            if (!success)
-            {
-                if (atribut == "PunoIme")
-                {
-                    // otkazi promene
-                    string ime = OldValue.ToString()
-                        .Split(' ')[0];
-                    string prezime = OldValue.ToString()
-                        .Split(' ')[1];
-                    korisnik.Ime = ime;
-                    korisnik.Prezime = prezime;
-                }
-            }
-
-            PrikaziPodatke();
-
         }
 
         // za zaduzivanja
@@ -835,7 +663,6 @@ namespace csOOPformsProject
             }
 
             PrikaziPodatke();
-
         }
 
         // za autore
@@ -898,7 +725,6 @@ namespace csOOPformsProject
             }
 
             PrikaziPodatke();
-
         }
 
         // za kategorije
@@ -955,7 +781,6 @@ namespace csOOPformsProject
             }
 
             PrikaziPodatke();
-
         }
 
         // izmena checkboxa u celiji
@@ -1002,9 +827,9 @@ namespace csOOPformsProject
 
             switch (izabraniRed.DataGridView.Name)
             {
+                // dodaj knjigu
                 case "dataGridView1":
-                    int id =
-                        Biblioteka.Knjige.PoslednjiId();
+                    int poslednjiId = Biblioteka.Knjige.PoslednjiId();
 
                     int autorId = Biblioteka.Autori.PrviId();
                     if (autorId == 0)
@@ -1024,15 +849,15 @@ namespace csOOPformsProject
                         Biblioteka.Autori.UcitajPoId(autorId);
                     Kategorija kategorija =
                         Biblioteka.Kategorije.UcitajPoId(kategorijaId);
-                    Knjiga knjiga = new Knjiga(id, "novaKnjiga",
-                        autor, kategorija);
+                    Knjiga knjiga = new Knjiga(poslednjiId,
+                        $"novaKnjiga{poslednjiId}", autor, kategorija);
                     Biblioteka.Knjige.Dodaj(knjiga);
 
                     break;
+
             }
 
             PrikaziPodatke();
-
         }
 
         // obrisi
@@ -1065,8 +890,6 @@ namespace csOOPformsProject
             _ = dataGridView1.SelectedRows.Count == 1
                 ? Biblioteka.ObrisiKnjigu(id)
                 //Biblioteka.Knjige.Obrisi(id)
-                : dataGridView2.SelectedRows.Count == 1
-                ? Biblioteka.ObrisiKorisnika(id)
                 : dataGridView3.SelectedRows.Count == 1
                 ? Biblioteka.VratiKnjigu(id, true)
                 : dataGridView4.SelectedRows.Count == 1
@@ -1078,7 +901,6 @@ namespace csOOPformsProject
             //Biblioteka.Zaduzivanja.Obrisi(id);
 
             PrikaziPodatke();
-
         }
 
         // resetuj

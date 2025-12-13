@@ -85,6 +85,13 @@
     <Compile Include="Core\Biblioteka.cs" />
     <Compile Include="Core\Greska.cs" />
     <Compile Include="Core\Helpers.cs" />
+    <Compile Include="DirektorPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DirektorPanel.Designer.cs">
+      <DependentUpon>DirektorPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Direktor.cs" />
     <Compile Include="Serialized\SerializedAutor.cs" />
     <Compile Include="Serialized\SerializedKategorija.cs" />
     <Compile Include="Serialized\SerializedKnjiga.cs" />
@@ -133,6 +140,9 @@
     <Compile Include="Repositories\ZaduzivanjeRepozitorium.cs" />
     <EmbeddedResource Include="Admin.resx">
       <DependentUpon>Admin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DirektorPanel.resx">
+      <DependentUpon>DirektorPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

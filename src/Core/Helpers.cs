@@ -65,6 +65,7 @@ namespace csOOPformsProject.Core
                         korisnik.Ime,
                         korisnik.Prezime,
                         korisnik.DatumRodjenja,
+                        korisnik.Sifra,
                         korisnik.DatumClanarine,
                         korisnik.Zaduzivanja
                     );
