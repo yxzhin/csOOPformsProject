@@ -1,4 +1,5 @@
 ﻿using csOOPformsProject.Models;
+using csOOPformsProject.Serialized;
 using System.Collections.Generic;
 using System.IO;
 
@@ -92,6 +93,40 @@ namespace csOOPformsProject.Core
                     serializedZaduzivanja.Add(serializedZaduzivanje);
                 }
                 return serializedZaduzivanja;
+            }
+
+            public static List<SerializedAutor>
+                Autori(List<Autor> autori)
+            {
+                List<SerializedAutor> serializedAutori
+                    = new List<SerializedAutor>();
+                foreach (Autor autor in autori)
+                {
+                    SerializedAutor serializedAutor
+                        = new SerializedAutor(
+                        autor.Id,
+                        autor.PunoIme
+                    );
+                    serializedAutori.Add(serializedAutor);
+                }
+                return serializedAutori;
+            }
+
+            public static List<SerializedKategorija>
+                Kategorije(List<Kategorija> kategorije)
+            {
+                List<SerializedKategorija> serializedKategorije
+                    = new List<SerializedKategorija>();
+                foreach (Kategorija kategorija in kategorije)
+                {
+                    SerializedKategorija serializedKategorija
+                        = new SerializedKategorija(
+                        kategorija.Id,
+                        kategorija.Naziv
+                    );
+                    serializedKategorije.Add(serializedKategorija);
+                }
+                return serializedKategorije;
             }
         }
     }

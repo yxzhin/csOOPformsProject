@@ -1,6 +1,6 @@
 ﻿using csOOPformsProject.Models;
 
-namespace csOOPformsProject.Core
+namespace csOOPformsProject.Serialized
 {
     public sealed class SerializedKnjiga
     {

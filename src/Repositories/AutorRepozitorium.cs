@@ -20,7 +20,8 @@ namespace csOOPformsProject.Repositories
         public override short Promeni(Autor entitet,
             int? noviId = null)
         {
-            if (_entiteti.FirstOrDefault
+            if (noviId == null
+                && _entiteti.FirstOrDefault
                 (x => x.PunoIme == entitet.PunoIme
                 && x.Id != entitet.Id) != null)
             {

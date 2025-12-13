@@ -1,5 +1,6 @@
 ﻿using csOOPformsProject.Core;
 using csOOPformsProject.Models;
+using csOOPformsProject.Serialized;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,12 +49,10 @@ namespace csOOPformsProject
                 += dataGridView2_CellValueChanged;
             dataGridView3.CellValueChanged
                 += dataGridView3_CellValueChanged;
-            /*
             dataGridView4.CellValueChanged
                 += dataGridView4_CellValueChanged;
             dataGridView5.CellValueChanged
                 += dataGridView5_CellValueChanged;
-            */
 
             dataGridView1.CellValidating
                 += new DataGridViewCellValidatingEventHandler
@@ -64,14 +63,12 @@ namespace csOOPformsProject
             dataGridView3.CellValidating
                 += new DataGridViewCellValidatingEventHandler
                 (dataGridView3_CellValidating);
-            /*
             dataGridView4.CellValidating
                 += new DataGridViewCellValidatingEventHandler
                 (dataGridView4_CellValidating);
             dataGridView5.CellValidating
                 += new DataGridViewCellValidatingEventHandler
                 (dataGridView5_CellValidating);
-            */
 
             //dataGridView1.DataError += dataGridView1_DataError;
 
@@ -123,17 +120,19 @@ namespace csOOPformsProject
                 Helpers.Serialize.Zaduzivanja
                 (Biblioteka.Zaduzivanja.UcitajSve());
 
-            List<Autor> autori =
-                Biblioteka.Autori.UcitajSve();
+            List<SerializedAutor> serializedAutori =
+                Helpers.Serialize.Autori
+                (Biblioteka.Autori.UcitajSve());
 
-            List<Kategorija> kategorije =
-                Biblioteka.Kategorije.UcitajSve();
+            List<SerializedKategorija> serializedKategorije =
+                Helpers.Serialize.Kategorije
+                (Biblioteka.Kategorije.UcitajSve());
 
             dataGridView1.DataSource = serializedKnjige;
             dataGridView2.DataSource = serializedKorisnici;
             dataGridView3.DataSource = serializedZaduzivanja;
-            dataGridView4.DataSource = autori;
-            dataGridView5.DataSource = kategorije;
+            dataGridView4.DataSource = serializedAutori;
+            dataGridView5.DataSource = serializedKategorije;
 
             if (serializedKnjige.Count == 0)
             {
@@ -150,7 +149,8 @@ namespace csOOPformsProject
                         DataPropertyName = "Autor",
                         HeaderText = "Autor",
                         DataSource =
-                        autori.Select(x => x.ToString()).ToList()
+                        Biblioteka.Autori.UcitajSve()
+                        .Select(x => x.ToString()).ToList()
                     };
 
                 dataGridView1.Columns.Remove("Autor");
@@ -164,7 +164,8 @@ namespace csOOPformsProject
                         DataPropertyName = "Kategorija",
                         HeaderText = "Kategorija",
                         DataSource =
-                        kategorije.Select(x => x.ToString()).ToList()
+                        Biblioteka.Kategorije.UcitajSve()
+                        .Select(x => x.ToString()).ToList()
                     };
 
                 dataGridView1.Columns.Remove("Kategorija");
@@ -193,13 +194,13 @@ namespace csOOPformsProject
                 dataGridView3.Columns[6].ReadOnly = true;
             }
 
-            if (autori.Count == 0)
+            if (serializedAutori.Count == 0)
             {
                 dataGridView4.ReadOnly = true;
                 dataGridView4.DataSource = Nista;
             }
 
-            if (kategorije.Count == 0)
+            if (serializedKategorije.Count == 0)
             {
                 dataGridView5.ReadOnly = true;
                 dataGridView5.DataSource = Nista;
@@ -308,7 +309,7 @@ namespace csOOPformsProject
         {
             DataGridView dgv = (DataGridView)sender;
             _ = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-            string newValue = e.FormattedValue.ToString();
+            string newValue = e.FormattedValue.ToString().Trim();
             string atribut = dataGridView1.Columns[e.ColumnIndex]
                 .HeaderCell.Value.ToString();
 
@@ -358,7 +359,7 @@ namespace csOOPformsProject
         {
             DataGridView dgv = (DataGridView)sender;
             _ = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-            string newValue = e.FormattedValue.ToString();
+            string newValue = e.FormattedValue.ToString().Trim();
             string atribut = dataGridView2.Columns[e.ColumnIndex]
                 .HeaderCell.Value.ToString();
 
@@ -416,7 +417,7 @@ namespace csOOPformsProject
         {
             DataGridView dgv = (DataGridView)sender;
             _ = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-            string newValue = e.FormattedValue.ToString();
+            string newValue = e.FormattedValue.ToString().Trim();
             string atribut = dataGridView3.Columns[e.ColumnIndex]
                 .HeaderCell.Value.ToString();
 
@@ -462,6 +463,94 @@ namespace csOOPformsProject
 
         }
 
+        // za autore
+        private void dataGridView4_CellValidating
+            (object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+            _ = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+            string newValue = e.FormattedValue.ToString().Trim();
+            string atribut = dataGridView4.Columns[e.ColumnIndex]
+                .HeaderCell.Value.ToString();
+
+            if (newValue == OldValue.ToString())
+            {
+                return;
+            }
+
+            if (atribut == "Id"
+                && !int.TryParse(newValue, out _))
+            {
+                e.Cancel = true;
+                Greska.Show(-1);
+                return;
+            }
+
+            if (atribut == "Id"
+                && int.Parse(newValue) < 0)
+            {
+                e.Cancel = true;
+                Greska.Show(-1);
+                return;
+            }
+
+            if (atribut == "PunoIme"
+                && string.IsNullOrEmpty(newValue))
+            {
+                e.Cancel = true;
+                Greska.Show(-1);
+                return;
+            }
+
+            if (atribut == "PunoIme"
+                && newValue.Split(' ').Count() != 2)
+            {
+                e.Cancel = true;
+                Greska.Show(-1);
+                return;
+            }
+        }
+
+        // za kategorije
+        private void dataGridView5_CellValidating
+            (object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+            _ = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+            string newValue = e.FormattedValue.ToString().Trim();
+            string atribut = dataGridView5.Columns[e.ColumnIndex]
+                .HeaderCell.Value.ToString();
+
+            if (newValue == OldValue.ToString())
+            {
+                return;
+            }
+
+            if (atribut == "Id"
+                && !int.TryParse(newValue, out _))
+            {
+                e.Cancel = true;
+                Greska.Show(-1);
+                return;
+            }
+
+            if (atribut == "Id"
+                && int.Parse(newValue) < 0)
+            {
+                e.Cancel = true;
+                Greska.Show(-1);
+                return;
+            }
+
+            if (atribut == "Naziv"
+                && string.IsNullOrEmpty(newValue))
+            {
+                e.Cancel = true;
+                Greska.Show(-1);
+                return;
+            }
+        }
+
         // izmena celije
         // za knjige
         private void dataGridView1_CellValueChanged(object sender,
@@ -474,12 +563,12 @@ namespace csOOPformsProject
             }
 
             int id;
-            object newValue = dataGridView1.Rows[e.RowIndex]
-                .Cells[e.ColumnIndex].Value;
+            string newValue = dataGridView1.Rows[e.RowIndex]
+                .Cells[e.ColumnIndex].Value.ToString().Trim();
             string atribut = dataGridView1.Columns[e.ColumnIndex]
                 .HeaderCell.Value.ToString();
 
-            if (newValue.ToString() == OldValue.ToString())
+            if (newValue == OldValue.ToString())
             {
                 return;
             }
@@ -507,13 +596,13 @@ namespace csOOPformsProject
                     knjiga.Id = (int)newValue; break;
                 */
                 case "Naziv":
-                    knjiga.Naziv = newValue.ToString();
+                    knjiga.Naziv = newValue;
                     break;
 
                 case "Autor":
                     Autor autor =
                         Biblioteka.Autori.UcitajPoPunomImenu
-                        (newValue.ToString());
+                        (newValue);
                     knjiga.Autor = autor;
                     /*
                     string ime = newValue.ToString()
@@ -528,7 +617,7 @@ namespace csOOPformsProject
                 case "Kategorija":
                     Kategorija kategorija =
                         Biblioteka.Kategorije.UcitajPoNazivu
-                        (newValue.ToString());
+                        (newValue);
                     knjiga.Kategorija = kategorija;
                     //knjiga.Kategorija.Naziv = newValue.ToString();
                     break;
@@ -536,7 +625,7 @@ namespace csOOPformsProject
 
             short result = atribut == "Id"
                 ? Biblioteka.Knjige.Promeni
-                (knjiga, (int)newValue)
+                (knjiga, int.Parse(newValue))
                 : Biblioteka.Knjige.Promeni
                 (knjiga);
             bool success = result == 1;
@@ -565,12 +654,12 @@ namespace csOOPformsProject
             }
 
             int id;
-            object newValue = dataGridView2.Rows[e.RowIndex]
-                .Cells[e.ColumnIndex].Value;
+            string newValue = dataGridView2.Rows[e.RowIndex]
+                .Cells[e.ColumnIndex].Value.ToString().Trim();
             string atribut = dataGridView2.Columns[e.ColumnIndex]
                 .HeaderCell.Value.ToString();
 
-            if (newValue.ToString() == OldValue.ToString())
+            if (newValue == OldValue.ToString())
             {
                 return;
             }
@@ -585,30 +674,28 @@ namespace csOOPformsProject
             switch (atribut)
             {
                 case "PunoIme":
-                    string ime = newValue.ToString()
-                        .Split(' ')[0];
-                    string prezime = newValue.ToString()
-                        .Split(' ')[1];
+                    string ime = newValue.Split(' ')[0];
+                    string prezime = newValue.Split(' ')[1];
                     korisnik.Ime = ime;
                     korisnik.Prezime = prezime;
                     break;
 
                 case "DatumRodjenja":
                     DateTime datumRodjenja =
-                        DateTime.Parse(newValue.ToString());
+                        DateTime.Parse(newValue);
                     korisnik.DatumRodjenja = datumRodjenja;
                     break;
 
                 case "DatumClanarine":
                     DateTime datumClanarine =
-                        DateTime.Parse(newValue.ToString());
+                        DateTime.Parse(newValue);
                     korisnik.DatumClanarine = datumClanarine;
                     break;
             }
 
             short result = atribut == "Id"
                 ? Biblioteka.Korisnici.Promeni
-                (korisnik, (int)newValue)
+                (korisnik, int.Parse(newValue))
                 : Biblioteka.Korisnici.Promeni
                 (korisnik);
             bool success = result == 1;
@@ -642,12 +729,12 @@ namespace csOOPformsProject
             }
 
             int id;
-            object newValue = dataGridView3.Rows[e.RowIndex]
-                .Cells[e.ColumnIndex].Value;
+            string newValue = dataGridView3.Rows[e.RowIndex]
+                .Cells[e.ColumnIndex].Value.ToString().Trim();
             string atribut = dataGridView3.Columns[e.ColumnIndex]
                 .HeaderCell.Value.ToString();
 
-            if (newValue.ToString() == OldValue.ToString())
+            if (newValue == OldValue.ToString())
             {
                 return;
             }
@@ -665,7 +752,7 @@ namespace csOOPformsProject
                 case "Korisnik":
                     Korisnik korisnik
                         = Biblioteka.Korisnici.UcitajPoPunomImenu
-                        (newValue.ToString());
+                        (newValue);
 
                     if (korisnik == null)
                     {
@@ -689,7 +776,7 @@ namespace csOOPformsProject
                 case "Knjiga":
                     Knjiga knjiga
                         = Biblioteka.Knjige.UcitajPoNazivu
-                        (newValue.ToString());
+                        (newValue);
 
                     if (knjiga == null)
                     {
@@ -719,32 +806,152 @@ namespace csOOPformsProject
 
                 case "DatumZaduzivanja":
                     DateTime datumZaduzivanja
-                        = DateTime.Parse(newValue.ToString());
+                        = DateTime.Parse(newValue);
                     zaduzivanje.DatumZaduzivanja = datumZaduzivanja;
                     break;
 
                 case "RokZaduzivanja":
                     DateTime rokZaduzivanja
-                        = DateTime.Parse(newValue.ToString());
+                        = DateTime.Parse(newValue);
                     zaduzivanje.RokZaduzivanja = rokZaduzivanja;
                     break;
 
                 case "DatumVracanja":
                     DateTime datumVracanja
-                        = DateTime.Parse(newValue.ToString());
+                        = DateTime.Parse(newValue);
                     zaduzivanje.DatumVracanja = datumVracanja;
                     break;
             }
 
             short result = atribut == "Id" ?
                 Biblioteka.Zaduzivanja.Promeni(zaduzivanje,
-                (int)newValue)
+                int.Parse(newValue))
                 : Biblioteka.Zaduzivanja.Promeni(zaduzivanje);
             bool success = result == 1;
 
             if (!success)
             {
                 Greska.Show(-2);
+            }
+
+            PrikaziPodatke();
+
+        }
+
+        // za autore
+        private void dataGridView4_CellValueChanged(object sender,
+            DataGridViewCellEventArgs e)
+        {
+
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+            {
+                return;
+            }
+
+            int id;
+            string newValue = dataGridView4.Rows[e.RowIndex]
+                .Cells[e.ColumnIndex].Value.ToString().Trim();
+            string atribut = dataGridView4.Columns[e.ColumnIndex]
+                .HeaderCell.Value.ToString();
+
+            if (newValue == OldValue.ToString())
+            {
+                return;
+            }
+
+            id = atribut == "Id"
+                ? (int)OldValue
+                : (int)dataGridView4.Rows
+                [e.RowIndex].Cells[0].Value;
+
+            Autor autor = Biblioteka.Autori.UcitajPoId(id);
+
+            switch (atribut)
+            {
+                case "PunoIme":
+                    string ime = newValue.Split(' ')[0];
+                    string prezime = newValue.Split(' ')[1];
+                    autor.Ime = ime;
+                    autor.Prezime = prezime;
+                    break;
+            }
+
+            short result = atribut == "Id"
+                ? Biblioteka.Autori.Promeni
+                (autor, int.Parse(newValue))
+                : Biblioteka.Autori.Promeni
+                (autor);
+            bool success = result == 1;
+
+            if (!success)
+            {
+                if (atribut == "PunoIme")
+                {
+                    // otkazi promene
+                    string ime = OldValue.ToString()
+                        .Split(' ')[0];
+                    string prezime = OldValue.ToString()
+                        .Split(' ')[1];
+                    autor.Ime = ime;
+                    autor.Prezime = prezime;
+                }
+            }
+
+            PrikaziPodatke();
+
+        }
+
+        // za kategorije
+        private void dataGridView5_CellValueChanged(object sender,
+            DataGridViewCellEventArgs e)
+        {
+
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+            {
+                return;
+            }
+
+            int id;
+            string newValue = dataGridView5.Rows[e.RowIndex]
+                .Cells[e.ColumnIndex].Value.ToString().Trim();
+            string atribut = dataGridView5.Columns[e.ColumnIndex]
+                .HeaderCell.Value.ToString();
+
+            if (newValue == OldValue.ToString())
+            {
+                return;
+            }
+
+            id = atribut == "Id"
+                ? (int)OldValue
+                : (int)dataGridView5.Rows
+                [e.RowIndex].Cells[0].Value;
+
+            Kategorija kategorija = Biblioteka.Kategorije.UcitajPoId(id);
+
+            switch (atribut)
+            {
+                case "Naziv":
+                    string naziv = newValue;
+                    kategorija.Naziv = naziv;
+                    break;
+            }
+
+            short result = atribut == "Id"
+                ? Biblioteka.Kategorije.Promeni
+                (kategorija, int.Parse(newValue))
+                : Biblioteka.Kategorije.Promeni
+                (kategorija);
+            bool success = result == 1;
+
+            if (!success)
+            {
+                if (atribut == "Naziv")
+                {
+                    // otkazi promene
+                    string naziv = OldValue.ToString();
+                    kategorija.Naziv = naziv;
+                }
             }
 
             PrikaziPodatke();

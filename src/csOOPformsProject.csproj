@@ -85,9 +85,11 @@
     <Compile Include="Core\Biblioteka.cs" />
     <Compile Include="Core\Greska.cs" />
     <Compile Include="Core\Helpers.cs" />
-    <Compile Include="Core\SerializedKnjiga.cs" />
-    <Compile Include="Core\SerializedKorisnik.cs" />
-    <Compile Include="Core\SerializedZaduzivanje.cs" />
+    <Compile Include="Serialized\SerializedAutor.cs" />
+    <Compile Include="Serialized\SerializedKategorija.cs" />
+    <Compile Include="Serialized\SerializedKnjiga.cs" />
+    <Compile Include="Serialized\SerializedKorisnik.cs" />
+    <Compile Include="Serialized\SerializedZaduzivanje.cs" />
     <Compile Include="Interfaces\INazvan.cs" />
     <Compile Include="Interfaces\IUcitljivPoNazivu.cs" />
     <Compile Include="Interfaces\IUcitljivPoPunomImenu.cs" />

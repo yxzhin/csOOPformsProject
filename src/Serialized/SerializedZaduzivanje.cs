@@ -1,7 +1,7 @@
 ﻿using csOOPformsProject.Models;
 using System;
 
-namespace csOOPformsProject.Core
+namespace csOOPformsProject.Serialized
 {
     public class SerializedZaduzivanje
     {

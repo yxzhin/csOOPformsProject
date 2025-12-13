@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace csOOPformsProject.Core
+namespace csOOPformsProject.Serialized
 {
     public sealed class SerializedKorisnik
     {

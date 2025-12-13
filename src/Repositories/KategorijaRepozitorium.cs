@@ -20,7 +20,8 @@ namespace csOOPformsProject.Repositories
         public override short Promeni(Kategorija entitet,
             int? noviId = null)
         {
-            if (_entiteti.FirstOrDefault
+            if (noviId == null
+                && _entiteti.FirstOrDefault
                 (x => x.Naziv == entitet.Naziv
                 && x.Id != entitet.Id) != null)
             {
