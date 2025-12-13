@@ -1,10 +1,12 @@
 ﻿using csOOPformsProject.Core;
+using csOOPformsProject.Interfaces;
 using csOOPformsProject.Models;
 using System.Linq;
 
 namespace csOOPformsProject.Repositories
 {
-    public class KategorijaRepozitorium : JsonRepozitorium<Kategorija>
+    public class KategorijaRepozitorium
+        : JsonRepozitorium<Kategorija>, IUcitljivPoNazivu<Kategorija>
     {
         public KategorijaRepozitorium(string putanjaFajla)
             : base(putanjaFajla)

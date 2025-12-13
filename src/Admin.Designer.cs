@@ -44,7 +44,6 @@ namespace csOOPformsProject
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.label11 = new System.Windows.Forms.Label();
             this.dataGridView5 = new System.Windows.Forms.DataGridView();
@@ -212,18 +211,6 @@ namespace csOOPformsProject
             this.label10.TabIndex = 18;
             this.label10.Text = "Id";
             // 
-            // button3
-            // 
-            this.button3.Font = new System.Drawing.Font("Comic Sans MS", 20.8F);
-            this.button3.Location = new System.Drawing.Point(735, 313);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(188, 93);
-            this.button3.TabIndex = 19;
-            this.button3.Text = "resetuj";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
             // dataGridView4
             // 
             this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -277,7 +264,6 @@ namespace csOOPformsProject
             this.Controls.Add(this.label12);
             this.Controls.Add(this.dataGridView4);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -321,7 +307,6 @@ namespace csOOPformsProject
         private Label label8;
         private Label label9;
         private Label label10;
-        private Button button3;
         private DataGridView dataGridView4;
         private Label label11;
         private DataGridView dataGridView5;

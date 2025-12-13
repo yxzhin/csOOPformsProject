@@ -74,6 +74,27 @@ namespace csOOPformsProject.Core
                 return serializedKorisnici;
             }
 
+            public static List<SerializedBibliotekar>
+                Bibliotekari(List<Bibliotekar> bibliotekari)
+            {
+                List<SerializedBibliotekar> serializedBibliotekari
+                    = new List<SerializedBibliotekar>();
+                foreach (Bibliotekar bibliotekar in bibliotekari)
+                {
+                    SerializedBibliotekar serializedBibliotekar
+                        = new SerializedBibliotekar(
+                        bibliotekar.Id,
+                        bibliotekar.Ime,
+                        bibliotekar.Prezime,
+                        bibliotekar.DatumRodjenja,
+                        bibliotekar.Sifra,
+                        bibliotekar.SifraRadnika
+                    );
+                    serializedBibliotekari.Add(serializedBibliotekar);
+                }
+                return serializedBibliotekari;
+            }
+
             public static List<SerializedZaduzivanje>
                 Zaduzivanja(List<Zaduzivanje> zaduzivanja)
             {

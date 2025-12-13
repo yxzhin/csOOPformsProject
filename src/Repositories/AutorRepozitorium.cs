@@ -1,10 +1,12 @@
 ﻿using csOOPformsProject.Core;
+using csOOPformsProject.Interfaces;
 using csOOPformsProject.Models;
 using System.Linq;
 
 namespace csOOPformsProject.Repositories
 {
-    public class AutorRepozitorium : JsonRepozitorium<Autor>
+    public class AutorRepozitorium
+        : JsonRepozitorium<Autor>, IUcitljivPoPunomImenu<Autor>
     {
         public AutorRepozitorium(string putanjaFajla)
             : base(putanjaFajla)

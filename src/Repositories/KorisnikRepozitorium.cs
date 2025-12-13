@@ -1,22 +1,16 @@
 ﻿using csOOPformsProject.Core;
-using csOOPformsProject.Interfaces;
 using csOOPformsProject.Models;
 using System.Linq;
 
 namespace csOOPformsProject.Repositories
 {
     public sealed class KorisnikRepozitorium
-        : NalogRepozitorium<Korisnik>, IUcitljivPoPunomImenu<Korisnik>
+        : NalogRepozitorium<Korisnik>
     {
         public KorisnikRepozitorium(string putanjaFajla)
             : base(putanjaFajla)
         {
             return;
-        }
-
-        public Korisnik UcitajPoPunomImenu(string punoIme)
-        {
-            return _entiteti.FirstOrDefault(x => x.PunoIme == punoIme);
         }
 
         public override short Promeni(Korisnik entitet,

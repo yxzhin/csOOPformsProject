@@ -90,6 +90,17 @@ namespace csOOPformsProject.Core
                     "greska!!", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                     break;
+                case -14:
+                    _ = MessageBox.Show("ne mozete da obrisete nalog" +
+                        " u koji ste trenutno ulogovani!!",
+                    "greska!!", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                    break;
+                case -15:
+                    _ = MessageBox.Show("ne mozete da obrisete direktora!!",
+                    "greska!!", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                    break;
             }
         }
     }

@@ -93,6 +93,7 @@
     </Compile>
     <Compile Include="Models\Direktor.cs" />
     <Compile Include="Serialized\SerializedAutor.cs" />
+    <Compile Include="Serialized\SerializedBibliotekar.cs" />
     <Compile Include="Serialized\SerializedKategorija.cs" />
     <Compile Include="Serialized\SerializedKnjiga.cs" />
     <Compile Include="Serialized\SerializedKorisnik.cs" />

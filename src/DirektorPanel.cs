@@ -31,6 +31,7 @@ namespace csOOPformsProject
 
             Biblioteka = biblioteka;
             Direktor = direktor;
+            Biblioteka.DirektorId = direktor.Id;
 
             button1.Click += button1_Click;
             button2.Click += button2_Click;
@@ -44,25 +45,25 @@ namespace csOOPformsProject
 
             dataGridView1.CellValueChanged
                 += dataGridView1_CellValueChanged;
-            /*
             dataGridView2.CellValueChanged
                 += dataGridView2_CellValueChanged;
-            */
 
             dataGridView1.CellValidating
                 += new DataGridViewCellValidatingEventHandler
                 (dataGridView1_CellValidating);
-            /*
             dataGridView2.CellValidating
                 += new DataGridViewCellValidatingEventHandler
                 (dataGridView2_CellValidating);
-            */
 
             dataGridView1.MultiSelect = false;
         }
 
         private void PrikaziPodatke()
         {
+            Direktor =
+                Biblioteka.Bibliotekari.UcitajPoId
+                (Biblioteka.DirektorId.Value) as Direktor;
+
             label10.Text = Direktor.Id.ToString();
             label6.Text = Direktor.PunoIme;
             label8.Text = Direktor.DatumRodjenja
@@ -79,14 +80,13 @@ namespace csOOPformsProject
             List<SerializedKorisnik> serializedKorisnici =
                 Helpers.Serialize.Korisnici
                 (Biblioteka.Korisnici.UcitajSve());
-            /*
+
             List<SerializedBibliotekar> serializedBibliotekari =
                 Helpers.Serialize.Bibliotekari
                 (Biblioteka.Bibliotekari.UcitajSve());
-            */
 
             dataGridView1.DataSource = serializedKorisnici;
-            //dataGridView2.DataSource = serializedBibliotekari;
+            dataGridView2.DataSource = serializedBibliotekari;
 
             if (serializedKorisnici.Count == 0)
             {
@@ -99,13 +99,11 @@ namespace csOOPformsProject
                 dataGridView1.Columns[5].ReadOnly = true;
             }
 
-            /*
             if (serializedBibliotekari.Count == 0)
             {
                 dataGridView2.ReadOnly = true;
                 dataGridView2.DataSource = Nista;
             }
-            */
         }
 
         private void DirektorPanel_Load(object sender, EventArgs e)
@@ -199,7 +197,8 @@ namespace csOOPformsProject
                 return;
             }
 
-            if (atribut == "PunoIme"
+            if ((atribut == "PunoIme"
+                || atribut == "Sifra")
                 && string.IsNullOrEmpty(newValue))
             {
                 e.Cancel = true;
@@ -217,6 +216,64 @@ namespace csOOPformsProject
 
             if ((atribut == "DatumRodjenja"
                 || atribut == "DatumClanarine")
+                && !DateTime.TryParse(newValue, out _))
+            {
+                e.Cancel = true;
+                Greska.Show(-1);
+                return;
+            }
+        }
+
+        // za bibliotekare
+        private void dataGridView2_CellValidating
+            (object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+            _ = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+            string newValue = e.FormattedValue.ToString().Trim();
+            string atribut = dataGridView2.Columns[e.ColumnIndex]
+                .HeaderCell.Value.ToString();
+
+            if (newValue == OldValue.ToString())
+            {
+                return;
+            }
+
+            if (atribut == "Id"
+                && !int.TryParse(newValue, out _))
+            {
+                e.Cancel = true;
+                Greska.Show(-1);
+                return;
+            }
+
+            if (atribut == "Id"
+                && int.Parse(newValue) < 0)
+            {
+                e.Cancel = true;
+                Greska.Show(-1);
+                return;
+            }
+
+            if ((atribut == "PunoIme"
+                || atribut == "Sifra"
+                || atribut == "SifraRadnika")
+                && string.IsNullOrEmpty(newValue))
+            {
+                e.Cancel = true;
+                Greska.Show(-1);
+                return;
+            }
+
+            if (atribut == "PunoIme"
+                && newValue.Split(' ').Count() != 2)
+            {
+                e.Cancel = true;
+                Greska.Show(-1);
+                return;
+            }
+
+            if (atribut == "DatumRodjenja"
                 && !DateTime.TryParse(newValue, out _))
             {
                 e.Cancel = true;
@@ -263,6 +320,11 @@ namespace csOOPformsProject
                     korisnik.Prezime = prezime;
                     break;
 
+                case "Sifra":
+                    string sifra = newValue;
+                    korisnik.Sifra = sifra;
+                    break;
+
                 case "DatumRodjenja":
                     DateTime datumRodjenja =
                         DateTime.Parse(newValue);
@@ -274,6 +336,13 @@ namespace csOOPformsProject
                         DateTime.Parse(newValue);
                     korisnik.DatumClanarine = datumClanarine;
                     break;
+            }
+
+            if (atribut == "Id"
+                && int.Parse(OldValue.ToString())
+                == Biblioteka.KorisnikId)
+            {
+                Biblioteka.KorisnikId = int.Parse(newValue);
             }
 
             short result = atribut == "Id"
@@ -294,6 +363,114 @@ namespace csOOPformsProject
                         .Split(' ')[1];
                     korisnik.Ime = ime;
                     korisnik.Prezime = prezime;
+                }
+                else if (atribut == "Sifra")
+                {
+                    string sifra = OldValue.ToString();
+                    korisnik.Sifra = sifra;
+                }
+            }
+
+            PrikaziPodatke();
+        }
+
+        // za bibliotekare
+        private void dataGridView2_CellValueChanged(object sender,
+            DataGridViewCellEventArgs e)
+        {
+
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+            {
+                return;
+            }
+
+            int id;
+            string newValue = dataGridView2.Rows[e.RowIndex]
+                .Cells[e.ColumnIndex].Value.ToString().Trim();
+            string atribut = dataGridView2.Columns[e.ColumnIndex]
+                .HeaderCell.Value.ToString();
+
+            if (newValue == OldValue.ToString())
+            {
+                return;
+            }
+
+            id = atribut == "Id"
+                ? (int)OldValue
+                : (int)dataGridView2.Rows
+                [e.RowIndex].Cells[0].Value;
+
+            Bibliotekar bibliotekar
+                = Biblioteka.Bibliotekari.UcitajPoId(id);
+
+            switch (atribut)
+            {
+                case "PunoIme":
+                    string ime = newValue.Split(' ')[0];
+                    string prezime = newValue.Split(' ')[1];
+                    bibliotekar.Ime = ime;
+                    bibliotekar.Prezime = prezime;
+                    break;
+
+                case "DatumRodjenja":
+                    DateTime datumRodjenja =
+                        DateTime.Parse(newValue);
+                    bibliotekar.DatumRodjenja = datumRodjenja;
+                    break;
+
+                case "Sifra":
+                    string sifra = newValue;
+                    bibliotekar.Sifra = sifra;
+                    break;
+
+                case "SifraRadnika":
+                    string sifraRadnika = newValue;
+                    bibliotekar.SifraRadnika = sifraRadnika;
+                    break;
+            }
+
+            if (atribut == "Id")
+            {
+                if (int.Parse(OldValue.ToString())
+                == Biblioteka.BibliotekarId)
+                {
+                    Biblioteka.BibliotekarId = int.Parse(newValue);
+                }
+                else if (int.Parse(OldValue.ToString())
+                == Biblioteka.DirektorId)
+                {
+                    Biblioteka.DirektorId = int.Parse(newValue);
+                }
+            }
+
+            short result = atribut == "Id"
+                ? Biblioteka.Bibliotekari.Promeni
+                (bibliotekar, int.Parse(newValue))
+                : Biblioteka.Bibliotekari.Promeni
+                (bibliotekar);
+            bool success = result == 1;
+
+            if (!success)
+            {
+                if (atribut == "PunoIme")
+                {
+                    // otkazi promene
+                    string ime = OldValue.ToString()
+                        .Split(' ')[0];
+                    string prezime = OldValue.ToString()
+                        .Split(' ')[1];
+                    bibliotekar.Ime = ime;
+                    bibliotekar.Prezime = prezime;
+                }
+                else if (atribut == "Sifra")
+                {
+                    string sifra = OldValue.ToString();
+                    bibliotekar.Sifra = sifra;
+                }
+                else if (atribut == "SifraRadnika")
+                {
+                    string sifraRadnika = OldValue.ToString();
+                    bibliotekar.SifraRadnika = sifraRadnika;
                 }
             }
 
@@ -370,6 +547,27 @@ namespace csOOPformsProject
             }
 
             int id = (int)izabraniRed.Cells[0].Value;
+
+            if (dataGridView1.SelectedRows.Count == 1
+                && Biblioteka.KorisnikId == id)
+            {
+                Greska.Show(-14);
+                return;
+            }
+
+            if (dataGridView2.SelectedRows.Count == 1)
+            {
+                if (Biblioteka.BibliotekarId == id)
+                {
+                    Greska.Show(-14);
+                    return;
+                }
+                else if (Biblioteka.DirektorId == id)
+                {
+                    Greska.Show(-15);
+                    return;
+                }
+            }
 
             _ = dataGridView1.SelectedRows.Count == 1
                 ? Biblioteka.ObrisiKorisnika(id)

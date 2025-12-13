@@ -31,6 +31,7 @@ namespace csOOPformsProject
 
             Biblioteka = biblioteka;
             Bibliotekar = bibliotekar;
+            Biblioteka.BibliotekarId = bibliotekar.Id;
 
             dataGridView1.CellBeginEdit
                 += dataGridView1_CellBeginEdit;
@@ -80,6 +81,9 @@ namespace csOOPformsProject
 
         private void PrikaziPodatke()
         {
+            Bibliotekar =
+                Biblioteka.Bibliotekari.UcitajPoId
+                (Biblioteka.BibliotekarId.Value);
 
             label10.Text = Bibliotekar.Id.ToString();
             label6.Text = Bibliotekar.PunoIme;
@@ -900,14 +904,6 @@ namespace csOOPformsProject
             //: Biblioteka.Kategorije.Obrisi(id);
             //Biblioteka.Zaduzivanja.Obrisi(id);
 
-            PrikaziPodatke();
-        }
-
-        // resetuj
-        private void button3_Click(object sender, EventArgs e)
-        {
-            //Biblioteka.ResetujPodatke();
-            Biblioteka.Seeder();
             PrikaziPodatke();
         }
     }

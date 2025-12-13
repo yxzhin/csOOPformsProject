@@ -16,6 +16,10 @@ namespace csOOPformsProject.Core
         public BibliotekarRepozitorium Bibliotekari { get; }
         public ZaduzivanjeRepozitorium Zaduzivanja { get; }
 
+        public static int? KorisnikId { get; set; } = null;
+        public static int? BibliotekarId { get; set; } = null;
+        public static int? DirektorId { get; set; } = null;
+
         public Biblioteka()
         {
             Autori = new AutorRepozitorium(
@@ -116,6 +120,19 @@ namespace csOOPformsProject.Core
             Bibliotekari.Dodaj(bibliotekar2);
             Bibliotekari.Dodaj(bibliotekar3);
 
+            if (KorisnikId.HasValue)
+            {
+                KorisnikId = korisnik1.Id;
+            }
+            if (BibliotekarId.HasValue)
+            {
+                BibliotekarId = bibliotekar1.Id;
+            }
+            if (DirektorId.HasValue)
+            {
+                DirektorId = direktor.Id;
+            }
+
             //Zaduzivanje zaduzivanje1 = new Zaduzivanje(0, korisnik1, knjiga1);
             _ = PozajmiKnjigu(1, 1);
 
@@ -193,6 +210,7 @@ namespace csOOPformsProject.Core
             {
                 Korisnik korisnik = osoba as Korisnik;
                 User user = new User(this, korisnik);
+                KorisnikId = korisnik.Id;
                 return user;
             }
             osoba = Bibliotekari.UcitajPoPodacima(ime, prezime, sifra);
@@ -202,9 +220,11 @@ namespace csOOPformsProject.Core
                 {
                     DirektorPanel direktorPanel
                         = new DirektorPanel(this, direktor);
+                    DirektorId = direktor.Id;
                     return direktorPanel;
                 }
                 Bibliotekar bibliotekar = osoba as Bibliotekar;
+                BibliotekarId = bibliotekar.Id;
                 Admin admin = new Admin(this, bibliotekar);
                 return admin;
             }
@@ -230,6 +250,12 @@ namespace csOOPformsProject.Core
         public bool ObrisiKorisnika(int id)
         {
             List<Zaduzivanje> zaduzivanja = Zaduzivanja.UcitajSve();
+
+            if (KorisnikId == id)
+            {
+                Greska.Show(-15, "korisnika");
+                return false;
+            }
 
             if (zaduzivanja.FirstOrDefault
                 (x => x.Korisnik.Id == id) != null)
