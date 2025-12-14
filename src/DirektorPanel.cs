@@ -511,11 +511,24 @@ namespace csOOPformsProject
                 case "dataGridView1":
                     int poslednjiId = Biblioteka.Korisnici.PoslednjiId();
                     Korisnik korisnik = new Korisnik(poslednjiId,
-                        "novi", $"korisnik{poslednjiId}",
+                        "novi", $"korisnik{poslednjiId + 1}",
                         new DateTime(2073, 7, 3),
-                        $"sifra{poslednjiId}",
+                        $"sifra{poslednjiId + 1}",
                         new DateTime(2037, 3, 7));
                     Biblioteka.Korisnici.Dodaj(korisnik);
+
+                    break;
+
+                // dodaj bibliotekara
+                case "dataGridView2":
+                    poslednjiId = Biblioteka.Bibliotekari.PoslednjiId();
+                    Bibliotekar bibliotekar
+                        = new Bibliotekar(poslednjiId,
+                        "novi", $"bibliotekar{poslednjiId + 1}",
+                        new DateTime(2073, 7, 3),
+                        $"sifra{poslednjiId + 1}",
+                        $"sifraRadnika{poslednjiId + 1}");
+                    Biblioteka.Bibliotekari.Dodaj(bibliotekar);
 
                     break;
             }

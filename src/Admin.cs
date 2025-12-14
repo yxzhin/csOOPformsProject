@@ -856,7 +856,7 @@ namespace csOOPformsProject
                     Kategorija kategorija =
                         Biblioteka.Kategorije.UcitajPoId(kategorijaId);
                     Knjiga knjiga = new Knjiga(poslednjiId,
-                        $"novaKnjiga{poslednjiId}", autor, kategorija);
+                        $"novaKnjiga{poslednjiId + 1}", autor, kategorija);
                     Biblioteka.Knjige.Dodaj(knjiga);
 
                     break;
