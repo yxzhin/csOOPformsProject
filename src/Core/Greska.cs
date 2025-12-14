@@ -107,6 +107,16 @@ namespace csOOPformsProject.Core
                     "greska!!", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                     break;
+                case -17:
+                    _ = MessageBox.Show("nemate nijednu knjigu!!",
+                    "greska!!", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                    break;
+                case -18:
+                    _ = MessageBox.Show("nemate nijednog korisnika!!",
+                    "greska!!", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                    break;
             }
         }
     }

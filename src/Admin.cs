@@ -861,6 +861,28 @@ namespace csOOPformsProject
 
                     break;
 
+                // dodaj zaduzivanje
+                case "dataGridView3":
+                    _ = Biblioteka.Zaduzivanja.PoslednjiId();
+
+                    int korisnikId = Biblioteka.Korisnici.PrviId();
+                    if (korisnikId == 0)
+                    {
+                        Greska.Show(-18);
+                        break;
+                    }
+
+                    int knjigaId = Biblioteka.Knjige.PrviId();
+                    if (knjigaId == 0)
+                    {
+                        Greska.Show(-17);
+                        break;
+                    }
+
+                    _ = Biblioteka.PozajmiKnjigu(korisnikId, knjigaId);
+
+                    break;
+
             }
 
             PrikaziPodatke();

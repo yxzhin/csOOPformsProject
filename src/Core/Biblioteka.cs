@@ -186,7 +186,9 @@ namespace csOOPformsProject.Core
             Korisnik korisnik = Korisnici.UcitajPoId(korisnikId);
             Knjiga knjiga = Knjige.UcitajPoId(knjigaId);
 
-            if (korisnik == null || knjiga == null || !knjiga.NaStanju)
+            if (korisnik == null
+                || knjiga == null
+                || !knjiga.NaStanju)
             {
                 return false;
             }
