@@ -86,7 +86,7 @@ namespace csOOPformsProject.Core
                     MessageBoxIcon.Error);
                     break;
                 case -13:
-                    _ = MessageBox.Show("nova knjiga nije na stanju!!",
+                    _ = MessageBox.Show("knjiga nije na stanju!!",
                     "greska!!", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                     break;

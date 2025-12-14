@@ -879,7 +879,30 @@ namespace csOOPformsProject
                         break;
                     }
 
-                    _ = Biblioteka.PozajmiKnjigu(korisnikId, knjigaId);
+                    if (!Biblioteka.PozajmiKnjigu
+                        (korisnikId, knjigaId))
+                    {
+                        Greska.Show(-13);
+                        break;
+                    }
+
+                    break;
+
+                // dodaj autora
+                case "dataGridView4":
+                    poslednjiId = Biblioteka.Autori.PoslednjiId();
+                    autor = new Autor(poslednjiId,
+                        "novi", $"autor{poslednjiId + 1}");
+                    Biblioteka.Autori.Dodaj(autor);
+
+                    break;
+
+                // dodaj kategoriju
+                case "dataGridView5":
+                    poslednjiId = Biblioteka.Kategorije.PoslednjiId();
+                    kategorija = new Kategorija(poslednjiId,
+                        $"novaKategorija{poslednjiId + 1}");
+                    Biblioteka.Kategorije.Dodaj(kategorija);
 
                     break;
 
