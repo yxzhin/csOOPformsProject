@@ -10,8 +10,8 @@ namespace csOOPformsProject
 {
     public partial class DirektorPanel : Form
     {
-        private Biblioteka Biblioteka { get; set; }
-        private Direktor Direktor { get; set; }
+        private Biblioteka Biblioteka { get; }
+        public static Direktor Direktor { get; set; } = null;
 
         private readonly List<Helpers.Nista> Nista
             = new List<Helpers.Nista>
@@ -56,6 +56,8 @@ namespace csOOPformsProject
                 (dataGridView2_CellValidating);
 
             dataGridView1.MultiSelect = false;
+
+            FormClosing += Direktor_FormClosing;
         }
 
         private void PrikaziPodatke()
@@ -582,6 +584,13 @@ namespace csOOPformsProject
             //Biblioteka.ResetujPodatke();
             Biblioteka.Seeder();
             PrikaziPodatke();
+        }
+
+        // izloguj se
+        private void Direktor_FormClosing(object sender,
+            FormClosingEventArgs e)
+        {
+            Biblioteka.DirektorId = null;
         }
     }
 }

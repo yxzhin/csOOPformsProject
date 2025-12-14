@@ -20,6 +20,8 @@ namespace csOOPformsProject.Core
         public static int? BibliotekarId { get; set; } = null;
         public static int? DirektorId { get; set; } = null;
 
+        public static string FailedLoginUserType = null;
+
         public Biblioteka()
         {
             Autori = new AutorRepozitorium(
@@ -86,7 +88,6 @@ namespace csOOPformsProject.Core
             Knjige.Dodaj(knjiga1);
             Knjige.Dodaj(knjiga2);
             Knjige.Dodaj(knjiga3);
-
             Korisnik korisnik1 = new Korisnik(0, "default",
                 "korisnik1", new DateTime(2007, 7, 3), "sifra1",
                 new DateTime(2003, 3, 7));
@@ -97,9 +98,26 @@ namespace csOOPformsProject.Core
                 "korisnik3", new DateTime(2037, 3, 3), "sifra3",
                 new DateTime(2037, 7, 7));
 
-            Korisnici.Dodaj(korisnik1);
-            Korisnici.Dodaj(korisnik2);
-            Korisnici.Dodaj(korisnik3);
+            if (!KorisnikId.HasValue
+                || (KorisnikId.HasValue
+                && KorisnikId != korisnik1.Id + 1))
+            {
+                Korisnici.Dodaj(korisnik1);
+            }
+
+            if (!KorisnikId.HasValue
+                || (KorisnikId.HasValue
+                && KorisnikId != korisnik2.Id + 1))
+            {
+                Korisnici.Dodaj(korisnik2);
+            }
+
+            if (!KorisnikId.HasValue
+                || (KorisnikId.HasValue
+                && KorisnikId != korisnik3.Id + 1))
+            {
+                Korisnici.Dodaj(korisnik3);
+            }
 
             Direktor direktor = new Direktor(0,
                 "direktor", "73", new DateTime(2073, 7, 3),
@@ -115,11 +133,7 @@ namespace csOOPformsProject.Core
                 "default", "bibliotekar3", new DateTime(2037, 7, 3),
                 "sifra3", "sifraRadnika3");
 
-            Bibliotekari.Dodaj(direktor);
-            Bibliotekari.Dodaj(bibliotekar1);
-            Bibliotekari.Dodaj(bibliotekar2);
-            Bibliotekari.Dodaj(bibliotekar3);
-
+            /*
             if (KorisnikId.HasValue)
             {
                 KorisnikId = korisnik1.Id;
@@ -131,6 +145,33 @@ namespace csOOPformsProject.Core
             if (DirektorId.HasValue)
             {
                 DirektorId = direktor.Id;
+            }
+            */
+
+            if (!DirektorId.HasValue)
+            {
+                Bibliotekari.Dodaj(direktor);
+            }
+
+            if (!BibliotekarId.HasValue
+                || (BibliotekarId.HasValue
+                && BibliotekarId != bibliotekar1.Id + 1))
+            {
+                Bibliotekari.Dodaj(bibliotekar1);
+            }
+
+            if (!BibliotekarId.HasValue
+                || (BibliotekarId.HasValue
+                && BibliotekarId != bibliotekar2.Id + 1))
+            {
+                Bibliotekari.Dodaj(bibliotekar2);
+            }
+
+            if (!BibliotekarId.HasValue
+                || (BibliotekarId.HasValue
+                && BibliotekarId != bibliotekar3.Id + 1))
+            {
+                Bibliotekari.Dodaj(bibliotekar3);
             }
 
             //Zaduzivanje zaduzivanje1 = new Zaduzivanje(0, korisnik1, knjiga1);
@@ -208,6 +249,11 @@ namespace csOOPformsProject.Core
             osoba = Korisnici.UcitajPoPodacima(ime, prezime, sifra);
             if (osoba != null)
             {
+                if (KorisnikId != null)
+                {
+                    FailedLoginUserType = "korisnik";
+                    return null;
+                }
                 Korisnik korisnik = osoba as Korisnik;
                 User user = new User(this, korisnik);
                 KorisnikId = korisnik.Id;
@@ -218,10 +264,20 @@ namespace csOOPformsProject.Core
             {
                 if (osoba is Direktor direktor)
                 {
+                    if (DirektorId != null)
+                    {
+                        FailedLoginUserType = "direktor";
+                        return null;
+                    }
                     DirektorPanel direktorPanel
                         = new DirektorPanel(this, direktor);
                     DirektorId = direktor.Id;
                     return direktorPanel;
+                }
+                if (BibliotekarId != null)
+                {
+                    FailedLoginUserType = "bibliotekar";
+                    return null;
                 }
                 Bibliotekar bibliotekar = osoba as Bibliotekar;
                 BibliotekarId = bibliotekar.Id;

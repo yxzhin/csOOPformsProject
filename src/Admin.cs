@@ -10,8 +10,8 @@ namespace csOOPformsProject
 {
     public partial class Admin : Form
     {
-        private Biblioteka Biblioteka { get; set; }
-        private Bibliotekar Bibliotekar { get; set; }
+        private Biblioteka Biblioteka { get; }
+        public static Bibliotekar Bibliotekar { get; set; } = null;
 
         private readonly List<Helpers.Nista> Nista
             = new List<Helpers.Nista>
@@ -77,6 +77,8 @@ namespace csOOPformsProject
             dataGridView3.MultiSelect = false;
             dataGridView4.MultiSelect = false;
             dataGridView5.MultiSelect = false;
+
+            FormClosing += Admin_FormClosing;
         }
 
         private void PrikaziPodatke()
@@ -905,6 +907,13 @@ namespace csOOPformsProject
             //Biblioteka.Zaduzivanja.Obrisi(id);
 
             PrikaziPodatke();
+        }
+
+        // izloguj se
+        private void Admin_FormClosing(object sender,
+            FormClosingEventArgs e)
+        {
+            Biblioteka.BibliotekarId = null;
         }
     }
 }

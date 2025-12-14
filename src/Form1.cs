@@ -6,7 +6,7 @@ namespace csOOPformsProject
 {
     public partial class Form1 : Form
     {
-        private Biblioteka Biblioteka { get; set; }
+        private Biblioteka Biblioteka { get; }
         public static bool DebugMode { get; } = true; // change in release
         public Form1()
         {
@@ -73,9 +73,30 @@ namespace csOOPformsProject
                 Greska.Show(-3);
                 return;
             }
+
             Form form = Biblioteka.UlogujSe(ime, prezime, sifra);
             if (form == null)
             {
+                if (Biblioteka.FailedLoginUserType == "korisnik"
+                    && Biblioteka.KorisnikId != null)
+                {
+                    Greska.Show(-16, "Korisnik");
+                    return;
+                }
+
+                if (Biblioteka.FailedLoginUserType == "bibliotekar"
+                    && Biblioteka.BibliotekarId != null)
+                {
+                    Greska.Show(-16, "Bibliotekar");
+                    return;
+                }
+
+                if (Biblioteka.FailedLoginUserType == "direktor"
+                    && Biblioteka.DirektorId != null)
+                {
+                    Greska.Show(-16, "Direktor");
+                    return;
+                }
                 Greska.Show(-4);
                 return;
             }
@@ -86,7 +107,9 @@ namespace csOOPformsProject
         // registruj se
         private void button2_Click(object sender, EventArgs e)
         {
-
+            Registracija registracia
+                = new Registracija(Biblioteka);
+            registracia.Show();
         }
     }
 }

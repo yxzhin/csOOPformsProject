@@ -101,6 +101,12 @@ namespace csOOPformsProject.Core
                     "greska!!", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                     break;
+                case -16:
+                    _ = MessageBox.Show("prvo morate da se izlogujete" +
+                        $" iz drugog naloga: {customMessage}!!",
+                    "greska!!", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                    break;
             }
         }
     }

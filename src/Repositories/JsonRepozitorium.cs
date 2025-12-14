@@ -1,5 +1,6 @@
 ﻿using csOOPformsProject.Core;
 using csOOPformsProject.Interfaces;
+using csOOPformsProject.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -106,7 +107,14 @@ namespace csOOPformsProject.Repositories
 
         public bool ObrisiSve()
         {
-            int obrisani = _entiteti.RemoveAll(x => true);
+            // i am losing my sanity
+            int obrisani = _entiteti.RemoveAll
+                (x => x.GetType() == typeof(Korisnik)
+                ? x.Id != Biblioteka.KorisnikId
+                : x.GetType() == typeof(Bibliotekar)
+                ? x.Id != Biblioteka.BibliotekarId
+                : x.GetType() != typeof(Direktor)
+                || x.Id != Biblioteka.DirektorId);
             Sacuvaj();
             return _entiteti.Count > 0;
         }
