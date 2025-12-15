@@ -64,6 +64,7 @@ namespace csOOPformsProject
                 += UpdateData.dataGridView2_CellValueChanged;
 
             dataGridView1.MultiSelect = false;
+            dataGridView2.MultiSelect = false;
 
             FormClosing += Direktor_FormClosing;
 

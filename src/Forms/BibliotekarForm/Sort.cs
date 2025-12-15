@@ -7,7 +7,6 @@ namespace csOOPformsProject.Forms.BibliotekarForm
 {
     public static class Sort
     {
-
         private static bool SortAscending { get; set; } = true;
 
         public static BindingSource Dgv1Bs { get; set; }

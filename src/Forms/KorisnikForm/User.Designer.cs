@@ -1,4 +1,4 @@
-﻿namespace csOOPformsProject.Core
+﻿namespace csOOPformsProject
 {
     partial class User
     {
