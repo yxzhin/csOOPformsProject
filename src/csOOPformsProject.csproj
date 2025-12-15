@@ -93,13 +93,20 @@
     <Compile Include="Forms\BibliotekarForm\Sort.cs" />
     <Compile Include="Forms\BibliotekarForm\UpdateData.cs" />
     <Compile Include="Forms\BibliotekarForm\Validation.cs" />
+    <Compile Include="Forms\DirektorForm\CreateData.cs" />
+    <Compile Include="Forms\DirektorForm\DeleteData.cs" />
     <Compile Include="Forms\DirektorForm\DirektorPanel.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\DirektorForm\DirektorPanel.Designer.cs">
       <DependentUpon>DirektorPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DirektorForm\PreEdit.cs" />
+    <Compile Include="Forms\DirektorForm\ReadData.cs" />
+    <Compile Include="Forms\DirektorForm\Redovi.cs" />
     <Compile Include="Forms\DirektorForm\Sort.cs" />
+    <Compile Include="Forms\DirektorForm\UpdateData.cs" />
+    <Compile Include="Forms\DirektorForm\Validation.cs" />
     <Compile Include="Forms\KorisnikForm\Sort.cs" />
     <Compile Include="Models\Direktor.cs" />
     <Compile Include="Serialized\SerializedAutor.cs" />
