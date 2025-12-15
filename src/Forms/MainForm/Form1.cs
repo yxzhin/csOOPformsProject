@@ -7,7 +7,7 @@ namespace csOOPformsProject
     public partial class Form1 : Form
     {
         private Biblioteka Biblioteka { get; }
-        public static bool DebugMode { get; } = true; // change in release
+        //public static bool DebugMode { get; } = true; // change in release
         public Form1()
         {
             InitializeComponent();
@@ -18,10 +18,10 @@ namespace csOOPformsProject
 
             Biblioteka = new Biblioteka();
 
-            if (DebugMode)
-            {
-                Biblioteka.Seeder();
-            }
+            //if (DebugMode)
+            //{
+            Biblioteka.Seeder();
+            //}
 
             textBox3.PasswordChar = '*';
         }

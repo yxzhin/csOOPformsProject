@@ -49,6 +49,13 @@ namespace csOOPformsProject.Forms.BibliotekarForm
             SortAscending = !SortAscending;
 
             Dgv1Bs.DataSource = list;
+
+            Admin.DataGridView1.Columns
+                [e.ColumnIndex].HeaderCell
+                .SortGlyphDirection =
+                SortAscending
+                ? SortOrder.Descending
+                : SortOrder.Ascending;
         }
 
         // za zaduzivanja
@@ -78,6 +85,13 @@ namespace csOOPformsProject.Forms.BibliotekarForm
             SortAscending = !SortAscending;
 
             Dgv3Bs.DataSource = list;
+
+            Admin.DataGridView3.Columns
+                [e.ColumnIndex].HeaderCell
+                .SortGlyphDirection =
+                SortAscending
+                ? SortOrder.Descending
+                : SortOrder.Ascending;
         }
 
         // za autore
@@ -107,6 +121,13 @@ namespace csOOPformsProject.Forms.BibliotekarForm
             SortAscending = !SortAscending;
 
             Dgv4Bs.DataSource = list;
+
+            Admin.DataGridView4.Columns
+                [e.ColumnIndex].HeaderCell
+                .SortGlyphDirection =
+                SortAscending
+                ? SortOrder.Descending
+                : SortOrder.Ascending;
         }
 
         // za kategorije
@@ -136,6 +157,13 @@ namespace csOOPformsProject.Forms.BibliotekarForm
             SortAscending = !SortAscending;
 
             Dgv5Bs.DataSource = list;
+
+            Admin.DataGridView5.Columns
+                [e.ColumnIndex].HeaderCell
+                .SortGlyphDirection =
+                SortAscending
+                ? SortOrder.Descending
+                : SortOrder.Ascending;
         }
     }
 }

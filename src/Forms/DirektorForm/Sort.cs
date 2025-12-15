@@ -43,6 +43,13 @@ namespace csOOPformsProject.Forms.DirektorForm
             SortAscending = !SortAscending;
 
             Dgv1Bs.DataSource = list;
+
+            DirektorPanel.DataGridView1.Columns
+                [e.ColumnIndex].HeaderCell
+                .SortGlyphDirection =
+                SortAscending
+                ? SortOrder.Descending
+                : SortOrder.Ascending;
         }
 
         // za bibliotekare
@@ -72,6 +79,13 @@ namespace csOOPformsProject.Forms.DirektorForm
             SortAscending = !SortAscending;
 
             Dgv2Bs.DataSource = list;
+
+            DirektorPanel.DataGridView2.Columns
+                [e.ColumnIndex].HeaderCell
+                .SortGlyphDirection =
+                SortAscending
+                ? SortOrder.Descending
+                : SortOrder.Ascending;
         }
     }
 }
