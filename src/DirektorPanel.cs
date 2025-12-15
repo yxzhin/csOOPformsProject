@@ -20,6 +20,12 @@ namespace csOOPformsProject
             };
 
         private object OldValue { get; set; } = "";
+        private bool SortAscending { get; set; } = true;
+
+        private BindingSource Dgv1Bs { get; set; }
+            = new BindingSource();
+        private BindingSource Dgv2Bs { get; set; }
+            = new BindingSource();
 
         public DirektorPanel(Biblioteka biblioteka, Direktor direktor)
         {
@@ -58,6 +64,70 @@ namespace csOOPformsProject
             dataGridView1.MultiSelect = false;
 
             FormClosing += Direktor_FormClosing;
+
+            dataGridView1.ColumnHeaderMouseClick
+                += dataGridView1_ColumnHeaderMouseClick;
+            dataGridView2.ColumnHeaderMouseClick
+                += dataGridView2_ColumnHeaderMouseClick;
+        }
+
+        // sortiraj po header columnu
+        // za korisnike
+        private void dataGridView1_ColumnHeaderMouseClick
+            (object sender, DataGridViewCellMouseEventArgs e)
+        {
+            string columnName = dataGridView1.Columns
+                [e.ColumnIndex].DataPropertyName;
+
+            if (string.IsNullOrEmpty(columnName)
+                || columnName == "nista")
+            {
+                return;
+            }
+
+            List<SerializedKorisnik> list =
+                (List<SerializedKorisnik>)Dgv1Bs.DataSource;
+
+            list = SortAscending
+                ? list.OrderBy(x => x.GetType()
+                .GetProperty(columnName)
+                .GetValue(x)).ToList()
+                : list.OrderByDescending(x => x.GetType()
+                .GetProperty(columnName)
+                .GetValue(x)).ToList();
+
+            SortAscending = !SortAscending;
+
+            Dgv1Bs.DataSource = list;
+        }
+
+        // za bibliotekare
+        private void dataGridView2_ColumnHeaderMouseClick
+            (object sender, DataGridViewCellMouseEventArgs e)
+        {
+            string columnName = dataGridView2.Columns
+                [e.ColumnIndex].DataPropertyName;
+
+            if (string.IsNullOrEmpty(columnName)
+                || columnName == "nista")
+            {
+                return;
+            }
+
+            List<SerializedBibliotekar> list =
+                (List<SerializedBibliotekar>)Dgv2Bs.DataSource;
+
+            list = SortAscending
+                ? list.OrderBy(x => x.GetType()
+                .GetProperty(columnName)
+                .GetValue(x)).ToList()
+                : list.OrderByDescending(x => x.GetType()
+                .GetProperty(columnName)
+                .GetValue(x)).ToList();
+
+            SortAscending = !SortAscending;
+
+            Dgv2Bs.DataSource = list;
         }
 
         private void PrikaziPodatke()
@@ -82,13 +152,15 @@ namespace csOOPformsProject
             List<SerializedKorisnik> serializedKorisnici =
                 Helpers.Serialize.Korisnici
                 (Biblioteka.Korisnici.UcitajSve());
+            Dgv1Bs.DataSource = serializedKorisnici;
 
             List<SerializedBibliotekar> serializedBibliotekari =
                 Helpers.Serialize.Bibliotekari
                 (Biblioteka.Bibliotekari.UcitajSve());
+            Dgv2Bs.DataSource = serializedBibliotekari;
 
-            dataGridView1.DataSource = serializedKorisnici;
-            dataGridView2.DataSource = serializedBibliotekari;
+            dataGridView1.DataSource = Dgv1Bs;
+            dataGridView2.DataSource = Dgv2Bs;
 
             if (serializedKorisnici.Count == 0)
             {
