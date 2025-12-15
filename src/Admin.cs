@@ -364,7 +364,9 @@ namespace csOOPformsProject
 
             if ((atribut == "DatumZaduzivanja"
                 || atribut == "RokZaduzivanja"
-                || atribut == "DatumVracanja")
+                || (atribut == "DatumVracanja"
+                && !string.IsNullOrEmpty(newValue)
+                && newValue.ToLower() != "nista"))
                 && !DateTime.TryParse(newValue, out _))
             {
                 e.Cancel = true;
@@ -563,8 +565,12 @@ namespace csOOPformsProject
             }
 
             int id;
-            string newValue = dataGridView3.Rows[e.RowIndex]
-                .Cells[e.ColumnIndex].Value.ToString().Trim();
+            string newValue =
+                dataGridView3.Rows[e.RowIndex]
+                .Cells[e.ColumnIndex].Value != null
+                ? dataGridView3.Rows[e.RowIndex]
+                .Cells[e.ColumnIndex].Value.ToString().Trim()
+                : string.Empty;
             string atribut = dataGridView3.Columns[e.ColumnIndex]
                 .HeaderCell.Value.ToString();
 
@@ -651,8 +657,13 @@ namespace csOOPformsProject
                     break;
 
                 case "DatumVracanja":
-                    DateTime datumVracanja
-                        = DateTime.Parse(newValue);
+                    DateTime? datumVracanja = null;
+                    if (!string.IsNullOrEmpty(newValue)
+                        && newValue.ToLower() != "nista")
+                    {
+                        datumVracanja = DateTime.Parse(newValue);
+                    }
+
                     zaduzivanje.DatumVracanja = datumVracanja;
                     break;
             }
