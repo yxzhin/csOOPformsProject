@@ -56,7 +56,6 @@ namespace csOOPformsProject.Core
 
         public void Seeder()
         {
-
             ResetujPodatke();
 
             Autor autor1 = new Autor(0, "default", "autor1");
@@ -133,21 +132,6 @@ namespace csOOPformsProject.Core
                 "default", "bibliotekar3", new DateTime(2037, 7, 3),
                 "sifra3", "sifraRadnika3");
 
-            /*
-            if (KorisnikId.HasValue)
-            {
-                KorisnikId = korisnik1.Id;
-            }
-            if (BibliotekarId.HasValue)
-            {
-                BibliotekarId = bibliotekar1.Id;
-            }
-            if (DirektorId.HasValue)
-            {
-                DirektorId = direktor.Id;
-            }
-            */
-
             if (!DirektorId.HasValue)
             {
                 Bibliotekari.Dodaj(direktor);
@@ -174,10 +158,7 @@ namespace csOOPformsProject.Core
                 Bibliotekari.Dodaj(bibliotekar3);
             }
 
-            //Zaduzivanje zaduzivanje1 = new Zaduzivanje(0, korisnik1, knjiga1);
             _ = PozajmiKnjigu(1, 1);
-
-            //Zaduzivanja.Dodaj(zaduzivanje1);
 
         }
 
@@ -234,11 +215,6 @@ namespace csOOPformsProject.Core
             {
                 _ = Zaduzivanja.Promeni(zaduzivanje);
             }
-            /*
-            _ = obrisiZaduzivanje
-                ? Zaduzivanja.Obrisi(zaduzivanjeId)
-                : Zaduzivanja.Promeni(zaduzivanje);
-            */
 
             _ = Knjige.Promeni(zaduzivanje.Knjiga);
 

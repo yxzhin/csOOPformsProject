@@ -116,7 +116,7 @@ namespace csOOPformsProject.Repositories
                 : x.GetType() != typeof(Direktor)
                 || x.Id != Biblioteka.DirektorId);
             Sacuvaj();
-            return _entiteti.Count > 0;
+            return obrisani > 0;
         }
 
         public void Sacuvaj()

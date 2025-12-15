@@ -73,14 +73,8 @@ namespace csOOPformsProject
             dataGridView5.CellValueChanged
                 += UpdateData.dataGridView5_CellValueChanged;
 
-            //dataGridView1.DataError += dataGridView1_DataError;
-
             dataGridView1.CurrentCellDirtyStateChanged
                 += UpdateData.dataGridView1_CurrentCellDirtyStateChanged;
-            /*
-            dataGridView3.CurrentCellDirtyStateChanged
-                += dataGridView3_CurrentCellDirtyStateChanged;
-            */
 
             dataGridView1.MultiSelect = false;
             dataGridView3.MultiSelect = false;

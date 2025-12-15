@@ -112,7 +112,6 @@ namespace csOOPformsProject
         // resetuj
         private void button3_Click(object sender, EventArgs e)
         {
-            //Biblioteka.ResetujPodatke();
             Biblioteka.Seeder();
             ReadData.Read();
         }

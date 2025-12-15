@@ -15,7 +15,6 @@ namespace csOOPformsProject.Models
 
         public override string ToString()
         {
-            // $"Bibliotekar.Id: {Id}; Bibliotekar.PunoIme: {PunoIme}"
             return PunoIme;
         }
     }

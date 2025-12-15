@@ -41,7 +41,7 @@ namespace csOOPformsProject.Forms.KorisnikForm
             _ = list.RemoveAll
                 (x => x.Korisnik !=
                 User.Korisnik.PunoIme
-                && x.DatumVracanja != "nista");
+                || x.DatumVracanja != "nista");
 
             SortAscending = !SortAscending;
 

@@ -42,7 +42,7 @@ namespace csOOPformsProject.Forms.KorisnikForm
             _ = serializedZaduzivanja.RemoveAll
                 (x => x.Korisnik !=
                 User.Korisnik.PunoIme
-                && x.DatumVracanja != "nista");
+                || x.DatumVracanja != "nista");
             Sort.Dgv1Bs.DataSource = serializedZaduzivanja;
 
             List<SerializedKnjiga> serializedKnjige =

@@ -12,7 +12,6 @@ namespace csOOPformsProject.Forms.BibliotekarForm
         public static void dataGridView1_CellValueChanged(object sender,
             DataGridViewCellEventArgs e)
         {
-
             if (e.RowIndex < 0 || e.ColumnIndex < 0)
             {
                 return;
@@ -57,10 +56,6 @@ namespace csOOPformsProject.Forms.BibliotekarForm
 
             switch (atribut)
             {
-                /*
-                case "Id":
-                    knjiga.Id = (int)newValue; break;
-                */
                 case "Naziv":
                     knjiga.Naziv = newValue;
                     break;
@@ -70,14 +65,6 @@ namespace csOOPformsProject.Forms.BibliotekarForm
                         Admin.Biblioteka.Autori.UcitajPoPunomImenu
                         (newValue);
                     knjiga.Autor = autor;
-                    /*
-                    string ime = newValue.ToString()
-                        .Split(' ')[0];
-                    string prezime = newValue.ToString()
-                        .Split(' ')[1];
-                    knjiga.Autor.Ime = ime;
-                    knjiga.Autor.Prezime = prezime;
-                    */
                     break;
 
                 case "Kategorija":
@@ -85,7 +72,6 @@ namespace csOOPformsProject.Forms.BibliotekarForm
                         Admin.Biblioteka.Kategorije.UcitajPoNazivu
                         (newValue);
                     knjiga.Kategorija = kategorija;
-                    //knjiga.Kategorija.Naziv = newValue.ToString();
                     break;
             }
 
@@ -112,7 +98,6 @@ namespace csOOPformsProject.Forms.BibliotekarForm
         public static void dataGridView3_CellValueChanged(object sender,
             DataGridViewCellEventArgs e)
         {
-
             if (e.RowIndex < 0 || e.ColumnIndex < 0)
             {
                 return;
@@ -240,7 +225,6 @@ namespace csOOPformsProject.Forms.BibliotekarForm
         public static void dataGridView4_CellValueChanged(object sender,
             DataGridViewCellEventArgs e)
         {
-
             if (e.RowIndex < 0 || e.ColumnIndex < 0)
             {
                 return;
@@ -302,7 +286,6 @@ namespace csOOPformsProject.Forms.BibliotekarForm
         public static void dataGridView5_CellValueChanged(object sender,
             DataGridViewCellEventArgs e)
         {
-
             if (e.RowIndex < 0 || e.ColumnIndex < 0)
             {
                 return;
@@ -324,7 +307,8 @@ namespace csOOPformsProject.Forms.BibliotekarForm
                 : (int)Admin.DataGridView5.Rows
                 [e.RowIndex].Cells[0].Value;
 
-            Kategorija kategorija = Admin.Biblioteka.Kategorije.UcitajPoId(id);
+            Kategorija kategorija = Admin.Biblioteka
+                .Kategorije.UcitajPoId(id);
 
             switch (atribut)
             {

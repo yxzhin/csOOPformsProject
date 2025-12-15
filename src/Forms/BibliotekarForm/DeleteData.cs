@@ -3,7 +3,6 @@ using System.Windows.Forms;
 
 namespace csOOPformsProject.Forms.BibliotekarForm
 {
-
     public static class DeleteData
     {
         public static void Delete()
@@ -33,16 +32,11 @@ namespace csOOPformsProject.Forms.BibliotekarForm
 
             _ = Admin.DataGridView1.SelectedRows.Count == 1
                 ? Admin.Biblioteka.ObrisiKnjigu(id)
-            //Biblioteka.Knjige.Obrisi(id)
                 : Admin.DataGridView3.SelectedRows.Count == 1
             ? Admin.Biblioteka.VratiKnjigu(id, true)
                 : Admin.DataGridView4.SelectedRows.Count == 1
                 ? Admin.Biblioteka.ObrisiAutora(id)
                 : Admin.Biblioteka.ObrisiKategoriju(id);
-            //? Biblioteka.Korisnici.Obrisi(id)
-            //? Biblioteka.Autori.Obrisi(id)
-            //: Biblioteka.Kategorije.Obrisi(id);
-            //Biblioteka.Zaduzivanja.Obrisi(id);
 
             ReadData.Read();
         }

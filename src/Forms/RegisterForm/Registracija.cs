@@ -19,6 +19,7 @@ namespace csOOPformsProject
             MaximizeBox = false;
             MinimizeBox = false;
 
+            textBox3.PasswordChar = '*';
         }
 
         private void Registracija_Load(object sender, EventArgs e)

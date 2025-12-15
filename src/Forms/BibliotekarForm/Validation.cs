@@ -7,7 +7,6 @@ namespace csOOPformsProject.Forms.BibliotekarForm
 {
     public static class Validation
     {
-
         // validacija novog znacenja u celiji
         // za knjige
         public static void dataGridView1_CellValidating

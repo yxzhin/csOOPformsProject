@@ -20,7 +20,6 @@ namespace csOOPformsProject.Models
         public override string ToString()
         {
             return Naziv;
-            //return $"{Naziv} | {Autor}";
         }
     }
 }
