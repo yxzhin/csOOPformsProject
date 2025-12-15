@@ -50,8 +50,6 @@ namespace csOOPformsProject.Forms.KorisnikForm
                 .Columns.Remove("Korisnik");
             User.DataGridView1
                 .Columns.Remove("DatumVracanja");
-            User.DataGridView1
-                .Columns.Remove("IstekliRok");
 
             User.DataGridView1.Columns
                 [e.ColumnIndex].HeaderCell

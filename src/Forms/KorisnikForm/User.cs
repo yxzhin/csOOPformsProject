@@ -26,7 +26,6 @@ namespace csOOPformsProject
             InitializeComponent();
 
             ReadData.User = this;
-            DeleteData.User = this;
 
             DataGridView1 = dataGridView1;
             DataGridView2 = dataGridView2;

@@ -5,8 +5,6 @@ namespace csOOPformsProject.Forms.DirektorForm
 {
     public static class DeleteData
     {
-        public static DirektorPanel DirektorPanel { get; set; }
-
         public static void Delete()
         {
             if (Redovi.NistaNijeIzabrano())

@@ -26,8 +26,6 @@ namespace csOOPformsProject
             InitializeComponent();
 
             ReadData.DirektorPanel = this;
-            UpdateData.DirektorPanel = this;
-            DeleteData.DirektorPanel = this;
 
             DataGridView1 = dataGridView1;
             DataGridView2 = dataGridView2;

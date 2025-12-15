@@ -28,8 +28,6 @@ namespace csOOPformsProject
             InitializeComponent();
 
             ReadData.Admin = this;
-            UpdateData.Admin = this;
-            DeleteData.Admin = this;
 
             DataGridView1 = dataGridView1;
             DataGridView3 = dataGridView3;

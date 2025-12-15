@@ -6,8 +6,6 @@ namespace csOOPformsProject.Forms.BibliotekarForm
 
     public static class DeleteData
     {
-        public static Admin Admin { get; set; }
-
         public static void Delete()
         {
             if (Redovi.NistaNijeIzabrano())

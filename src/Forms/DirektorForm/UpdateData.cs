@@ -7,8 +7,6 @@ namespace csOOPformsProject.Forms.DirektorForm
 {
     public static class UpdateData
     {
-        public static DirektorPanel DirektorPanel { get; set; }
-
         // izmena celije
         // za korisnike
         public static void dataGridView1_CellValueChanged(object sender,

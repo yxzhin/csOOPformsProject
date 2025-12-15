@@ -7,8 +7,6 @@ namespace csOOPformsProject.Forms.BibliotekarForm
 {
     public static class UpdateData
     {
-        public static Admin Admin { get; set; }
-
         // izmena celije
         // za knjige
         public static void dataGridView1_CellValueChanged(object sender,
@@ -41,8 +39,18 @@ namespace csOOPformsProject.Forms.BibliotekarForm
             if (Admin.DataGridView1.Columns[e.ColumnIndex] is
                 DataGridViewCheckBoxColumn)
             {
-                knjiga.NaStanju = (bool)Admin.DataGridView1
+                bool naStanju = (bool)Admin.DataGridView1
                     .CurrentCell.Value;
+                if (naStanju
+                    && Admin.Biblioteka.Zaduzivanja
+                    .UcitajPoId(knjiga.Id) != null)
+                {
+                    Admin.DataGridView1
+                    .CurrentCell.Value = false;
+                    Greska.Show(-19);
+                    return;
+                }
+                knjiga.NaStanju = naStanju;
                 _ = Admin.Biblioteka.Knjige.Promeni(knjiga);
                 return;
             }
