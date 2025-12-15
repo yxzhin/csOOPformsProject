@@ -25,7 +25,6 @@ namespace csOOPformsProject
         {
             InitializeComponent();
 
-            CreateData.DirektorPanel = this;
             ReadData.DirektorPanel = this;
             UpdateData.DirektorPanel = this;
             DeleteData.DirektorPanel = this;

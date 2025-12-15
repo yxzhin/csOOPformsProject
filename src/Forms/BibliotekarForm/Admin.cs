@@ -27,7 +27,6 @@ namespace csOOPformsProject
         {
             InitializeComponent();
 
-            CreateData.Admin = this;
             ReadData.Admin = this;
             UpdateData.Admin = this;
             DeleteData.Admin = this;

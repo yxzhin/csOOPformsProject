@@ -7,8 +7,6 @@ namespace csOOPformsProject.Forms.DirektorForm
 {
     public static class CreateData
     {
-        public static DirektorPanel DirektorPanel { get; set; }
-
         public static void Create()
         {
             if (Redovi.NistaNijeIzabrano())
@@ -24,15 +22,6 @@ namespace csOOPformsProject.Forms.DirektorForm
             }
 
             DataGridViewRow izabraniRed = Redovi.UcitajIzabraniRed();
-
-            /*
-            if (izabraniRed.Cells[0].Value.ToString()
-                == "nema nista da se prikaze!!")
-            {
-                Greska.Show(-5);
-                return;
-            }
-            */
 
             switch (izabraniRed.DataGridView.Name)
             {

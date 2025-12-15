@@ -6,8 +6,6 @@ namespace csOOPformsProject.Forms.BibliotekarForm
 {
     public static class CreateData
     {
-        public static Admin Admin { get; set; }
-
         public static void Create()
         {
             if (Redovi.NistaNijeIzabrano())
@@ -23,15 +21,6 @@ namespace csOOPformsProject.Forms.BibliotekarForm
             }
 
             DataGridViewRow izabraniRed = Redovi.UcitajIzabraniRed();
-
-            /*
-            if (izabraniRed.Cells[0].Value.ToString()
-                == "nema nista da se prikaze!!")
-            {
-                Greska.Show(-5);
-                return;
-            }
-            */
 
             switch (izabraniRed.DataGridView.Name)
             {

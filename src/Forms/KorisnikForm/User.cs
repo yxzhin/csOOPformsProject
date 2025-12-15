@@ -25,7 +25,6 @@ namespace csOOPformsProject
         {
             InitializeComponent();
 
-            CreateData.User = this;
             ReadData.User = this;
             DeleteData.User = this;
 
