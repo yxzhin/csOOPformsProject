@@ -1,4 +1,5 @@
 ﻿using csOOPformsProject.Core;
+using csOOPformsProject.Forms.BibliotekarForm;
 using csOOPformsProject.Models;
 using csOOPformsProject.Serialized;
 using System;
@@ -20,20 +21,15 @@ namespace csOOPformsProject
             };
 
         private object OldValue { get; set; } = "";
-        private bool SortAscending { get; set; } = true;
-
-        private BindingSource Dgv1Bs { get; set; }
-            = new BindingSource();
-        private BindingSource Dgv3Bs { get; set; }
-            = new BindingSource();
-        private BindingSource Dgv4Bs { get; set; }
-            = new BindingSource();
-        private BindingSource Dgv5Bs { get; set; }
-            = new BindingSource();
 
         public Admin(Biblioteka biblioteka, Bibliotekar bibliotekar)
         {
             InitializeComponent();
+
+            Sort.dataGridView1 = dataGridView1;
+            Sort.dataGridView3 = dataGridView3;
+            Sort.dataGridView4 = dataGridView4;
+            Sort.dataGridView5 = dataGridView5;
 
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -91,132 +87,13 @@ namespace csOOPformsProject
             FormClosing += Admin_FormClosing;
 
             dataGridView1.ColumnHeaderMouseClick
-                += dataGridView1_ColumnHeaderMouseClick;
+                += Sort.dataGridView1_ColumnHeaderMouseClick;
             dataGridView3.ColumnHeaderMouseClick
-                += dataGridView3_ColumnHeaderMouseClick;
+                += Sort.dataGridView3_ColumnHeaderMouseClick;
             dataGridView4.ColumnHeaderMouseClick
-                += dataGridView4_ColumnHeaderMouseClick;
+                += Sort.dataGridView4_ColumnHeaderMouseClick;
             dataGridView5.ColumnHeaderMouseClick
-                += dataGridView5_ColumnHeaderMouseClick;
-        }
-
-        // sortiraj po header columnu
-        // za knjige
-        private void dataGridView1_ColumnHeaderMouseClick
-            (object sender, DataGridViewCellMouseEventArgs e)
-        {
-            string columnName = dataGridView1.Columns
-                [e.ColumnIndex].DataPropertyName;
-
-            if (string.IsNullOrEmpty(columnName)
-                || columnName == "nista")
-            {
-                return;
-            }
-
-            List<SerializedKnjiga> list =
-                (List<SerializedKnjiga>)Dgv1Bs.DataSource;
-
-            // i am still losing my sanity
-            // :sob: :skull:
-            list = SortAscending
-                ? list.OrderBy(x => x.GetType()
-                .GetProperty(columnName)
-                .GetValue(x)).ToList()
-                : list.OrderByDescending(x => x.GetType()
-                .GetProperty(columnName)
-                .GetValue(x)).ToList();
-
-            SortAscending = !SortAscending;
-
-            Dgv1Bs.DataSource = list;
-        }
-
-        // za zaduzivanja
-        private void dataGridView3_ColumnHeaderMouseClick
-            (object sender, DataGridViewCellMouseEventArgs e)
-        {
-            string columnName = dataGridView3.Columns
-                [e.ColumnIndex].DataPropertyName;
-
-            if (string.IsNullOrEmpty(columnName)
-                || columnName == "nista")
-            {
-                return;
-            }
-
-            List<SerializedZaduzivanje> list =
-                (List<SerializedZaduzivanje>)Dgv3Bs.DataSource;
-
-            list = SortAscending
-                ? list.OrderBy(x => x.GetType()
-                .GetProperty(columnName)
-                .GetValue(x)).ToList()
-                : list.OrderByDescending(x => x.GetType()
-                .GetProperty(columnName)
-                .GetValue(x)).ToList();
-
-            SortAscending = !SortAscending;
-
-            Dgv3Bs.DataSource = list;
-        }
-
-        // za autore
-        private void dataGridView4_ColumnHeaderMouseClick
-            (object sender, DataGridViewCellMouseEventArgs e)
-        {
-            string columnName = dataGridView4.Columns
-                [e.ColumnIndex].DataPropertyName;
-
-            if (string.IsNullOrEmpty(columnName)
-                || columnName == "nista")
-            {
-                return;
-            }
-
-            List<SerializedAutor> list =
-                (List<SerializedAutor>)Dgv4Bs.DataSource;
-
-            list = SortAscending
-                ? list.OrderBy(x => x.GetType()
-                .GetProperty(columnName)
-                .GetValue(x)).ToList()
-                : list.OrderByDescending(x => x.GetType()
-                .GetProperty(columnName)
-                .GetValue(x)).ToList();
-
-            SortAscending = !SortAscending;
-
-            Dgv4Bs.DataSource = list;
-        }
-
-        // za kategorije
-        private void dataGridView5_ColumnHeaderMouseClick
-            (object sender, DataGridViewCellMouseEventArgs e)
-        {
-            string columnName = dataGridView5.Columns
-                [e.ColumnIndex].DataPropertyName;
-
-            if (string.IsNullOrEmpty(columnName)
-                || columnName == "nista")
-            {
-                return;
-            }
-
-            List<SerializedKategorija> list =
-                (List<SerializedKategorija>)Dgv5Bs.DataSource;
-
-            list = SortAscending
-                ? list.OrderBy(x => x.GetType()
-                .GetProperty(columnName)
-                .GetValue(x)).ToList()
-                : list.OrderByDescending(x => x.GetType()
-                .GetProperty(columnName)
-                .GetValue(x)).ToList();
-
-            SortAscending = !SortAscending;
-
-            Dgv5Bs.DataSource = list;
+                += Sort.dataGridView5_ColumnHeaderMouseClick;
         }
 
         private void PrikaziPodatke()
@@ -245,27 +122,27 @@ namespace csOOPformsProject
             List<SerializedKnjiga> serializedKnjige =
                 Helpers.Serialize.Knjige
                 (Biblioteka.Knjige.UcitajSve());
-            Dgv1Bs.DataSource = serializedKnjige;
+            Sort.Dgv1Bs.DataSource = serializedKnjige;
 
             List<SerializedZaduzivanje> serializedZaduzivanja =
                 Helpers.Serialize.Zaduzivanja
                 (Biblioteka.Zaduzivanja.UcitajSve());
-            Dgv3Bs.DataSource = serializedZaduzivanja;
+            Sort.Dgv3Bs.DataSource = serializedZaduzivanja;
 
             List<SerializedAutor> serializedAutori =
                 Helpers.Serialize.Autori
                 (Biblioteka.Autori.UcitajSve());
-            Dgv4Bs.DataSource = serializedAutori;
+            Sort.Dgv4Bs.DataSource = serializedAutori;
 
             List<SerializedKategorija> serializedKategorije =
                 Helpers.Serialize.Kategorije
                 (Biblioteka.Kategorije.UcitajSve());
-            Dgv5Bs.DataSource = serializedKategorije;
+            Sort.Dgv5Bs.DataSource = serializedKategorije;
 
-            dataGridView1.DataSource = Dgv1Bs;
-            dataGridView3.DataSource = Dgv3Bs;
-            dataGridView4.DataSource = Dgv4Bs;
-            dataGridView5.DataSource = Dgv5Bs;
+            dataGridView1.DataSource = Sort.Dgv1Bs;
+            dataGridView3.DataSource = Sort.Dgv3Bs;
+            dataGridView4.DataSource = Sort.Dgv4Bs;
+            dataGridView5.DataSource = Sort.Dgv5Bs;
 
             if (serializedKnjige.Count == 0)
             {
