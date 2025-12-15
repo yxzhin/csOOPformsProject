@@ -75,7 +75,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Comic Sans MS", 16.2F);
-            this.label4.Location = new System.Drawing.Point(59, 202);
+            this.label4.Location = new System.Drawing.Point(59, 212);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(129, 39);
             this.label4.TabIndex = 3;
@@ -85,7 +85,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Comic Sans MS", 16.2F);
-            this.label5.Location = new System.Drawing.Point(59, 251);
+            this.label5.Location = new System.Drawing.Point(59, 265);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(88, 39);
             this.label5.TabIndex = 4;
@@ -93,26 +93,26 @@
             // 
             // textBox1
             // 
-            this.textBox1.Font = new System.Drawing.Font("Comic Sans MS", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(188, 177);
+            this.textBox1.Font = new System.Drawing.Font("Comic Sans MS", 12.8F);
+            this.textBox1.Location = new System.Drawing.Point(188, 167);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(521, 26);
+            this.textBox1.Size = new System.Drawing.Size(521, 37);
             this.textBox1.TabIndex = 5;
             // 
             // textBox2
             // 
-            this.textBox2.Font = new System.Drawing.Font("Comic Sans MS", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox2.Font = new System.Drawing.Font("Comic Sans MS", 12.8F);
             this.textBox2.Location = new System.Drawing.Point(188, 216);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(521, 26);
+            this.textBox2.Size = new System.Drawing.Size(521, 37);
             this.textBox2.TabIndex = 6;
             // 
             // textBox3
             // 
-            this.textBox3.Font = new System.Drawing.Font("Comic Sans MS", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox3.Font = new System.Drawing.Font("Comic Sans MS", 12.8F);
             this.textBox3.Location = new System.Drawing.Point(188, 265);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(521, 26);
+            this.textBox3.Size = new System.Drawing.Size(521, 37);
             this.textBox3.TabIndex = 7;
             // 
             // button1
