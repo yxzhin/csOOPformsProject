@@ -27,14 +27,14 @@ namespace csOOPformsProject.Forms.DirektorForm
                 .DataGridView1.Columns[e.ColumnIndex]
                 .HeaderCell.Value.ToString();
 
-            if (newValue == DirektorPanel
+            if (newValue == PreEdit
                 .OldValue.ToString())
             {
                 return;
             }
 
             id = atribut == "Id"
-                ? (int)DirektorPanel.OldValue
+                ? (int)PreEdit.OldValue
                 : (int)DirektorPanel.DataGridView1.Rows
                 [e.RowIndex].Cells[0].Value;
 
@@ -69,7 +69,7 @@ namespace csOOPformsProject.Forms.DirektorForm
             }
 
             if (atribut == "Id"
-                && int.Parse(DirektorPanel
+                && int.Parse(PreEdit
                 .OldValue.ToString())
                 == Biblioteka.KorisnikId)
             {
@@ -90,10 +90,10 @@ namespace csOOPformsProject.Forms.DirektorForm
                 if (atribut == "PunoIme")
                 {
                     // otkazi promene
-                    string ime = DirektorPanel
+                    string ime = PreEdit
                         .OldValue.ToString()
                         .Split(' ')[0];
-                    string prezime = DirektorPanel
+                    string prezime = PreEdit
                         .OldValue.ToString()
                         .Split(' ')[1];
                     korisnik.Ime = ime;
@@ -101,7 +101,7 @@ namespace csOOPformsProject.Forms.DirektorForm
                 }
                 else if (atribut == "Sifra")
                 {
-                    string sifra = DirektorPanel
+                    string sifra = PreEdit
                         .OldValue.ToString();
                     korisnik.Sifra = sifra;
                 }
@@ -127,14 +127,14 @@ namespace csOOPformsProject.Forms.DirektorForm
                 .DataGridView2.Columns[e.ColumnIndex]
                 .HeaderCell.Value.ToString();
 
-            if (newValue == DirektorPanel
+            if (newValue == PreEdit
                 .OldValue.ToString())
             {
                 return;
             }
 
             id = atribut == "Id"
-                ? (int)DirektorPanel.OldValue
+                ? (int)PreEdit.OldValue
                 : (int)DirektorPanel.DataGridView2.Rows
                 [e.RowIndex].Cells[0].Value;
 
@@ -170,13 +170,13 @@ namespace csOOPformsProject.Forms.DirektorForm
 
             if (atribut == "Id")
             {
-                if (int.Parse(DirektorPanel
+                if (int.Parse(PreEdit
                     .OldValue.ToString())
                 == Biblioteka.BibliotekarId)
                 {
                     Biblioteka.BibliotekarId = int.Parse(newValue);
                 }
-                else if (int.Parse(DirektorPanel
+                else if (int.Parse(PreEdit
                     .OldValue.ToString())
                 == Biblioteka.DirektorId)
                 {
@@ -198,10 +198,10 @@ namespace csOOPformsProject.Forms.DirektorForm
                 if (atribut == "PunoIme")
                 {
                     // otkazi promene
-                    string ime = DirektorPanel
+                    string ime = PreEdit
                         .OldValue.ToString()
                         .Split(' ')[0];
-                    string prezime = DirektorPanel
+                    string prezime = PreEdit
                         .OldValue.ToString()
                         .Split(' ')[1];
                     bibliotekar.Ime = ime;
@@ -209,13 +209,13 @@ namespace csOOPformsProject.Forms.DirektorForm
                 }
                 else if (atribut == "Sifra")
                 {
-                    string sifra = DirektorPanel
+                    string sifra = PreEdit
                         .OldValue.ToString();
                     bibliotekar.Sifra = sifra;
                 }
                 else if (atribut == "SifraRadnika")
                 {
-                    string sifraRadnika = DirektorPanel
+                    string sifraRadnika = PreEdit
                         .OldValue.ToString();
                     bibliotekar.SifraRadnika = sifraRadnika;
                 }

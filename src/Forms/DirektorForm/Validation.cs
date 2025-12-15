@@ -19,7 +19,7 @@ namespace csOOPformsProject.Forms.DirektorForm
                 .Columns[e.ColumnIndex]
                 .HeaderCell.Value.ToString();
 
-            if (newValue == DirektorPanel
+            if (newValue == PreEdit
                 .OldValue.ToString())
             {
                 return;
@@ -79,7 +79,7 @@ namespace csOOPformsProject.Forms.DirektorForm
                 .Columns[e.ColumnIndex]
                 .HeaderCell.Value.ToString();
 
-            if (newValue == DirektorPanel
+            if (newValue == PreEdit
                 .OldValue.ToString())
             {
                 return;

@@ -18,8 +18,6 @@ namespace csOOPformsProject
                 new Helpers.Nista(),
             };
 
-        public static object OldValue { get; set; } = "";
-
         public static DataGridView DataGridView1 { get; set; }
         public static DataGridView DataGridView2 { get; set; }
 

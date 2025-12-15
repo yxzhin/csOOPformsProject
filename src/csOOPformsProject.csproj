@@ -107,6 +107,10 @@
     <Compile Include="Forms\DirektorForm\Sort.cs" />
     <Compile Include="Forms\DirektorForm\UpdateData.cs" />
     <Compile Include="Forms\DirektorForm\Validation.cs" />
+    <Compile Include="Forms\KorisnikForm\CreateData.cs" />
+    <Compile Include="Forms\KorisnikForm\DeleteData.cs" />
+    <Compile Include="Forms\KorisnikForm\ReadData.cs" />
+    <Compile Include="Forms\KorisnikForm\Redovi.cs" />
     <Compile Include="Forms\KorisnikForm\Sort.cs" />
     <Compile Include="Models\Direktor.cs" />
     <Compile Include="Serialized\SerializedAutor.cs" />
