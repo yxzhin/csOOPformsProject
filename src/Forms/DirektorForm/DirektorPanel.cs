@@ -1,4 +1,5 @@
 ﻿using csOOPformsProject.Core;
+using csOOPformsProject.Forms.DirektorForm;
 using csOOPformsProject.Models;
 using csOOPformsProject.Serialized;
 using System;
@@ -20,16 +21,16 @@ namespace csOOPformsProject
             };
 
         private object OldValue { get; set; } = "";
-        private bool SortAscending { get; set; } = true;
 
-        private BindingSource Dgv1Bs { get; set; }
-            = new BindingSource();
-        private BindingSource Dgv2Bs { get; set; }
-            = new BindingSource();
+        public static DataGridView DataGridView1 { get; set; }
+        public static DataGridView DataGridView2 { get; set; }
 
         public DirektorPanel(Biblioteka biblioteka, Direktor direktor)
         {
             InitializeComponent();
+
+            DataGridView1 = dataGridView1;
+            DataGridView2 = dataGridView2;
 
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -66,68 +67,9 @@ namespace csOOPformsProject
             FormClosing += Direktor_FormClosing;
 
             dataGridView1.ColumnHeaderMouseClick
-                += dataGridView1_ColumnHeaderMouseClick;
+                += Sort.dataGridView1_ColumnHeaderMouseClick;
             dataGridView2.ColumnHeaderMouseClick
-                += dataGridView2_ColumnHeaderMouseClick;
-        }
-
-        // sortiraj po header columnu
-        // za korisnike
-        private void dataGridView1_ColumnHeaderMouseClick
-            (object sender, DataGridViewCellMouseEventArgs e)
-        {
-            string columnName = dataGridView1.Columns
-                [e.ColumnIndex].DataPropertyName;
-
-            if (string.IsNullOrEmpty(columnName)
-                || columnName == "nista")
-            {
-                return;
-            }
-
-            List<SerializedKorisnik> list =
-                (List<SerializedKorisnik>)Dgv1Bs.DataSource;
-
-            list = SortAscending
-                ? list.OrderBy(x => x.GetType()
-                .GetProperty(columnName)
-                .GetValue(x)).ToList()
-                : list.OrderByDescending(x => x.GetType()
-                .GetProperty(columnName)
-                .GetValue(x)).ToList();
-
-            SortAscending = !SortAscending;
-
-            Dgv1Bs.DataSource = list;
-        }
-
-        // za bibliotekare
-        private void dataGridView2_ColumnHeaderMouseClick
-            (object sender, DataGridViewCellMouseEventArgs e)
-        {
-            string columnName = dataGridView2.Columns
-                [e.ColumnIndex].DataPropertyName;
-
-            if (string.IsNullOrEmpty(columnName)
-                || columnName == "nista")
-            {
-                return;
-            }
-
-            List<SerializedBibliotekar> list =
-                (List<SerializedBibliotekar>)Dgv2Bs.DataSource;
-
-            list = SortAscending
-                ? list.OrderBy(x => x.GetType()
-                .GetProperty(columnName)
-                .GetValue(x)).ToList()
-                : list.OrderByDescending(x => x.GetType()
-                .GetProperty(columnName)
-                .GetValue(x)).ToList();
-
-            SortAscending = !SortAscending;
-
-            Dgv2Bs.DataSource = list;
+                += Sort.dataGridView2_ColumnHeaderMouseClick;
         }
 
         private void PrikaziPodatke()
@@ -152,15 +94,15 @@ namespace csOOPformsProject
             List<SerializedKorisnik> serializedKorisnici =
                 Helpers.Serialize.Korisnici
                 (Biblioteka.Korisnici.UcitajSve());
-            Dgv1Bs.DataSource = serializedKorisnici;
+            Sort.Dgv1Bs.DataSource = serializedKorisnici;
 
             List<SerializedBibliotekar> serializedBibliotekari =
                 Helpers.Serialize.Bibliotekari
                 (Biblioteka.Bibliotekari.UcitajSve());
-            Dgv2Bs.DataSource = serializedBibliotekari;
+            Sort.Dgv2Bs.DataSource = serializedBibliotekari;
 
-            dataGridView1.DataSource = Dgv1Bs;
-            dataGridView2.DataSource = Dgv2Bs;
+            dataGridView1.DataSource = Sort.Dgv1Bs;
+            dataGridView2.DataSource = Sort.Dgv2Bs;
 
             if (serializedKorisnici.Count == 0)
             {

@@ -85,13 +85,22 @@
     <Compile Include="Core\Biblioteka.cs" />
     <Compile Include="Core\Greska.cs" />
     <Compile Include="Core\Helpers.cs" />
+    <Compile Include="Forms\BibliotekarForm\CreateData.cs" />
+    <Compile Include="Forms\BibliotekarForm\DeleteData.cs" />
+    <Compile Include="Forms\BibliotekarForm\PreEdit.cs" />
+    <Compile Include="Forms\BibliotekarForm\ReadData.cs" />
+    <Compile Include="Forms\BibliotekarForm\Redovi.cs" />
     <Compile Include="Forms\BibliotekarForm\Sort.cs" />
+    <Compile Include="Forms\BibliotekarForm\UpdateData.cs" />
+    <Compile Include="Forms\BibliotekarForm\Validation.cs" />
     <Compile Include="Forms\DirektorForm\DirektorPanel.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\DirektorForm\DirektorPanel.Designer.cs">
       <DependentUpon>DirektorPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DirektorForm\Sort.cs" />
+    <Compile Include="Forms\KorisnikForm\Sort.cs" />
     <Compile Include="Models\Direktor.cs" />
     <Compile Include="Serialized\SerializedAutor.cs" />
     <Compile Include="Serialized\SerializedBibliotekar.cs" />

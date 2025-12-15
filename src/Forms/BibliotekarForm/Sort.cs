@@ -7,10 +7,6 @@ namespace csOOPformsProject.Forms.BibliotekarForm
 {
     public static class Sort
     {
-        public static DataGridView dataGridView1 { get; set; }
-        public static DataGridView dataGridView3 { get; set; }
-        public static DataGridView dataGridView4 { get; set; }
-        public static DataGridView dataGridView5 { get; set; }
 
         private static bool SortAscending { get; set; } = true;
 
@@ -28,7 +24,7 @@ namespace csOOPformsProject.Forms.BibliotekarForm
         public static void dataGridView1_ColumnHeaderMouseClick
             (object sender, DataGridViewCellMouseEventArgs e)
         {
-            string columnName = dataGridView1.Columns
+            string columnName = Admin.DataGridView1.Columns
                 [e.ColumnIndex].DataPropertyName;
 
             if (string.IsNullOrEmpty(columnName)
@@ -59,7 +55,7 @@ namespace csOOPformsProject.Forms.BibliotekarForm
         public static void dataGridView3_ColumnHeaderMouseClick
             (object sender, DataGridViewCellMouseEventArgs e)
         {
-            string columnName = dataGridView3.Columns
+            string columnName = Admin.DataGridView3.Columns
                 [e.ColumnIndex].DataPropertyName;
 
             if (string.IsNullOrEmpty(columnName)
@@ -88,7 +84,7 @@ namespace csOOPformsProject.Forms.BibliotekarForm
         public static void dataGridView4_ColumnHeaderMouseClick
             (object sender, DataGridViewCellMouseEventArgs e)
         {
-            string columnName = dataGridView4.Columns
+            string columnName = Admin.DataGridView4.Columns
                 [e.ColumnIndex].DataPropertyName;
 
             if (string.IsNullOrEmpty(columnName)
@@ -117,7 +113,7 @@ namespace csOOPformsProject.Forms.BibliotekarForm
         public static void dataGridView5_ColumnHeaderMouseClick
             (object sender, DataGridViewCellMouseEventArgs e)
         {
-            string columnName = dataGridView5.Columns
+            string columnName = Admin.DataGridView5.Columns
                 [e.ColumnIndex].DataPropertyName;
 
             if (string.IsNullOrEmpty(columnName)
